@@ -53,8 +53,8 @@ const storyCards: LearningCard[] = [
         question: 'In this poem, "Power" means…',
         choices: [
           { id: 'a', label: 'Big muscles and being the strongest', isCorrect: false },
-          { id: 'b', label: 'Kindness, courage, and doing right', isCorrect: true },
-          { id: 'c', label: 'Being the boss of everyone',         isCorrect: false },
+          { id: 'b', label: 'Kindness, courage, and doing right',  isCorrect: true },
+          { id: 'c', label: 'Being the boss of everyone',          isCorrect: false },
         ],
         hint: 'Look at the words: kindness, brave, helping, sharing.',
       },
@@ -62,9 +62,28 @@ const storyCards: LearningCard[] = [
         id: 's-1-q2',
         question: 'Power grows when you…',
         choices: [
-          { id: 'a', label: 'Give up when it is hard',           isCorrect: false },
-          { id: 'b', label: 'Learn, practice, and try again',     isCorrect: true },
-          { id: 'c', label: 'Shout louder than everyone',         isCorrect: false },
+          { id: 'a', label: 'Give up when it is hard',        isCorrect: false },
+          { id: 'b', label: 'Learn, practice, and try again', isCorrect: true },
+          { id: 'c', label: 'Shout louder than everyone',      isCorrect: false },
+        ],
+      },
+      {
+        id: 's-1-q3',
+        question: 'According to the poem, power is NOT…',
+        choices: [
+          { id: 'a', label: 'Sharing what you have',   isCorrect: false },
+          { id: 'b', label: 'Hurting others',            isCorrect: true },
+          { id: 'c', label: 'Choosing the right thing', isCorrect: false },
+        ],
+        hint: 'Power protects — it does not ___.',
+      },
+      {
+        id: 's-1-q4',
+        question: 'Which line in the poem talks about helping a friend in need?',
+        choices: [
+          { id: 'a', label: 'Power is lifting a fallen cup',            isCorrect: false },
+          { id: 'b', label: 'Power is helping when someone is sad',     isCorrect: true },
+          { id: 'c', label: 'Power is trying and not giving up',        isCorrect: false },
         ],
       },
     ],
@@ -110,9 +129,46 @@ const storyCards: LearningCard[] = [
         id: 's-2-q2',
         question: 'Why did the gods bless Hanuman with boons?',
         choices: [
-          { id: 'a', label: 'To make Vayu happy again',   isCorrect: true },
-          { id: 'b', label: 'Because he won a race',       isCorrect: false },
-          { id: 'c', label: 'Because he asked nicely',     isCorrect: false },
+          { id: 'a', label: 'To make Vayu happy again', isCorrect: true },
+          { id: 'b', label: 'Because he won a race',     isCorrect: false },
+          { id: 'c', label: 'Because he asked nicely',   isCorrect: false },
+        ],
+      },
+      {
+        id: 's-2-q3',
+        question: 'What did Brahma give Hanuman?',
+        choices: [
+          { id: 'a', label: 'Safety from fire',                isCorrect: false },
+          { id: 'b', label: 'Power to change his form & size', isCorrect: true },
+          { id: 'c', label: 'Long life',                        isCorrect: false },
+        ],
+      },
+      {
+        id: 's-2-q4',
+        question: 'Which god protected Hanuman from water?',
+        choices: [
+          { id: 'a', label: 'Agni',   isCorrect: false },
+          { id: 'b', label: 'Varuna', isCorrect: true },
+          { id: 'c', label: 'Yama',   isCorrect: false },
+        ],
+        hint: 'Think of the god of rivers and oceans.',
+      },
+      {
+        id: 's-2-q5',
+        question: 'What happened when Indra struck Hanuman with the Vajra?',
+        choices: [
+          { id: 'a', label: 'Hanuman disappeared',                  isCorrect: false },
+          { id: 'b', label: 'Vayu stopped all air across the universe', isCorrect: true },
+          { id: 'c', label: 'Hanuman became stronger immediately',    isCorrect: false },
+        ],
+      },
+      {
+        id: 's-2-q6',
+        question: 'Vishwakarma is known as…',
+        choices: [
+          { id: 'a', label: 'The God of fire',         isCorrect: false },
+          { id: 'b', label: 'The God of death',         isCorrect: false },
+          { id: 'c', label: 'The divine architect',     isCorrect: true },
         ],
       },
     ],
@@ -156,11 +212,29 @@ const storyCards: LearningCard[] = [
         id: 's-3-q2',
         question: 'Batman says it is not who he is underneath, but what he…',
         choices: [
-          { id: 'a', label: 'Says',     isCorrect: false },
-          { id: 'b', label: 'Does',     isCorrect: true },
-          { id: 'c', label: 'Wears',    isCorrect: false },
+          { id: 'a', label: 'Says',  isCorrect: false },
+          { id: 'b', label: 'Does',  isCorrect: true },
+          { id: 'c', label: 'Wears', isCorrect: false },
         ],
         hint: 'Actions define you, not just words.',
+      },
+      {
+        id: 's-3-q3',
+        question: 'What does Winnie the Pooh value most?',
+        choices: [
+          { id: 'a', label: 'Speed and strength',           isCorrect: false },
+          { id: 'b', label: 'Friendship, kindness, little moments', isCorrect: true },
+          { id: 'c', label: 'Winning competitions',          isCorrect: false },
+        ],
+      },
+      {
+        id: 's-3-q4',
+        question: 'Who leads the Paw Patrol team?',
+        choices: [
+          { id: 'a', label: 'Chase',  isCorrect: false },
+          { id: 'b', label: 'Ryder',  isCorrect: true },
+          { id: 'c', label: 'Rubble', isCorrect: false },
+        ],
       },
     ],
     promptText: 'Which of these 4 characters is most like you? Write WHY.',
@@ -194,9 +268,9 @@ const storyCards: LearningCard[] = [
         id: 's-4-q1',
         question: 'Which character says "Let\'s find out!"?',
         choices: [
-          { id: 'a', label: 'Doc McStuffins',     isCorrect: false },
-          { id: 'b', label: 'Sid the Science Kid', isCorrect: true },
-          { id: 'c', label: 'WordGirl',            isCorrect: false },
+          { id: 'a', label: 'Doc McStuffins',      isCorrect: false },
+          { id: 'b', label: 'Sid the Science Kid',  isCorrect: true },
+          { id: 'c', label: 'WordGirl',             isCorrect: false },
         ],
       },
       {
@@ -206,6 +280,24 @@ const storyCards: LearningCard[] = [
           { id: 'a', label: 'Incredible', isCorrect: true },
           { id: 'b', label: 'Confused',   isCorrect: false },
           { id: 'c', label: 'Tired',      isCorrect: false },
+        ],
+      },
+      {
+        id: 's-4-q3',
+        question: 'What are WordGirl\'s powers?',
+        choices: [
+          { id: 'a', label: 'Super speed and flight',      isCorrect: false },
+          { id: 'b', label: 'Vocabulary and confidence',   isCorrect: true },
+          { id: 'c', label: 'Invisible shield',             isCorrect: false },
+        ],
+      },
+      {
+        id: 's-4-q4',
+        question: 'What does Chhota Bheem say is the source of TRUE power?',
+        choices: [
+          { id: 'a', label: 'Laddus only',                       isCorrect: false },
+          { id: 'b', label: 'Strength, kindness, helping others', isCorrect: true },
+          { id: 'c', label: 'Being the tallest',                  isCorrect: false },
         ],
       },
     ],
@@ -255,6 +347,33 @@ const storyCards: LearningCard[] = [
           { id: 'c', label: 'Power means winning fights',              isCorrect: false },
         ],
       },
+      {
+        id: 's-5-q3',
+        question: 'What are the names of the three Powerpuff Girls?',
+        choices: [
+          { id: 'a', label: 'Blossom, Bubbles, Buttercup', isCorrect: true },
+          { id: 'b', label: 'Bloom, Belle, Bunny',          isCorrect: false },
+          { id: 'c', label: 'Bella, Bonnie, Beth',           isCorrect: false },
+        ],
+      },
+      {
+        id: 's-5-q4',
+        question: 'Ben 10 teaches us that power is useful only when…',
+        choices: [
+          { id: 'a', label: 'You are the biggest',          isCorrect: false },
+          { id: 'b', label: 'Used to help others',           isCorrect: true },
+          { id: 'c', label: 'You never make mistakes',       isCorrect: false },
+        ],
+      },
+      {
+        id: 's-5-q5',
+        question: 'PJ Masks says "even little heroes can make a big difference when…"',
+        choices: [
+          { id: 'a', label: 'They have the best gadgets', isCorrect: false },
+          { id: 'b', label: 'They work together',          isCorrect: true },
+          { id: 'c', label: 'They never sleep',             isCorrect: false },
+        ],
+      },
     ],
     promptText: 'Write about one moment you were a hero this week — big or small.',
     interactionType: 'reflect',
@@ -297,11 +416,29 @@ const storyCards: LearningCard[] = [
       },
       {
         id: 's-6-q2',
-        question: 'What two qualities help Jack and Annie?',
+        question: 'What two qualities help Jack and Annie succeed?',
         choices: [
-          { id: 'a', label: 'Speed and shouting',     isCorrect: false },
-          { id: 'b', label: 'Curiosity and bravery',  isCorrect: true },
-          { id: 'c', label: 'Money and gadgets',      isCorrect: false },
+          { id: 'a', label: 'Speed and shouting',    isCorrect: false },
+          { id: 'b', label: 'Curiosity and bravery', isCorrect: true },
+          { id: 'c', label: 'Money and gadgets',     isCorrect: false },
+        ],
+      },
+      {
+        id: 's-6-q3',
+        question: 'What does Jack do while Annie bravely explores?',
+        choices: [
+          { id: 'a', label: 'Hides in the tree house',  isCorrect: false },
+          { id: 'b', label: 'Carefully takes notes',    isCorrect: true },
+          { id: 'c', label: 'Draws pictures of plants', isCorrect: false },
+        ],
+      },
+      {
+        id: 's-6-q4',
+        question: 'What do Jack and Annie help the baby dinosaur do?',
+        choices: [
+          { id: 'a', label: 'Learn to fly',          isCorrect: false },
+          { id: 'b', label: 'Find its family',       isCorrect: true },
+          { id: 'c', label: 'Escape from the T-rex', isCorrect: false },
         ],
       },
     ],
@@ -346,9 +483,27 @@ const storyCards: LearningCard[] = [
         id: 's-7-q2',
         question: 'A good detective never ignores…',
         choices: [
-          { id: 'a', label: 'Small clues',  isCorrect: true },
-          { id: 'b', label: 'His hat',       isCorrect: false },
-          { id: 'c', label: 'Loud noises',   isCorrect: false },
+          { id: 'a', label: 'Small clues', isCorrect: true },
+          { id: 'b', label: 'His hat',      isCorrect: false },
+          { id: 'c', label: 'Loud noises',  isCorrect: false },
+        ],
+      },
+      {
+        id: 's-7-q3',
+        question: 'What are the THREE things Nate does to solve a case?',
+        choices: [
+          { id: 'a', label: 'Run, hide, wait',                       isCorrect: false },
+          { id: 'b', label: 'Listen, ask smart questions, observe',   isCorrect: true },
+          { id: 'c', label: 'Shout, search, guess',                   isCorrect: false },
+        ],
+      },
+      {
+        id: 's-7-q4',
+        question: 'Nate shows that to solve big problems you need to be…',
+        choices: [
+          { id: 'a', label: 'Tall and strong',    isCorrect: false },
+          { id: 'b', label: 'Smart and observant', isCorrect: true },
+          { id: 'c', label: 'Loud and fast',       isCorrect: false },
         ],
       },
     ],
@@ -384,9 +539,9 @@ const storyCards: LearningCard[] = [
         id: 's-8-q1',
         question: 'How did the rabbit defeat the lion?',
         choices: [
-          { id: 'a', label: 'Fought with him',                          isCorrect: false },
-          { id: 'b', label: 'Used cleverness — the lion saw himself',   isCorrect: true },
-          { id: 'c', label: 'Ran away and hid',                          isCorrect: false },
+          { id: 'a', label: 'Fought with him',                        isCorrect: false },
+          { id: 'b', label: 'Used cleverness — lion saw his reflection', isCorrect: true },
+          { id: 'c', label: 'Ran away and hid',                        isCorrect: false },
         ],
         hint: 'The lion looked into a well…',
       },
@@ -397,6 +552,24 @@ const storyCards: LearningCard[] = [
           { id: 'a', label: 'Brains are stronger than brawn', isCorrect: true },
           { id: 'b', label: 'Always run from danger',          isCorrect: false },
           { id: 'c', label: 'Be the biggest in the forest',    isCorrect: false },
+        ],
+      },
+      {
+        id: 's-8-q3',
+        question: 'What did the rabbit tell the lion about the well?',
+        choices: [
+          { id: 'a', label: '"There is water to drink"',          isCorrect: false },
+          { id: 'b', label: '"Another lion is hiding inside it"', isCorrect: true },
+          { id: 'c', label: '"It is a magic well"',               isCorrect: false },
+        ],
+      },
+      {
+        id: 's-8-q4',
+        question: 'Where does this story come from?',
+        choices: [
+          { id: 'a', label: 'Jataka Tales',  isCorrect: false },
+          { id: 'b', label: 'Panchatantra',  isCorrect: true },
+          { id: 'c', label: 'Jungle Book',   isCorrect: false },
         ],
       },
     ],
@@ -429,7 +602,7 @@ const storyCards: LearningCard[] = [
     quiz: [
       {
         id: 's-9-q1',
-        question: 'What clever lie did the monkey tell the crocodile?',
+        question: 'What clever thing did the monkey tell the crocodile?',
         choices: [
           { id: 'a', label: '"I left my heart on the tree!"', isCorrect: true },
           { id: 'b', label: '"I am not tasty!"',               isCorrect: false },
@@ -440,9 +613,27 @@ const storyCards: LearningCard[] = [
         id: 's-9-q2',
         question: 'What helped the monkey escape?',
         choices: [
-          { id: 'a', label: 'His speed',                    isCorrect: false },
+          { id: 'a', label: 'His speed',                     isCorrect: false },
           { id: 'b', label: 'Staying calm and being clever', isCorrect: true },
-          { id: 'c', label: 'A magic stick',                 isCorrect: false },
+          { id: 'c', label: 'A magic stick',                  isCorrect: false },
+        ],
+      },
+      {
+        id: 's-9-q3',
+        question: 'Why did the crocodile invite the monkey across the river?',
+        choices: [
+          { id: 'a', label: 'To share fruits',                  isCorrect: false },
+          { id: 'b', label: 'His wife wanted to eat the monkey\'s heart', isCorrect: true },
+          { id: 'c', label: 'To show him his home',              isCorrect: false },
+        ],
+      },
+      {
+        id: 's-9-q4',
+        question: 'Where does this story come from?',
+        choices: [
+          { id: 'a', label: 'Panchatantra', isCorrect: false },
+          { id: 'b', label: 'Jataka Tales', isCorrect: true },
+          { id: 'c', label: 'Ramayana',     isCorrect: false },
         ],
       },
     ],
@@ -492,6 +683,24 @@ const storyCards: LearningCard[] = [
           { id: 'c', label: 'Fame first, Friends next',          isCorrect: false },
         ],
       },
+      {
+        id: 's-10-q3',
+        question: 'Who will participate in the Silver Jubilee events?',
+        choices: [
+          { id: 'a', label: 'Only teachers',                              isCorrect: false },
+          { id: 'b', label: 'Parents, teachers, acorns, alumni, well-wishers', isCorrect: true },
+          { id: 'c', label: 'Only current students',                      isCorrect: false },
+        ],
+      },
+      {
+        id: 's-10-q4',
+        question: 'What is the Character Gallery?',
+        choices: [
+          { id: 'a', label: 'A painting class',                       isCorrect: false },
+          { id: 'b', label: 'Visual installations capturing quotes and lived examples', isCorrect: true },
+          { id: 'c', label: 'A photo album of students',               isCorrect: false },
+        ],
+      },
     ],
     promptText: 'What is your school celebrating this year, and why?',
     interactionType: 'reflect',
@@ -533,10 +742,20 @@ const storyCards: LearningCard[] = [
         id: 's-11-q2',
         question: 'The Acorn Ethics Bowl is a…',
         choices: [
-          { id: 'a', label: 'Quiet snack time',                    isCorrect: false },
+          { id: 'a', label: 'Quiet snack time',                             isCorrect: false },
           { id: 'b', label: 'Debate where students discuss right and wrong', isCorrect: true },
-          { id: 'c', label: 'New library',                          isCorrect: false },
+          { id: 'c', label: 'New library',                                   isCorrect: false },
         ],
+      },
+      {
+        id: 's-11-q3',
+        question: 'Silver Circles captures conversations between people of different…',
+        choices: [
+          { id: 'a', label: 'Countries',  isCorrect: false },
+          { id: 'b', label: 'Ages',       isCorrect: true },
+          { id: 'c', label: 'Subjects',   isCorrect: false },
+        ],
+        hint: 'It is called intergenerational.',
       },
     ],
     promptText: 'Describe one Silver Jubilee event in your own words.',
@@ -572,17 +791,35 @@ const storyCards: LearningCard[] = [
         question: 'Integrity means…',
         choices: [
           { id: 'a', label: 'Doing the right thing even when no one is watching', isCorrect: true },
-          { id: 'b', label: 'Winning every game',                                   isCorrect: false },
-          { id: 'c', label: 'Knowing all the answers',                              isCorrect: false },
+          { id: 'b', label: 'Winning every game',                                  isCorrect: false },
+          { id: 'c', label: 'Knowing all the answers',                             isCorrect: false },
         ],
       },
       {
         id: 's-12-q2',
         question: 'Alumni are…',
         choices: [
-          { id: 'a', label: 'New students',                  isCorrect: false },
-          { id: 'b', label: 'Past students of a school',     isCorrect: true },
-          { id: 'c', label: 'Teachers only',                  isCorrect: false },
+          { id: 'a', label: 'New students',             isCorrect: false },
+          { id: 'b', label: 'Past students of a school', isCorrect: true },
+          { id: 'c', label: 'Teachers only',              isCorrect: false },
+        ],
+      },
+      {
+        id: 's-12-q3',
+        question: 'The "25 Alumni, 25 Values" initiative honours students whose journeys embody…',
+        choices: [
+          { id: 'a', label: 'The highest marks in school',         isCorrect: false },
+          { id: 'b', label: 'Character Before Competence',         isCorrect: true },
+          { id: 'c', label: 'Sports championships only',           isCorrect: false },
+        ],
+      },
+      {
+        id: 's-12-q4',
+        question: 'The "Character Through Their Eyes" initiative is a…',
+        choices: [
+          { id: 'a', label: 'Photography contest',                                    isCorrect: false },
+          { id: 'b', label: 'Student-led documentary of everyday school character',   isCorrect: true },
+          { id: 'c', label: 'Science fair',                                            isCorrect: false },
         ],
       },
     ],
@@ -614,20 +851,47 @@ const storyCards: LearningCard[] = [
     quiz: [
       {
         id: 's-13-q1',
-        question: 'What does the SCHOOL HOUSE symbolically serve as?',
+        question: 'What does the School House symbolically serve as?',
         choices: [
-          { id: 'a', label: 'A snack bar',                          isCorrect: false },
-          { id: 'b', label: 'The Constitution of Silver Oaks',      isCorrect: true },
-          { id: 'c', label: 'A playground',                          isCorrect: false },
+          { id: 'a', label: 'A snack bar',                     isCorrect: false },
+          { id: 'b', label: 'The Constitution of Silver Oaks', isCorrect: true },
+          { id: 'c', label: 'A playground',                     isCorrect: false },
         ],
       },
       {
         id: 's-13-q2',
         question: 'In Junior school, what builds the character?',
         choices: [
-          { id: 'a', label: 'Learner Profile',          isCorrect: true },
-          { id: 'b', label: 'Lunch boxes',               isCorrect: false },
-          { id: 'c', label: 'TV cartoons',                isCorrect: false },
+          { id: 'a', label: 'Learner Profile', isCorrect: true },
+          { id: 'b', label: 'Lunch boxes',      isCorrect: false },
+          { id: 'c', label: 'TV cartoons',       isCorrect: false },
+        ],
+      },
+      {
+        id: 's-13-q3',
+        question: 'In Senior school, whose 8 habits hone leadership?',
+        choices: [
+          { id: 'a', label: 'Mahatma Gandhi',   isCorrect: false },
+          { id: 'b', label: 'Dr Stephen Covey', isCorrect: true },
+          { id: 'c', label: 'Isaac Newton',      isCorrect: false },
+        ],
+      },
+      {
+        id: 's-13-q4',
+        question: 'The two PILLARS of the School House represent…',
+        choices: [
+          { id: 'a', label: 'Science and Maths',                                isCorrect: false },
+          { id: 'b', label: '12 Cultures and Civic & Social Responsibility',    isCorrect: true },
+          { id: 'c', label: 'Sports and Music',                                  isCorrect: false },
+        ],
+      },
+      {
+        id: 's-13-q5',
+        question: 'What does the ROOF of the School House represent?',
+        choices: [
+          { id: 'a', label: 'The vision of the school', isCorrect: true },
+          { id: 'b', label: 'The mission of the school', isCorrect: false },
+          { id: 'c', label: 'The motto',                  isCorrect: false },
         ],
       },
     ],
@@ -662,9 +926,9 @@ const storyCards: LearningCard[] = [
         id: 's-14-q1',
         question: 'The motto "Where the mind is without fear" was written by…',
         choices: [
-          { id: 'a', label: 'Rabindranath Tagore',  isCorrect: true },
-          { id: 'b', label: 'Mahatma Gandhi',        isCorrect: false },
-          { id: 'c', label: 'Stephen Covey',          isCorrect: false },
+          { id: 'a', label: 'Rabindranath Tagore', isCorrect: true },
+          { id: 'b', label: 'Mahatma Gandhi',       isCorrect: false },
+          { id: 'c', label: 'Stephen Covey',         isCorrect: false },
         ],
         hint: 'A famous Bengali poet.',
       },
@@ -675,6 +939,33 @@ const storyCards: LearningCard[] = [
           { id: 'a', label: '5',  isCorrect: false },
           { id: 'b', label: '10', isCorrect: true },
           { id: 'c', label: '12', isCorrect: false },
+        ],
+      },
+      {
+        id: 's-14-q3',
+        question: 'The school\'s Vision says the community should leave a…',
+        choices: [
+          { id: 'a', label: 'Timeless Legacy',   isCorrect: true },
+          { id: 'b', label: 'Trophy cabinet',     isCorrect: false },
+          { id: 'c', label: 'Big building',        isCorrect: false },
+        ],
+      },
+      {
+        id: 's-14-q4',
+        question: 'Which of these is part of the Silver Oaks Culture?',
+        choices: [
+          { id: 'a', label: 'Speak softly and smile always',  isCorrect: true },
+          { id: 'b', label: 'Shout to be heard',               isCorrect: false },
+          { id: 'c', label: 'Never ask questions',              isCorrect: false },
+        ],
+      },
+      {
+        id: 's-14-q5',
+        question: 'Which Learner Profile quality means "asks lots of questions to learn"?',
+        choices: [
+          { id: 'a', label: 'Balanced',  isCorrect: false },
+          { id: 'b', label: 'Inquirer',  isCorrect: true },
+          { id: 'c', label: 'Caring',    isCorrect: false },
         ],
       },
     ],
@@ -724,6 +1015,24 @@ const storyCards: LearningCard[] = [
           { id: 'c', label: 'Being the strongest',          isCorrect: false },
         ],
       },
+      {
+        id: 's-15-q3',
+        question: 'Competence is to DO — doing something…',
+        choices: [
+          { id: 'a', label: 'Boring',   isCorrect: false },
+          { id: 'b', label: 'Valuable', isCorrect: true },
+          { id: 'c', label: 'Loud',     isCorrect: false },
+        ],
+      },
+      {
+        id: 's-15-q4',
+        question: 'Which of these is a BEING quality from the Learner Profile?',
+        choices: [
+          { id: 'a', label: 'Running fast',  isCorrect: false },
+          { id: 'b', label: 'Reflective',    isCorrect: true },
+          { id: 'c', label: 'Drawing well',  isCorrect: false },
+        ],
+      },
     ],
     promptText: 'Pick 2 BEING qualities and tell me when you showed them.',
     interactionType: 'reflect',
@@ -764,9 +1073,36 @@ const storyCards: LearningCard[] = [
         id: 's-16-q2',
         question: 'What power does INQUIRY give you?',
         choices: [
-          { id: 'a', label: 'Curiosity to learn',     isCorrect: true },
-          { id: 'b', label: 'Strength of muscles',    isCorrect: false },
-          { id: 'c', label: 'Speed in running',        isCorrect: false },
+          { id: 'a', label: 'Curiosity to learn',  isCorrect: true },
+          { id: 'b', label: 'Strength of muscles', isCorrect: false },
+          { id: 'c', label: 'Speed in running',     isCorrect: false },
+        ],
+      },
+      {
+        id: 's-16-q3',
+        question: 'What power do Student-led Exhibitions give?',
+        choices: [
+          { id: 'a', label: 'Cooking skills',                          isCorrect: false },
+          { id: 'b', label: 'Confidence in presenting knowledge',      isCorrect: true },
+          { id: 'c', label: 'Faster reading',                           isCorrect: false },
+        ],
+      },
+      {
+        id: 's-16-q4',
+        question: 'Wordcraft develops the power of…',
+        choices: [
+          { id: 'a', label: 'Creative writing',  isCorrect: true },
+          { id: 'b', label: 'General knowledge', isCorrect: false },
+          { id: 'c', label: 'Speed and accuracy', isCorrect: false },
+        ],
+      },
+      {
+        id: 's-16-q5',
+        question: 'What power does SOLS (Self-Organisation Learning Sessions) develop?',
+        choices: [
+          { id: 'a', label: 'Public speaking',    isCorrect: false },
+          { id: 'b', label: 'Reflective learning', isCorrect: true },
+          { id: 'c', label: 'Mastery in sport',    isCorrect: false },
         ],
       },
     ],
@@ -801,18 +1137,36 @@ const storyCards: LearningCard[] = [
         id: 's-17-q1',
         question: 'Sports teach us about…',
         choices: [
-          { id: 'a', label: 'Only winning',                          isCorrect: false },
-          { id: 'b', label: 'Fitness, focus, team spirit, win AND lose', isCorrect: true },
-          { id: 'c', label: 'Just running fast',                      isCorrect: false },
+          { id: 'a', label: 'Only winning',                                isCorrect: false },
+          { id: 'b', label: 'Fitness, focus, team spirit, win AND lose',   isCorrect: true },
+          { id: 'c', label: 'Just running fast',                            isCorrect: false },
         ],
       },
       {
         id: 's-17-q2',
         question: 'Ramleela is called the festival of…',
         choices: [
-          { id: 'a', label: 'Good habits',  isCorrect: true },
-          { id: 'b', label: 'Sweets',        isCorrect: false },
-          { id: 'c', label: 'Marbles',       isCorrect: false },
+          { id: 'a', label: 'Good habits', isCorrect: true },
+          { id: 'b', label: 'Sweets',       isCorrect: false },
+          { id: 'c', label: 'Marbles',      isCorrect: false },
+        ],
+      },
+      {
+        id: 's-17-q3',
+        question: 'What power do Musical Assemblies give?',
+        choices: [
+          { id: 'a', label: 'Speed and accuracy',                    isCorrect: false },
+          { id: 'b', label: 'Sync your voice and soul with the world', isCorrect: true },
+          { id: 'c', label: 'Public speaking',                         isCorrect: false },
+        ],
+      },
+      {
+        id: 's-17-q4',
+        question: 'Student Government Elections build…',
+        choices: [
+          { id: 'a', label: 'Spelling skills',    isCorrect: false },
+          { id: 'b', label: 'Student leadership', isCorrect: true },
+          { id: 'c', label: 'Drawing skills',      isCorrect: false },
         ],
       },
     ],
@@ -861,6 +1215,33 @@ const storyCards: LearningCard[] = [
           { id: 'c', label: 'Sports',         isCorrect: false },
         ],
       },
+      {
+        id: 's-18-q3',
+        question: 'Communication Skills are like Yuval Noah Harari. He is known for his ability to…',
+        choices: [
+          { id: 'a', label: 'Build rockets',                     isCorrect: false },
+          { id: 'b', label: 'Listen, speak, and read',           isCorrect: true },
+          { id: 'c', label: 'Win sports championships',           isCorrect: false },
+        ],
+      },
+      {
+        id: 's-18-q4',
+        question: 'Research Skills are like Homi Bhabha. Research means…',
+        choices: [
+          { id: 'a', label: 'Guessing the answer',                  isCorrect: false },
+          { id: 'b', label: 'Learning and exploring more by studying', isCorrect: true },
+          { id: 'c', label: 'Copying from a book',                   isCorrect: false },
+        ],
+      },
+      {
+        id: 's-18-q5',
+        question: 'Social Skills are like Swami Vivekananda. They help you…',
+        choices: [
+          { id: 'a', label: 'Run faster',                              isCorrect: false },
+          { id: 'b', label: 'Respect and welcome new ideas',           isCorrect: true },
+          { id: 'c', label: 'Memorise tables',                          isCorrect: false },
+        ],
+      },
     ],
     promptText: 'Which skill is your strongest? Which one do you want to grow?',
     interactionType: 'reflect',
@@ -904,9 +1285,36 @@ const storyCards: LearningCard[] = [
         id: 's-19-q2',
         question: 'Who gave us these 5 mantras?',
         choices: [
-          { id: 'a', label: 'Mahatma Gandhi',        isCorrect: true },
-          { id: 'b', label: 'Rabindranath Tagore',   isCorrect: false },
-          { id: 'c', label: 'Sunita Williams',        isCorrect: false },
+          { id: 'a', label: 'Mahatma Gandhi',       isCorrect: true },
+          { id: 'b', label: 'Rabindranath Tagore',  isCorrect: false },
+          { id: 'c', label: 'Sunita Williams',       isCorrect: false },
+        ],
+      },
+      {
+        id: 's-19-q3',
+        question: '"Sarvodaya" means…',
+        choices: [
+          { id: 'a', label: 'I will earn a lot of money', isCorrect: false },
+          { id: 'b', label: 'I will help others to grow', isCorrect: true },
+          { id: 'c', label: 'I will speak the truth',     isCorrect: false },
+        ],
+      },
+      {
+        id: 's-19-q4',
+        question: '"Satyagraha" involves…',
+        choices: [
+          { id: 'a', label: 'Fighting with weapons',                isCorrect: false },
+          { id: 'b', label: 'Speaking the truth and believing in peace', isCorrect: true },
+          { id: 'c', label: 'Running away from problems',            isCorrect: false },
+        ],
+      },
+      {
+        id: 's-19-q5',
+        question: '"Swadharma" means…',
+        choices: [
+          { id: 'a', label: 'Respecting my country',    isCorrect: false },
+          { id: 'b', label: 'My own duty — doing my work well', isCorrect: true },
+          { id: 'c', label: 'Being independent',         isCorrect: false },
         ],
       },
     ],
@@ -940,18 +1348,36 @@ const storyCards: LearningCard[] = [
         id: 's-20-q1',
         question: '"Culture to Conserve" means…',
         choices: [
-          { id: 'a', label: 'To save and protect',  isCorrect: true },
-          { id: 'b', label: 'To collect coins',      isCorrect: false },
-          { id: 'c', label: 'To run fast',            isCorrect: false },
+          { id: 'a', label: 'To save and protect', isCorrect: true },
+          { id: 'b', label: 'To collect coins',     isCorrect: false },
+          { id: 'c', label: 'To run fast',           isCorrect: false },
         ],
       },
       {
         id: 's-20-q2',
         question: 'Which Culture word describes "how they express"?',
         choices: [
-          { id: 'a', label: 'Appreciate',  isCorrect: true },
-          { id: 'b', label: 'Conserve',     isCorrect: false },
-          { id: 'c', label: 'Collaborate',  isCorrect: false },
+          { id: 'a', label: 'Appreciate', isCorrect: true },
+          { id: 'b', label: 'Conserve',    isCorrect: false },
+          { id: 'c', label: 'Collaborate', isCorrect: false },
+        ],
+      },
+      {
+        id: 's-20-q3',
+        question: 'Cultures to LIVE, LEAD, GIVE, WORK, READ, THINK, TRUST and LEARN define…',
+        choices: [
+          { id: 'a', label: 'How they organise themselves', isCorrect: false },
+          { id: 'b', label: 'WHO they are',                  isCorrect: true },
+          { id: 'c', label: 'How they express',              isCorrect: false },
+        ],
+      },
+      {
+        id: 's-20-q4',
+        question: 'Who is known or recognised by the Cultures of Silver Oaks?',
+        choices: [
+          { id: 'a', label: 'Only principals',             isCorrect: false },
+          { id: 'b', label: 'Acorns (students) and teachers', isCorrect: true },
+          { id: 'c', label: 'Only visitors',                isCorrect: false },
         ],
       },
     ],
@@ -987,9 +1413,9 @@ const storyCards: LearningCard[] = [
         id: 's-21-q1',
         question: 'At Silver Oaks, helping less privileged children is…',
         choices: [
-          { id: 'a', label: 'Charity',         isCorrect: false },
+          { id: 'a', label: 'Charity',          isCorrect: false },
           { id: 'b', label: 'A responsibility', isCorrect: true },
-          { id: 'c', label: 'A game',           isCorrect: false },
+          { id: 'c', label: 'A game',            isCorrect: false },
         ],
         hint: 'Charity is optional; responsibility is "I should".',
       },
@@ -1000,6 +1426,24 @@ const storyCards: LearningCard[] = [
           { id: 'a', label: 'Clothes and household items', isCorrect: true },
           { id: 'b', label: 'Movies',                       isCorrect: false },
           { id: 'c', label: 'Mobile phones only',           isCorrect: false },
+        ],
+      },
+      {
+        id: 's-21-q3',
+        question: 'How much money has Silver Oaks raised in 17 years?',
+        choices: [
+          { id: 'a', label: 'INR 25,000',          isCorrect: false },
+          { id: 'b', label: 'More than INR 2.5 Crores', isCorrect: true },
+          { id: 'c', label: 'INR 1,000',            isCorrect: false },
+        ],
+      },
+      {
+        id: 's-21-q4',
+        question: 'What does "Every drop makes an ocean" mean here?',
+        choices: [
+          { id: 'a', label: 'The school has a swimming pool',          isCorrect: false },
+          { id: 'b', label: 'Every small coin or effort adds up to something big', isCorrect: true },
+          { id: 'c', label: 'Water is important',                       isCorrect: false },
         ],
       },
     ],
@@ -1043,9 +1487,27 @@ const storyCards: LearningCard[] = [
         id: 's-22-q2',
         question: '"Mankind" means…',
         choices: [
-          { id: 'a', label: 'Only kind men',         isCorrect: false },
+          { id: 'a', label: 'Only kind men',          isCorrect: false },
           { id: 'b', label: 'All the people on Earth', isCorrect: true },
-          { id: 'c', label: 'Mans Animals',           isCorrect: false },
+          { id: 'c', label: 'Man\'s Animals',          isCorrect: false },
+        ],
+      },
+      {
+        id: 's-22-q3',
+        question: 'The school pledge says "I will always be Open minded" — this means…',
+        choices: [
+          { id: 'a', label: 'Never closing your eyes',          isCorrect: false },
+          { id: 'b', label: 'Ready to hear new ideas and respect others', isCorrect: true },
+          { id: 'c', label: 'Being very talkative',              isCorrect: false },
+        ],
+      },
+      {
+        id: 's-22-q4',
+        question: 'What does "Strive" mean in the pledge?',
+        choices: [
+          { id: 'a', label: 'To sit quietly',    isCorrect: false },
+          { id: 'b', label: 'To try very hard',  isCorrect: true },
+          { id: 'c', label: 'To run fast',        isCorrect: false },
         ],
       },
     ],
@@ -1096,6 +1558,33 @@ const storyCards: LearningCard[] = [
           { id: 'c', label: 'The wolves', isCorrect: false },
         ],
       },
+      {
+        id: 's-23-q3',
+        question: 'What did Bagheera do for Mowgli?',
+        choices: [
+          { id: 'a', label: 'Taught him the Law of the Jungle', isCorrect: false },
+          { id: 'b', label: 'Protected him and helped him survive', isCorrect: true },
+          { id: 'c', label: 'Raised him as a baby',               isCorrect: false },
+        ],
+      },
+      {
+        id: 's-23-q4',
+        question: 'Who first raised Mowgli as their own?',
+        choices: [
+          { id: 'a', label: 'Bears',        isCorrect: false },
+          { id: 'b', label: 'A wolf family', isCorrect: true },
+          { id: 'c', label: 'Panthers',      isCorrect: false },
+        ],
+      },
+      {
+        id: 's-23-q5',
+        question: 'What does Mowgli take with him when he leaves the jungle?',
+        choices: [
+          { id: 'a', label: 'Food and water',                          isCorrect: false },
+          { id: 'b', label: 'Lessons of bravery, respect and kindness', isCorrect: true },
+          { id: 'c', label: 'A jungle map',                             isCorrect: false },
+        ],
+      },
     ],
     promptText: 'Tell me the story of Mowgli in 4–5 lines, in your own words.',
     interactionType: 'reflect',
@@ -1128,7 +1617,7 @@ const storyCards: LearningCard[] = [
         id: 's-24-q1',
         question: '"Reckless" means…',
         choices: [
-          { id: 'a', label: 'Acting without thinking', isCorrect: true },
+          { id: 'a', label: 'Acting without thinking',  isCorrect: true },
           { id: 'b', label: 'Acting bravely and wisely', isCorrect: false },
           { id: 'c', label: 'Acting kindly',              isCorrect: false },
         ],
@@ -1137,9 +1626,27 @@ const storyCards: LearningCard[] = [
         id: 's-24-q2',
         question: 'True bravery is…',
         choices: [
-          { id: 'a', label: 'Doing anything dangerous',         isCorrect: false },
-          { id: 'b', label: 'Knowing when and how to act wisely', isCorrect: true },
-          { id: 'c', label: 'Never being scared',                 isCorrect: false },
+          { id: 'a', label: 'Doing anything dangerous',             isCorrect: false },
+          { id: 'b', label: 'Knowing when and how to act wisely',   isCorrect: true },
+          { id: 'c', label: 'Never being scared',                    isCorrect: false },
+        ],
+      },
+      {
+        id: 's-24-q3',
+        question: '"Each one of your group contributes in their own way" teaches us to…',
+        choices: [
+          { id: 'a', label: 'Be the best all the time',           isCorrect: false },
+          { id: 'b', label: 'Respect differences in strengths',   isCorrect: true },
+          { id: 'c', label: 'Copy what others do',                 isCorrect: false },
+        ],
+      },
+      {
+        id: 's-24-q4',
+        question: '"Belonging and identity" means growing up means understanding…',
+        choices: [
+          { id: 'a', label: 'How to be the tallest',  isCorrect: false },
+          { id: 'b', label: 'Who you are',             isCorrect: true },
+          { id: 'c', label: 'How to win',              isCorrect: false },
         ],
       },
     ],
@@ -1188,6 +1695,34 @@ const storyCards: LearningCard[] = [
           { id: 'a', label: 'Patience and good habits help us grow', isCorrect: true },
           { id: 'b', label: 'Eat as much as you can',                 isCorrect: false },
           { id: 'c', label: 'Sleep all day',                           isCorrect: false },
+        ],
+      },
+      {
+        id: 's-25-q3',
+        question: 'What does the caterpillar eat to feel better after the stomach ache?',
+        choices: [
+          { id: 'a', label: 'A piece of cake', isCorrect: false },
+          { id: 'b', label: 'A green leaf',    isCorrect: true },
+          { id: 'c', label: 'An apple',        isCorrect: false },
+        ],
+        hint: 'Something simple and healthy.',
+      },
+      {
+        id: 's-25-q4',
+        question: 'What is a COCOON?',
+        choices: [
+          { id: 'a', label: 'A type of butterfly wing',                          isCorrect: false },
+          { id: 'b', label: 'A soft case the caterpillar makes around itself',   isCorrect: true },
+          { id: 'c', label: 'A nest in a tree',                                   isCorrect: false },
+        ],
+      },
+      {
+        id: 's-25-q5',
+        question: '"Growing takes time" means you should…',
+        choices: [
+          { id: 'a', label: 'Rush through everything',    isCorrect: false },
+          { id: 'b', label: 'Be patient; good things happen step by step', isCorrect: true },
+          { id: 'c', label: 'Give up if it takes too long', isCorrect: false },
         ],
       },
     ],
