@@ -1742,209 +1742,512 @@ const stories: Lesson = {
 };
 
 /* ============================================================
-   2) SUMMER VACATION PROJECT — task checklists
+   2) SUMMER VACATION PROJECT — full activity cards from PDF
    ============================================================ */
 
 const summerProject: Lesson = {
   id: 'summer-project',
   title: 'Summer Vacation Project',
-  subtitle: 'Grade 4 · 80 hours of fun learning',
+  subtitle: 'Grade 4 · 80 hours · Math · English · Science',
   section: 'projects',
-  hasTelugu: false,
+  hasTelugu: true,
   icon: '☀️',
   cards: [
+    /* ---------- Welcome ---------- */
     {
-      id: 'sp-1',
+      id: 'sp-0',
       lessonId: 'summer-project',
-      title: 'Math Summer Goals',
+      title: 'Welcome to Your Summer Project!',
+      subtitle: 'Silver Oaks · Character Before Competence',
       englishContent:
-        'Math is not just a subject — it is a superpower hiding in everyday life. This summer you will use maths in your kitchen, garden, and sketchbook. Each task builds a skill that Grade 4 needs.\n\nTick off each goal when you finish it. Take your time — one task a day is perfect.',
+        'Hot summers keep us indoors — so why not sharpen our saw and grow while we relax?\n\nThis project gives you about 80 fun hours out of the 1200 hours of your summer. Just like an acorn grows into a strong tree, this break helps you unwind, discover what you love, and build new skills in Math, English, and Science.\n\n📚 Library: You have one library book to read this summer. Return it on the first day school reopens!\n\nRemember:\n• Watch your capitalisation, handwriting, punctuation, and spelling.\n• Do all your goals in your subject journal.\n• Keep screen time zero or low.\n• Hydrate, stay indoors, stay safe!',
+      teluguContent:
+        'వేడి వేసవిలో మనం ఇంట్లోనే ఉంటాం — అలాంటప్పుడు, విశ్రాంతి తీసుకుంటూనే మన నైపుణ్యాలను ఎందుకు పదును పెట్టకూడదు?\n\nఈ ప్రాజెక్ట్ నీ వేసవిలోని 1200 గంటల్లో దాదాపు 80 సరదా గంటలు ఇస్తుంది. ఒక గింజ (acorn) పెద్ద చెట్టుగా ఎదిగినట్లే — ఈ సెలవులు నిన్ను ఎదగడానికి సహాయపడతాయి.\n\n📚 లైబ్రరీ: నీకు చదవడానికి ఒక లైబ్రరీ పుస్తకం ఇచ్చారు. స్కూల్ తెరిచిన మొదటి రోజు దాన్ని తిరిగి ఇవ్వాలి!\n\nగుర్తుంచుకో:\n• అక్షరాలు, చేతిరాత, విరామ చిహ్నాలు, స్పెల్లింగ్ జాగ్రత్త.\n• నీ సబ్జెక్ట్ జర్నల్‌లో అన్ని పనులు చేయి.\n• స్క్రీన్ సమయం తక్కువగా ఉంచు.',
+      glossary: [
+        { word: 'sharpen our saw', en: 'Keep improving and learning new skills', te: 'నైపుణ్యాలను పదును పెట్టడం' },
+        { word: 'acorn',           en: 'A baby oak seed — what Silver Oaks calls its students', te: 'అకార్న్ (విద్యార్థి)' },
+      ],
+      parentSuggestion: {
+        tip: 'Frame this as fun, not homework. 80 hours across the summer is about 1 hour a day — very gentle. Make a simple wall chart so she can see her own progress.',
+        questions: [
+          'Which subject are you most excited about — Math, English, or Science?',
+          'What library book did you get? What is it about?',
+        ],
+      },
+      promptText: 'What are you most excited to do this summer? Write 2–3 sentences.',
+      interactionType: 'reflect',
+    },
+
+    /* ---------- MATH ---------- */
+    {
+      id: 'sp-math',
+      lessonId: 'summer-project',
+      title: 'Math Project — All 9 Goals',
+      subtitle: 'How does math connect to my daily life?',
+      englishContent:
+        'Driving question: How can I explore the connection between math, language, and my daily life?\n\nYou will: find patterns, use addition & multiplication, understand shapes, symmetry & place value, and connect math to everyday things.\n\nOpen the Task Guide below — every goal has an Example and a Challenge from your project sheet. Tick each goal as you finish it in your Math journal.',
       glossary: [
         { word: 'patterns',       en: 'Things that repeat in a smart way', te: 'నమూనాలు' },
         { word: 'symmetry',       en: 'Same shape on both sides',           te: 'సమమితి' },
-        { word: 'multiplication', en: 'Adding the same number many times',  te: 'గుణకారం' },
-        { word: 'place value',    en: 'The value of a digit based on its position (ones, tens, hundreds…)', te: 'స్థాన విలువ' },
+        { word: 'place value',    en: 'What a digit is worth by its position (ones, tens, hundreds…)', te: 'స్థాన విలువ' },
+        { word: 'operations',     en: 'Add, subtract, multiply, divide',    te: 'గణిత క్రియలు' },
       ],
       parentSuggestion: {
-        tip: 'One task a day beats a weekend rush. Do the Multiplication Magic Book last — tables 2–15 need daily repetition so start those early alongside the other tasks.',
+        tip: 'Do one goal at a time over the summer. The Multiplication Magic Book (tables 2–15) needs daily repetition, so start it early and add a page each day alongside the other goals.',
         questions: [
-          'Which goal is your favourite? Why?',
-          'Which table is hardest for you right now?',
-          'Can you find a pattern in our kitchen tiles?',
+          'Which goal looks the most fun? Why?',
+          'Can you spot a pattern on our kitchen tiles or staircase right now?',
+          'What is 3,245 in words? Can you break it into place values?',
         ],
       },
-      promptText: 'Check off each Math goal as you complete it.',
+      promptText: 'Tick each Math goal as you finish it in your journal.',
       interactionType: 'checklist',
       checklist: [
         {
           id: 'm1',
-          label: '🔍 Pattern Hunt',
-          what: 'Look around your house and garden. Find 3 real patterns, then draw 2 of your own on paper.',
-          why: 'Spotting patterns now builds the algebra instincts she will need in Grade 5.',
+          label: '🔍 1. Pattern Hunt & Create',
+          what: 'Find patterns around your home (tiles, clothes, stairs). Create your own pattern with numbers, shapes, or colours, then extend it.',
+          example: '🔵🔴🔵🔴 → what comes next? 🔵🔴',
+          challenge: 'Make a number pattern: 3, 6, 9, __, __  (the +3 pattern)',
+          why: 'Spotting and extending patterns builds the algebra instincts she will need in Grade 5.',
         },
         {
           id: 'm2',
-          label: '🍋 Real-Life Math Chef',
-          what: 'Pick any recipe at home. Write out all the ingredients and add up or multiply the amounts.',
-          why: 'Using fractions and multiplication in cooking makes the concepts stick far better than a worksheet.',
+          label: '🍋 2. Real-Life Math Chef',
+          what: 'Make a simple recipe (lemonade, sandwich). Use add, subtract, multiply to show the ingredients.',
+          example: '2 cups water + 1 cup juice = 3 cups drink',
+          challenge: 'Double your recipe: 1 sandwich → 2 sandwiches. How do all the ingredients change?',
+          why: 'Doubling a recipe is real multiplication — it sticks far better than a worksheet.',
         },
         {
           id: 'm3',
-          label: '🔺 Shape Hunt',
-          what: 'Walk around one room and list every circle, square, rectangle, and triangle you can find.',
-          why: 'Grade 4 geometry is tested through real-life examples — this is exactly the skill being built.',
+          label: '🔺 3. Shape Hunt',
+          what: 'Find real objects shaped like a circle, square, rectangle, and triangle. Draw each one.',
+          example: 'Clock = circle ⭕',
+          challenge: 'Use different shapes to draw a house 🏠',
+          why: 'Grade 4 geometry is tested through real-life examples — this is exactly that skill.',
         },
         {
           id: 'm4',
-          label: '🦋 Mirror Magic',
-          what: 'Draw one picture, then draw a vertical and a horizontal mirror line through it.',
-          why: 'Symmetry is tested in Grade 4–5; drawing it by hand cements the concept instantly.',
+          label: '🦋 4. Mirror Magic (Symmetry)',
+          what: 'Draw a shape or pattern, then fold the paper to check if both sides match.',
+          example: 'A butterfly 🦋 has the same shape on both sides.',
+          challenge: 'Draw a design with TWO lines of symmetry.',
+          why: 'Symmetry is tested in Grade 4–5; folding paper makes it click instantly.',
         },
         {
           id: 'm5',
-          label: '📖 Math Story Creator',
-          what: 'Write 2 word problems yourself — one with addition, one with multiplication — then solve them.',
-          why: 'Creating problems is harder than solving them; it proves she truly understands the operation.',
+          label: '📖 5. Math Story Creator',
+          what: 'Create 2 simple word problems and solve them.',
+          example: '"I had 10 candies. I gave 3 to my friend. How many left?" → 10 − 3 = 7',
+          challenge: 'Write one problem that needs multiplication, not subtraction.',
+          why: 'Writing problems is harder than solving them — it proves she truly understands the operation.',
         },
         {
           id: 'm6',
-          label: '🔢 Number Detective',
-          what: 'Pick 5 big numbers (between 1,000 and 99,999). Break each into thousands, hundreds, tens, and ones.',
-          why: 'Place value is the foundation of all arithmetic — Grade 4 moves into 5-digit numbers.',
+          label: '🔢 6. Number Detective',
+          what: 'Pick 5 big numbers (from a newspaper or bill). Break them into place values and write them in words.',
+          example: '3,245 = 3 thousands + 2 hundreds + 4 tens + 5 ones = Three thousand two hundred forty-five',
+          challenge: 'Find the biggest number you can in the newspaper and write it in words.',
+          why: 'Place value is the foundation of all arithmetic — Grade 4 moves into bigger numbers.',
         },
         {
           id: 'm7',
-          label: '✖️ Multiplication Magic Book',
-          what: 'Make one decorated page per table from 2 to 15. Write each table, draw a picture, colour it.',
-          why: 'Instant recall of tables up to 15 frees mental energy for the harder maths problems in Grade 4–5.',
+          label: '🗺️ 7. Math Around Me',
+          what: 'Make a poster or scrapbook showing where you see math in daily life. Add drawings or pictures.',
+          example: 'A ruler = measurement 📏',
+          why: 'Connecting math to real life makes her see it as useful, not just school work.',
+        },
+        {
+          id: 'm8',
+          label: '✖️ 8. Multiplication Magic Book',
+          what: 'Make a small book — one page per table (2 to 15). Add colours, drawings, and a tiny story.',
+          example: 'Table of 5: 5 × 2 = 10. Story: "5 fingers on each hand, 2 hands = 10 fingers!"',
+          why: 'Instant recall of tables to 15 frees her mind for the harder problems in Grade 4–5.',
+        },
+        {
+          id: 'm9',
+          label: '📝 9. Weekly Reflection',
+          what: 'Each week write: what did you learn? what was difficult? one question you still have.',
+          why: 'Reflection turns doing into real learning — the most valuable habit of all.',
         },
       ],
     },
     {
-      id: 'sp-2',
+      id: 'sp-math-quiz',
       lessonId: 'summer-project',
-      title: 'English Summer Goals',
+      title: 'Math Warm-Up',
+      subtitle: 'Try the examples from your project',
       englishContent:
-        'This summer you become a Reading Adventurer AND a Word Explorer. Reading, writing, and speaking are the three powers that make everything else at school easier. Grade 4 expects longer sentences, bigger vocabulary, and confident speaking.\n\nDo one task at a time. Even 15 minutes a day is enough.',
-      glossary: [
-        { word: 'Adventurer', en: 'Someone who goes on exciting journeys', te: 'సాహసికుడు' },
-        { word: 'Vocabulary', en: 'All the words you know and can use',     te: 'పదజ్ఞానం' },
-        { word: 'Narrative',  en: 'A story told in your own words',          te: 'కథనం' },
-        { word: 'Connector',  en: 'A word that joins two ideas (because, although, however)', te: 'అనుసంధాన పదం' },
-      ],
+        'Before you start your Math journal, try these quick warm-ups. They use the exact examples from your project sheet!',
       parentSuggestion: {
-        tip: '10 minutes of reading every day beats 1 hour once a week. For the speech task, let her pick a topic she is passionate about — it will come naturally.',
+        tip: 'Let her work these out on paper or fingers — do not just tap. The point is the thinking, not the tap.',
         questions: [
-          'Which book do you want to read first?',
-          'What new word did you learn today? Can you use it in a sentence?',
-          'What topic would you choose for your speech?',
+          'How did you work out the pattern?',
+          'Can you make up a harder pattern for ME to solve?',
         ],
       },
-      promptText: 'Check off each English goal.',
+      quiz: [
+        {
+          id: 'spm-q1',
+          question: 'Continue the pattern: 3, 6, 9, __',
+          choices: [
+            { id: 'a', label: '10', isCorrect: false },
+            { id: 'b', label: '12', isCorrect: true },
+            { id: 'c', label: '11', isCorrect: false },
+          ],
+          hint: 'Each number jumps up by 3.',
+        },
+        {
+          id: 'spm-q2',
+          question: 'What comes next: 🔵🔴🔵🔴 __?',
+          choices: [
+            { id: 'a', label: '🔵', isCorrect: true },
+            { id: 'b', label: '🔴', isCorrect: false },
+            { id: 'c', label: '🟢', isCorrect: false },
+          ],
+        },
+        {
+          id: 'spm-q3',
+          question: '2 cups water + 1 cup juice = how many cups of drink?',
+          choices: [
+            { id: 'a', label: '2 cups', isCorrect: false },
+            { id: 'b', label: '3 cups', isCorrect: true },
+            { id: 'c', label: '4 cups', isCorrect: false },
+          ],
+        },
+        {
+          id: 'spm-q4',
+          question: 'In 3,245 — what is the digit 2 worth?',
+          choices: [
+            { id: 'a', label: '2 hundreds (200)', isCorrect: true },
+            { id: 'b', label: '2 tens (20)',      isCorrect: false },
+            { id: 'c', label: '2 ones (2)',       isCorrect: false },
+          ],
+          hint: 'Count the places from the right: ones, tens, hundreds…',
+        },
+        {
+          id: 'spm-q5',
+          question: 'A clock is shaped like a…',
+          choices: [
+            { id: 'a', label: 'Square',    isCorrect: false },
+            { id: 'b', label: 'Circle',    isCorrect: true },
+            { id: 'c', label: 'Triangle',  isCorrect: false },
+          ],
+        },
+        {
+          id: 'spm-q6',
+          question: 'Which animal has the same shape on both sides (symmetry)?',
+          choices: [
+            { id: 'a', label: 'A butterfly', isCorrect: true },
+            { id: 'b', label: 'A snail',     isCorrect: false },
+            { id: 'c', label: 'A worm',      isCorrect: false },
+          ],
+        },
+      ],
+      promptText: 'Now create your OWN number pattern and write the rule (like "+3"). Type it here.',
+      interactionType: 'reflect',
+    },
+
+    /* ---------- ENGLISH ---------- */
+    {
+      id: 'sp-english',
+      lessonId: 'summer-project',
+      title: 'English Project — All 5 Goals',
+      subtitle: 'Read · build words · write · speak',
+      englishContent:
+        'This summer you become a Reading Adventurer, a Word Explorer, a Sentence Artist, and a little Speaker!\n\nYou will: develop reading & comprehension, build vocabulary, improve sentence formation, and express ideas creatively.\n\nOpen the Task Guide — each goal has the exact steps and an example from your project sheet. Do all your work in your English journal.',
+      glossary: [
+        { word: 'comprehension', en: 'Understanding what you read',          te: 'అవగాహన' },
+        { word: 'Vocabulary',    en: 'All the words you know and can use',    te: 'పదజ్ఞానం' },
+        { word: 'conjunction',   en: 'A joining word: and, but, because, although', te: 'సంయోజకం' },
+        { word: 'descriptive',   en: 'Writing that paints a clear picture',   te: 'వర్ణనాత్మక' },
+      ],
+      parentSuggestion: {
+        tip: '10 minutes of reading daily beats one long session a week. For the speech, let her pick a cause she cares about — passion makes confidence come naturally.',
+        questions: [
+          'Which book will you read first for your Reading Passport?',
+          'Tell me a sentence with one adjective AND one adverb.',
+          'What topic would you choose for your "Change-Maker" speech?',
+        ],
+      },
+      promptText: 'Tick each English goal as you finish it in your journal.',
       interactionType: 'checklist',
       checklist: [
         {
           id: 'e1',
-          label: '📕 Reading Adventure Passport',
-          what: 'For every book you finish, write: the title, your favourite sentence, and one new word you learned.',
-          why: 'A reading log builds the habit of reading with attention — not just turning pages.',
+          label: '📕 1. Reading Adventure Passport',
+          what: 'For each book/story you finish, make a passport page with: 1) Title  2) Main characters  3) Favourite part (2–3 sentences)  4) 2–3 new words  5) a drawing of one scene.',
+          example: 'Book: The Jungle Book · Characters: Mowgli, Baloo, Bagheera · New words: jungle, panther, survive.',
+          why: 'A structured reading log builds the habit of reading with attention, not just turning pages.',
         },
         {
           id: 'e2',
-          label: '🔤 Word Explorer',
-          what: 'Each week, find 4–5 new words. Write each one, draw what it means, and use it in a sentence.',
-          why: 'A strong vocabulary makes comprehension easy and writing vivid — both are tested heavily in Grade 4.',
+          label: '🔤 2. Word Explorer Journal',
+          what: 'Collect 4–5 new words each week. For each: write the word, its meaning in your own words, the part of speech (noun/verb/adjective), and your own sentence. Use 2 new words daily.',
+          example: 'Word: gigantic · Meaning: very, very big · Adjective · "The gigantic elephant drank water."',
+          why: 'A rich vocabulary makes comprehension easy and writing vivid — both tested heavily in Grade 4.',
         },
         {
           id: 'e3',
-          label: '✏️ Sentence Builders',
-          what: 'Write 5–6 long sentences using adjectives, adverbs, and connectors like because, although, and however.',
-          why: 'Grade 4 English moves from simple to complex sentences — practising this now gives a big head start.',
+          label: '✏️ 3. Sentence Builders Studio',
+          what: 'Make 4 word lists — verbs, adjectives, adverbs, conjunctions. Use them to write 5–6 sentences. Each must have at least one verb, one adjective, one adverb, and one conjunction.',
+          example: 'The happy dog ran quickly AND barked loudly.',
+          challenge: 'Write a sentence with TWO conjunctions in it.',
+          why: 'Grade 4 English moves from simple to complex sentences — this builds that skill directly.',
         },
         {
           id: 'e4',
-          label: '☀️ Magic Moments',
-          what: 'Pick one special day from your holiday. Write about it in 10–12 sentences with lots of detail.',
-          why: 'Narrative writing is Ishanvi\'s core English task — length, detail, and structure all count for marks.',
+          label: '☀️ 4. Magic Moments (Descriptive Writing)',
+          what: 'Choose a special moment (rainy day, family trip, festival, fun day). Describe it in 10–12 sentences using adjectives and sensory details (what you saw, heard, smelt, felt).',
+          example: '"The warm rain smelt of wet earth. Cold drops tickled my nose as I splashed in the shiny puddles…"',
+          why: 'Narrative writing is a core English task — length, detail, and structure all earn marks.',
         },
         {
           id: 'e5',
-          label: '🎤 Be a Change-Maker',
-          what: 'Choose one topic you care about. Prepare your ideas and deliver a 1–2 minute speech out loud.',
-          why: 'Speaking confidence at age 9 sets the foundation for every presentation she will ever give in school.',
+          label: '🎤 5. Be a Change-Maker (My Little Speech)',
+          what: 'Prepare a 1–2 minute speech on making the world better through small actions: helping others, saving water/electricity, being kind, keeping clean. Make a poster or cue card.',
+          example: 'Topic ideas: "Why I turn off the tap while brushing" or "Three ways my family saves electricity".',
+          why: 'Speaking confidence at age 9 sets the foundation for every presentation she will give in school.',
         },
       ],
     },
     {
-      id: 'sp-3',
+      id: 'sp-english-quiz',
       lessonId: 'summer-project',
-      title: 'Science Summer Goals',
+      title: 'Word Power Warm-Up',
+      subtitle: 'Parts of speech from your project',
       englishContent:
-        'This summer you are a scientist with a notebook! Real science starts with watching the world carefully — not just reading about it. You will observe, question, experiment, and present. Grade 4 science focuses on light, shadows, and forces — all three tasks connect directly to those chapters.\n\nOne exploration per week. Write everything down in a science notebook.',
+        'For Sentence Builders you need to know your verbs, adjectives, adverbs, and conjunctions. Try these — they use the example sentence from your project: "The happy dog ran quickly and barked loudly."',
       glossary: [
-        { word: 'Curiosity',   en: 'Wanting to find out',                     te: 'ఆసక్తి' },
-        { word: 'Observation', en: 'Looking carefully and noticing',           te: 'పరిశీలన' },
-        { word: 'Motion',      en: 'Movement of an object',                    te: 'చలనం' },
-        { word: 'cause',       en: 'The reason something happens',             te: 'కారణం' },
-        { word: 'effect',      en: 'What happens as a result',                 te: 'ఫలితం' },
+        { word: 'verb',        en: 'An action word (run, jump, eat)',          te: 'క్రియ' },
+        { word: 'adjective',   en: 'A word that describes a noun (happy, big)', te: 'విశేషణం' },
+        { word: 'adverb',      en: 'A word that describes how (quickly, loudly)', te: 'క్రియా విశేషణం' },
+        { word: 'conjunction', en: 'A joining word (and, but, because)',        te: 'సంయోజకం' },
       ],
       parentSuggestion: {
-        tip: 'Go outside with her for the first observation — once she sees how interesting it is, she will go alone. The shadow task needs the same outdoor spot 3 times in one day, so plan it on a sunny morning.',
+        tip: 'After the quiz, play a quick game: you say a noun, she adds an adjective; you say a verb, she adds an adverb. Makes the grammar stick through play.',
         questions: [
-          'What did you notice outside today that surprised you?',
-          'Why do you think your shadow is longer in the morning?',
-          'What still puzzles you about what you observed?',
+          'Can you give me 3 more adverbs?',
+          'Make your own sentence with a verb, adjective, adverb, and conjunction.',
         ],
       },
-      promptText: 'Check off each weekly exploration.',
+      quiz: [
+        {
+          id: 'spe-q1',
+          question: 'In "The happy dog ran quickly", which word is the VERB (action)?',
+          choices: [
+            { id: 'a', label: 'happy', isCorrect: false },
+            { id: 'b', label: 'ran',   isCorrect: true },
+            { id: 'c', label: 'dog',   isCorrect: false },
+          ],
+          hint: 'Which word is the doing/action word?',
+        },
+        {
+          id: 'spe-q2',
+          question: 'In "The happy dog", which word is the ADJECTIVE (describes the dog)?',
+          choices: [
+            { id: 'a', label: 'happy', isCorrect: true },
+            { id: 'b', label: 'dog',   isCorrect: false },
+            { id: 'c', label: 'the',   isCorrect: false },
+          ],
+        },
+        {
+          id: 'spe-q3',
+          question: '"ran quickly" — which word is the ADVERB (tells HOW)?',
+          choices: [
+            { id: 'a', label: 'ran',     isCorrect: false },
+            { id: 'b', label: 'quickly', isCorrect: true },
+            { id: 'c', label: 'dog',     isCorrect: false },
+          ],
+        },
+        {
+          id: 'spe-q4',
+          question: '"ran quickly AND barked loudly" — which word is the CONJUNCTION (joining word)?',
+          choices: [
+            { id: 'a', label: 'and',    isCorrect: true },
+            { id: 'b', label: 'barked', isCorrect: false },
+            { id: 'c', label: 'loudly', isCorrect: false },
+          ],
+        },
+        {
+          id: 'spe-q5',
+          question: 'Which of these is a CONJUNCTION?',
+          choices: [
+            { id: 'a', label: 'jump',    isCorrect: false },
+            { id: 'b', label: 'because', isCorrect: true },
+            { id: 'c', label: 'shiny',   isCorrect: false },
+          ],
+        },
+      ],
+      promptText: 'Write your OWN sentence with a verb, an adjective, an adverb, and a conjunction.',
+      interactionType: 'reflect',
+    },
+
+    /* ---------- SCIENCE ---------- */
+    {
+      id: 'sp-science',
+      lessonId: 'summer-project',
+      title: 'Science Project — 3 Weekly Explorations',
+      subtitle: 'You are a young scientist & explorer!',
+      englishContent:
+        'Driving question: How can observing the world help us understand science and make responsible choices?\n\nYou will investigate through 3 weekly explorations, reflect each week, and present what you found. Record everything on A4 sheets with drawings and labels.\n\nOpen the Task Guide — each week tells you exactly WHAT to do and HOW. Reflect after every week.',
+      glossary: [
+        { word: 'observe',     en: 'Look carefully and notice details',  te: 'పరిశీలించడం' },
+        { word: 'cause',       en: 'The reason something happens',       te: 'కారణం' },
+        { word: 'effect',      en: 'What happens as a result',           te: 'ఫలితం' },
+        { word: 'investigate', en: 'Study something carefully to learn about it', te: 'పరిశోధించడం' },
+      ],
+      parentSuggestion: {
+        tip: 'Go outside with her for the first observation — once she sees how interesting noticing can be, she will do it alone. Shadow Safari needs the same spot in morning, noon, and evening on a sunny day — plan it.',
+        questions: [
+          'What did you notice outside today that surprised you?',
+          'Why do you think your shadow changes length during the day?',
+          'When you kicked the ball — what made it finally stop?',
+        ],
+      },
+      promptText: 'Tick each weekly exploration as you complete it.',
       interactionType: 'checklist',
       checklist: [
         {
           id: 's1',
           label: '🔭 Week 1: Curiosity Capsule',
-          what: 'Go outside 3 times this week. Each time, write what you saw, heard, and smelt. Sketch one thing you noticed.',
-          why: 'Observation is the #1 science skill — Ishanvi learns to notice carefully before she analyses anything.',
+          what: 'Observe nature 3 times this week (balcony, garden, or while travelling). Each time note: 3 things you SEE, 2 things you HEAR, 1 thing you WONDER. Sketch the thing you liked most.',
+          example: 'See: a bird, red flowers, ants in a line · Hear: chirping, wind, a horn · Wonder: why do ants walk in a line?',
+          why: 'Observation is the #1 science skill — she learns to notice carefully before she explains.',
         },
         {
           id: 's2',
           label: '🌗 Week 2: Shadow Safari',
-          what: 'Stand in the same outdoor spot in the morning, at noon, and in the evening. Trace or measure your shadow each time.',
-          why: 'Connects directly to Grade 4 Science on the Sun, light, and shadows — she will ace that chapter.',
+          what: 'Observe your shadow (or an object\'s shadow) at 3 times in one day — morning, afternoon, evening. Note the time and draw the shadow each time.',
+          example: 'Morning: long shadow · Noon: tiny shadow · Evening: long shadow again!',
+          challenge: 'Reflect: "I noticed… I wonder… I think this happens because…"',
+          why: 'Directly connects to the Grade 4 chapter on the Sun, light, and shadows.',
         },
         {
           id: 's3',
           label: '⚽ Week 3: Motion in Action',
-          what: 'Kick a ball, push a toy, drop a stone. For each one, write: what caused the motion? What slowed or stopped it?',
-          why: 'Force and motion is a core Grade 4–5 science concept — hands-on play makes the theory unforgettable.',
+          what: 'For a week, watch things move at home or play. Each day write: What I did, and What happened as a result.',
+          example: 'What I did: I kicked a ball. → What happened: the ball moved far away.',
+          challenge: 'Reflect: "My action was… the effect was… I think this happened because… next time I could try…"',
+          why: 'Force and motion is a core Grade 4–5 concept — hands-on play makes the theory unforgettable.',
         },
         {
           id: 's4',
           label: '📝 Reflect every week',
-          what: 'At the end of each week, write two sentences: "I discovered…" and "I still wonder…"',
-          why: 'Reflection turns doing into learning — Ishanvi builds the scientist\'s most important lifelong habit.',
+          what: 'After each week write: I discovered… · I still wonder… · ATL skills I used… · Learner Profile I showed…',
+          why: 'Reflection turns activity into learning and connects it to the Learner Profile she knows from school.',
         },
         {
           id: 's5',
           label: '🎤 Final presentation',
-          what: 'Make a poster, slideshow, scrapbook, or short video about ALL three of your discoveries.',
-          why: 'Presenting science builds both subject mastery and communication skills at the same time.',
+          what: 'After the holidays, present your journey. Choose a poster, a Canva/PPT deck, a scrapbook, or a 1–2 min video.',
+          why: 'Presenting builds subject mastery AND communication confidence at the same time.',
         },
       ],
     },
     {
-      id: 'sp-4',
+      id: 'sp-science-quiz',
+      lessonId: 'summer-project',
+      title: 'Science Thinking Warm-Up',
+      subtitle: 'Cause, effect & observation',
+      englishContent:
+        'Good scientists think about CAUSE (why something happens) and EFFECT (what happens as a result). Try these — they use the examples from your Science project.',
+      glossary: [
+        { word: 'cause',  en: 'The reason something happens', te: 'కారణం' },
+        { word: 'effect', en: 'What happens as a result',     te: 'ఫలితం' },
+      ],
+      parentSuggestion: {
+        tip: 'Ask "why?" a lot. For every answer she gives, ask "and why does THAT happen?" — this builds the scientific habit of digging deeper.',
+        questions: [
+          'What is the cause and what is the effect when you switch on a fan?',
+          'Why is your shadow shortest at noon?',
+        ],
+      },
+      quiz: [
+        {
+          id: 'sps-q1',
+          question: '"I kicked the ball and it moved far." What is the CAUSE?',
+          choices: [
+            { id: 'a', label: 'The ball moved far', isCorrect: false },
+            { id: 'b', label: 'I kicked the ball',  isCorrect: true },
+            { id: 'c', label: 'The ball is round',  isCorrect: false },
+          ],
+          hint: 'The cause is the action you DID.',
+        },
+        {
+          id: 'sps-q2',
+          question: 'Same example — what is the EFFECT (the result)?',
+          choices: [
+            { id: 'a', label: 'The ball moved far away', isCorrect: true },
+            { id: 'b', label: 'I kicked the ball',        isCorrect: false },
+            { id: 'c', label: 'The grass is green',       isCorrect: false },
+          ],
+        },
+        {
+          id: 'sps-q3',
+          question: 'When is your shadow the SHORTEST?',
+          choices: [
+            { id: 'a', label: 'Early morning', isCorrect: false },
+            { id: 'b', label: 'Noon (midday)', isCorrect: true },
+            { id: 'c', label: 'Evening',       isCorrect: false },
+          ],
+          hint: 'When the Sun is highest in the sky.',
+        },
+        {
+          id: 'sps-q4',
+          question: 'In Curiosity Capsule, how many things do you SEE each time?',
+          choices: [
+            { id: 'a', label: '3 things', isCorrect: true },
+            { id: 'b', label: '1 thing',  isCorrect: false },
+            { id: 'c', label: '5 things', isCorrect: false },
+          ],
+          hint: 'Remember: 3 see, 2 hear, 1 wonder.',
+        },
+      ],
+      promptText: 'Think of something that moved today. Write the CAUSE and the EFFECT.',
+      interactionType: 'reflect',
+    },
+
+    /* ---------- Presentation + reflection ---------- */
+    {
+      id: 'sp-present',
+      lessonId: 'summer-project',
+      title: 'Final Presentation — Pick Your Style',
+      subtitle: 'Show your learning journey',
+      englishContent:
+        'After the holidays you will present your journey to your class. Your presentation should show: what you explored, your key findings, one interesting discovery or question, and a reflection.\n\nYou can choose ANY one style:\n\n🎨 Creative Poster — title, drawings, 2–3 findings, one question.\n💻 Digital (Canva/PPT) — 4–6 slides with pictures + a reflection slide.\n📔 Scrapbook Story — journal as a story, captions, one discovery + one challenge.\n🎬 Video — a 1–2 min clip showing your work, ending with a question.',
+      parentSuggestion: {
+        tip: 'Let her pick the format that matches her personality — a shy child may prefer a poster, a performer may love the video. Ownership boosts effort.',
+        questions: [
+          'Which style feels most "you" — poster, slides, scrapbook, or video?',
+          'What is the ONE discovery you most want to show your class?',
+        ],
+      },
+      promptText: 'Which presentation style will you choose, and why?',
+      interactionType: 'choice-cards',
+      choices: [
+        { id: 'a', label: '🎨 Creative Poster',       isCorrect: true },
+        { id: 'b', label: '💻 Digital slides (Canva/PPT)', isCorrect: true },
+        { id: 'c', label: '📔 Scrapbook Story',        isCorrect: true },
+        { id: 'd', label: '🎬 Video (1–2 min)',        isCorrect: true },
+      ],
+      hint: 'There is no wrong answer — pick the one that excites you most!',
+    },
+    {
+      id: 'sp-reflect',
       lessonId: 'summer-project',
       title: 'My Weekly Reflection',
       englishContent:
-        'Each week, think about your week. Write down:\n• What did I learn?\n• What was difficult?\n• One question I still have.',
+        'Every week, take 5 minutes to think back. Write:\n• What did I learn this week?\n• What was difficult?\n• One question I still have.\n\nReflection is how a busy week becomes real learning.',
       glossary: [
-        { word: 'reflection', en: 'Thinking carefully back about something', te: 'ఆలోచన' },
+        { word: 'reflection', en: 'Thinking carefully back about what you did', te: 'ఆలోచన / పునరాలోచన' },
       ],
       parentSuggestion: {
-        tip: 'Reflection turns "doing" into "learning". 5 minutes a week is enough — make it cozy (bedtime, cuddle).',
+        tip: 'Make it cosy — bedtime, on the sofa, no pressure. Just 3 sentences. Reflection is the single habit that separates good learners from great ones.',
         questions: [
-          'What was the BEST part of this week?',
-          'What was the HARDEST part?',
+          'What was the BEST part of your week?',
+          'What was the HARDEST part — and what did you do about it?',
         ],
       },
       promptText: 'Write your reflection for this week.',
@@ -1960,103 +2263,526 @@ const summerProject: Lesson = {
 const earthDay: Lesson = {
   id: 'earth-day',
   title: 'Earth Day 2026',
-  subtitle: 'Activities for our planet',
+  subtitle: 'Sort waste · discover facts · make rules',
   section: 'projects',
-  hasTelugu: false,
+  hasTelugu: true,
   icon: '🌍',
   cards: [
+    /* ---------- Intro ---------- */
     {
-      id: 'ed-1',
+      id: 'ed-0',
       lessonId: 'earth-day',
-      title: 'Sort the Waste!',
+      title: 'What is Earth Day?',
+      subtitle: 'Every year on April 22',
       englishContent:
-        'Two bins help us keep Earth clean:\n\n🟢 GREEN bin — Wet / Biodegradable waste\n🔵 BLUE bin — Dry / Recyclable waste\n\nMatch each piece of waste to the right bin.',
+        'Earth Day is celebrated every year on April 22. It is a reminder to celebrate the wonderful planet we live on — and to safeguard it for the future.\n\nIn these activities you will sort waste the right way, discover amazing facts about Earth, and become a city leader who makes rules to protect nature.',
+      teluguContent:
+        'ప్రతి సంవత్సరం ఏప్రిల్ 22న ఎర్త్ డే (భూమి దినోత్సవం) జరుపుకుంటారు. మనం నివసించే అద్భుతమైన గ్రహాన్ని జరుపుకోవడానికి, దాన్ని భవిష్యత్తు కోసం కాపాడుకోవడానికి ఇది ఒక గుర్తు.\n\nఈ కార్యకలాపాల్లో — నువ్వు చెత్తను సరిగ్గా వేరు చేస్తావు, భూమి గురించి అద్భుతమైన విషయాలు తెలుసుకుంటావు, ప్రకృతిని కాపాడే నియమాలు చేసే నగర నాయకుడివి అవుతావు.',
       glossary: [
-        { word: 'Biodegradable', en: 'Breaks down naturally in soil', te: 'జీవ-విచ్ఛేదనం అయ్యే' },
-        { word: 'Recyclable',    en: 'Can be made into new things',    te: 'పునర్వినియోగమయ్యే' },
+        { word: 'safeguard',   en: 'To protect and keep safe',          te: 'కాపాడడం' },
+        { word: 'environment', en: 'The world around us — air, water, land', te: 'పర్యావరణం' },
       ],
       parentSuggestion: {
-        tip: 'Do this at home today — sort one bin together. Real practice sticks better than memorising.',
+        tip: 'Earth Day is a great hook for real habits. Pick ONE family action this week — a cloth bag, switching off taps, a small plant — and tie it to what she learns here.',
         questions: [
-          'What goes in YOUR green bin at home?',
-          'Why should plastic NOT be burnt?',
+          'What is your favourite thing about our planet?',
+          'What is one small thing OUR family could do for the Earth?',
+        ],
+      },
+      promptText: 'On which date is Earth Day celebrated?',
+      interactionType: 'choice-cards',
+      choices: [
+        { id: 'a', label: 'April 22',   isCorrect: true },
+        { id: 'b', label: 'January 1',  isCorrect: false },
+        { id: 'c', label: 'August 15',  isCorrect: false },
+      ],
+      hint: 'It is in April — the 22nd!',
+    },
+
+    /* ---------- Sort the Waste × 3 rounds ---------- */
+    {
+      id: 'ed-waste-1',
+      lessonId: 'earth-day',
+      title: 'Sort the Waste — Round 1',
+      subtitle: 'Green bin or Blue bin?',
+      englishContent:
+        'Using the right dustbin helps us manage waste better.\n\n🟢 GREEN bin — Wet / Biodegradable waste (rots naturally: food, leaves).\n🔵 BLUE bin — Dry / Recyclable waste (can be remade: plastic, glass, paper).\n\nMatch each item to the correct bin.',
+      teluguContent:
+        'సరైన చెత్తబుట్టను ఉపయోగించడం వల్ల చెత్తను బాగా నిర్వహించవచ్చు.\n\n🟢 ఆకుపచ్చ బుట్ట — తడి / కుళ్ళిపోయే చెత్త (ఆహారం, ఆకులు).\n🔵 నీలం బుట్ట — పొడి / పునర్వినియోగ చెత్త (ప్లాస్టిక్, గాజు, కాగితం).',
+      glossary: [
+        { word: 'Biodegradable', en: 'Breaks down (rots) naturally in soil', te: 'జీవ-విచ్ఛేదనం అయ్యే' },
+        { word: 'Recyclable',    en: 'Can be made into new things',          te: 'పునర్వినియోగమయ్యే' },
+      ],
+      parentSuggestion: {
+        tip: 'Do it for real: stand at your two bins at home and sort one handful of waste together. The hands-on version sticks far better than the screen.',
+        questions: [
+          'Why does a banana peel go in the GREEN bin?',
+          'What could an old glass jar be turned into?',
         ],
       },
       promptText: 'Match each item to the correct bin.',
       interactionType: 'match-pairs',
       pairs: [
-        { id: 'w1', left: 'Banana peel',     right: '🟢 Green bin' },
-        { id: 'w2', left: 'Plastic bottle',  right: '🔵 Blue bin' },
-        { id: 'w3', left: 'Eggshells',       right: '🟢 Green bin' },
-        { id: 'w4', left: 'Old magazines',   right: '🔵 Blue bin' },
-        { id: 'w5', left: 'Dried leaves',    right: '🟢 Green bin' },
+        { id: 'w1', left: 'Banana peel',          right: '🟢 Green bin' },
+        { id: 'w2', left: 'Plastic water bottle', right: '🔵 Blue bin' },
+        { id: 'w3', left: 'Eggshells',            right: '🟢 Green bin' },
+        { id: 'w4', left: 'Old magazines',        right: '🔵 Blue bin' },
+        { id: 'w5', left: 'Dried flowers',        right: '🟢 Green bin' },
+        { id: 'w6', left: 'Glass jar',            right: '🔵 Blue bin' },
       ],
     },
     {
-      id: 'ed-2',
+      id: 'ed-waste-2',
       lessonId: 'earth-day',
-      title: 'Fill to Discover',
+      title: 'Sort the Waste — Round 2',
+      subtitle: 'A little trickier!',
       englishContent:
-        'Earth has many wonderful elements. The "lungs of the Earth" are huge forests full of trees, animals, and rivers.\n\nThey are called…',
+        'Great work! Here is a harder set. Remember:\n\n🟢 GREEN = wet, came-from-living-things, rots away.\n🔵 BLUE = dry, man-made, can be recycled.',
+      teluguContent:
+        'భలే చేశావు! ఇది కొంచెం కష్టమైనది. గుర్తుంచుకో:\n\n🟢 ఆకుపచ్చ = తడి, జీవుల నుండి వచ్చినవి, కుళ్ళిపోయేవి.\n🔵 నీలం = పొడి, మనుషులు తయారు చేసినవి, రీసైకిల్ చేయగలిగేవి.',
       glossary: [
-        { word: 'lungs',  en: 'Body part we breathe with', te: 'ఊపిరితిత్తులు' },
-        { word: 'forest', en: 'A place full of trees',     te: 'అడవి' },
+        { word: 'compost', en: 'Natural fertiliser made from rotted food waste', te: 'కంపోస్ట్ (ఎరువు)' },
       ],
       parentSuggestion: {
-        tip: 'Rainforests = lungs because trees give oxygen. Show a picture of the Amazon together.',
+        tip: 'Cardboard and newspaper are recyclable (blue) even though they are made from trees — because they are dry and processed. This trips many kids up; talk it through.',
         questions: [
-          'Why are trees important for breathing?',
-          'Have you been to a forest?',
+          'Is a cardboard box wet or dry waste?',
+          'What happens to the apple core if we bury it in soil?',
         ],
       },
-      promptText: 'What is known as the "lungs of the Earth"?',
-      interactionType: 'choice-cards',
-      choices: [
-        { id: 'a', label: 'Rainforest', isCorrect: true },
-        { id: 'b', label: 'Desert',     isCorrect: false },
-        { id: 'c', label: 'Plateau',    isCorrect: false },
+      promptText: 'Match each item to the correct bin.',
+      interactionType: 'match-pairs',
+      pairs: [
+        { id: 'w1', left: 'Leftover rice',   right: '🟢 Green bin' },
+        { id: 'w2', left: 'Fruit peels',     right: '🟢 Green bin' },
+        { id: 'w3', left: 'Cardboard box',   right: '🔵 Blue bin' },
+        { id: 'w4', left: 'Cold drink cans', right: '🔵 Blue bin' },
+        { id: 'w5', left: 'Old newspapers',  right: '🔵 Blue bin' },
+        { id: 'w6', left: 'Apple core',      right: '🟢 Green bin' },
       ],
-      hint: 'Trees give us oxygen — like lungs!',
     },
     {
-      id: 'ed-3',
+      id: 'ed-waste-3',
       lessonId: 'earth-day',
-      title: 'Did you know?',
+      title: 'Sort the Waste — Round 3',
+      subtitle: 'The expert level!',
       englishContent:
-        'The Sun is so powerful that we can make ELECTRICITY from its rays. This kind of energy is clean and never runs out.\n\nTap to reveal what we call it.',
+        'Last round — you are a recycling expert now! Tricky ones: peanut shells and corn cobs ROT (green), but aluminium foil and plastic caps are RECYCLED (blue).',
+      teluguContent:
+        'చివరి రౌండ్ — ఇప్పుడు నువ్వు రీసైక్లింగ్ నిపుణుడివి! కష్టమైనవి: వేరుశెనగ పొట్టు, మొక్కజొన్న కంకులు కుళ్ళిపోతాయి (ఆకుపచ్చ); కానీ అల్యూమినియం ఫాయిల్, ప్లాస్టిక్ మూతలు రీసైకిల్ అవుతాయి (నీలం).',
       glossary: [
-        { word: 'electricity', en: 'Energy that powers lights and toys', te: 'విద్యుత్తు' },
-        { word: 'energy',      en: 'The power to do work',                te: 'శక్తి' },
+        { word: 'aluminium', en: 'A light, shiny metal used in foil and cans', te: 'అల్యూమినియం' },
       ],
       parentSuggestion: {
-        tip: 'Solar = सूर्य. Show her any solar panel you can find (calculator, street light, building).',
+        tip: 'A wooden toothpick is green (wood rots), but an empty chips packet is blue (foil/plastic). The material matters, not the size. Use this to explain "what is it made of?"',
         questions: [
-          'Have you seen a solar panel?',
-          'What else uses sunlight to grow?',
+          'Peanut shells — green or blue? Why?',
+          'What is an empty chips packet made of?',
         ],
       },
-      promptText: 'Tap to reveal the answer.',
+      promptText: 'Match each item to the correct bin.',
+      interactionType: 'match-pairs',
+      pairs: [
+        { id: 'w1', left: 'Peanut shells',       right: '🟢 Green bin' },
+        { id: 'w2', left: 'Aluminium foil',      right: '🔵 Blue bin' },
+        { id: 'w3', left: 'Corn cobs',           right: '🟢 Green bin' },
+        { id: 'w4', left: 'Plastic bottle caps', right: '🔵 Blue bin' },
+        { id: 'w5', left: 'Wooden toothpick',    right: '🟢 Green bin' },
+        { id: 'w6', left: 'Empty chips packet',  right: '🔵 Blue bin' },
+      ],
+    },
+
+    /* ---------- Fill to Discover — themed fact quizzes ---------- */
+    {
+      id: 'ed-forests',
+      lessonId: 'earth-day',
+      title: 'Discover: Forests & Trees',
+      subtitle: 'The green lungs of our planet',
+      englishContent:
+        'Trees and forests keep Earth alive — they give oxygen, cool the air, and hold the soil together. Try this knowledge check, then find the hidden idea!',
+      teluguContent:
+        'చెట్లు, అడవులు భూమిని బ్రతికిస్తాయి — అవి ఆక్సిజన్ ఇస్తాయి, గాలిని చల్లబరుస్తాయి, మట్టిని కలిపి ఉంచుతాయి.',
+      glossary: [
+        { word: 'rainforest',    en: 'A thick, wet forest full of life',          te: 'వర్షారణ్యం' },
+        { word: 'reforestation', en: 'Planting new trees where they were cut',    te: 'పునర్వనీకరణ' },
+        { word: 'ozone',         en: 'A layer of air that blocks the Sun\'s harmful rays', te: 'ఓజోన్' },
+      ],
+      parentSuggestion: {
+        tip: 'These facts come straight from her Earth Day worksheet. After the quiz, step outside and look at a real tree — name its trunk, roots, and the shade it makes.',
+        questions: [
+          'Why is the Amazon called the "lungs of the Earth"?',
+          'What do roots do for a plant?',
+          'Why should we plant new trees (reforestation)?',
+        ],
+      },
+      quiz: [
+        {
+          id: 'edf-q1',
+          question: 'The Amazon is known as the "______ of the Earth".',
+          choices: [
+            { id: 'a', label: 'Lungs',   isCorrect: true },
+            { id: 'b', label: 'Heart',   isCorrect: false },
+            { id: 'c', label: 'Stomach', isCorrect: false },
+          ],
+          hint: 'Trees give oxygen — like the part of YOUR body you breathe with.',
+        },
+        {
+          id: 'edf-q2',
+          question: 'Earth\'s ______ layer protects us from the Sun\'s harmful rays.',
+          choices: [
+            { id: 'a', label: 'Ozone',  isCorrect: true },
+            { id: 'b', label: 'Cloud',  isCorrect: false },
+            { id: 'c', label: 'Water',  isCorrect: false },
+          ],
+        },
+        {
+          id: 'edf-q3',
+          question: 'Planting new trees where forests were cut down is called…',
+          choices: [
+            { id: 'a', label: 'Reforestation', isCorrect: true },
+            { id: 'b', label: 'Pollution',     isCorrect: false },
+            { id: 'c', label: 'Recycling',     isCorrect: false },
+          ],
+        },
+        {
+          id: 'edf-q4',
+          question: 'Which part of a plant is under the soil and absorbs water?',
+          choices: [
+            { id: 'a', label: 'Roots',   isCorrect: true },
+            { id: 'b', label: 'Leaves',  isCorrect: false },
+            { id: 'c', label: 'Flowers', isCorrect: false },
+          ],
+        },
+        {
+          id: 'edf-q5',
+          question: 'How do trees help the temperature of the Earth?',
+          choices: [
+            { id: 'a', label: 'They give shade and release water vapour', isCorrect: true },
+            { id: 'b', label: 'They make the air hotter',                  isCorrect: false },
+            { id: 'c', label: 'They block all sunlight forever',           isCorrect: false },
+          ],
+        },
+      ],
+      promptText: 'Hidden idea: unscramble these to name what flows through forests — R-I-V-E-R-S. Write what rivers give us.',
+      interactionType: 'reflect',
+    },
+    {
+      id: 'ed-water',
+      lessonId: 'earth-day',
+      title: 'Discover: Water on Earth',
+      subtitle: 'Oceans, ice, and the water cycle',
+      englishContent:
+        'Water covers most of our planet and moves in a never-ending cycle. Without it, nothing could live. Test your water knowledge!',
+      teluguContent:
+        'నీరు మన గ్రహంలో ఎక్కువ భాగాన్ని ఆవరించి ఉంటుంది, ఎప్పటికీ ఆగని చక్రంలో తిరుగుతుంది. నీరు లేకుండా ఏదీ బ్రతకలేదు.',
+      glossary: [
+        { word: 'water cycle', en: 'Water rising to clouds and falling as rain, again and again', te: 'జలచక్రం' },
+        { word: 'glacier',     en: 'A slow-moving river of ice',     te: 'హిమానీనదం' },
+        { word: 'geyser',      en: 'A natural spring that shoots out hot water and steam', te: 'గీజర్' },
+      ],
+      parentSuggestion: {
+        tip: 'Show the water cycle with a real example: a boiling kettle (water → steam → cools on a lid → drops back as "rain"). One minute, unforgettable.',
+        questions: [
+          'How much of Earth\'s surface is covered by ocean?',
+          'What is the difference between a glacier and a river?',
+        ],
+      },
+      quiz: [
+        {
+          id: 'edw-q1',
+          question: 'The ocean covers about how much of Earth\'s surface?',
+          choices: [
+            { id: 'a', label: '71 percent', isCorrect: true },
+            { id: 'b', label: '10 percent', isCorrect: false },
+            { id: 'c', label: '30 percent', isCorrect: false },
+          ],
+          hint: 'It is more than half — about three quarters!',
+        },
+        {
+          id: 'edw-q2',
+          question: 'The ______ is how water goes from the ground to clouds and falls back as rain.',
+          choices: [
+            { id: 'a', label: 'Water cycle', isCorrect: true },
+            { id: 'b', label: 'Tide',         isCorrect: false },
+            { id: 'c', label: 'Geyser',       isCorrect: false },
+          ],
+        },
+        {
+          id: 'edw-q3',
+          question: 'A slow-moving river of ice and a source of freshwater is a…',
+          choices: [
+            { id: 'a', label: 'Glacier', isCorrect: true },
+            { id: 'b', label: 'Desert',  isCorrect: false },
+            { id: 'c', label: 'Plateau', isCorrect: false },
+          ],
+        },
+        {
+          id: 'edw-q4',
+          question: '______ energy is made from the movement of ocean tides.',
+          choices: [
+            { id: 'a', label: 'Tidal', isCorrect: true },
+            { id: 'b', label: 'Solar', isCorrect: false },
+            { id: 'c', label: 'Wind',  isCorrect: false },
+          ],
+        },
+        {
+          id: 'edw-q5',
+          question: 'A natural spring that erupts hot water and steam is a…',
+          choices: [
+            { id: 'a', label: 'Geyser',  isCorrect: true },
+            { id: 'b', label: 'Glacier', isCorrect: false },
+            { id: 'c', label: 'Ocean',   isCorrect: false },
+          ],
+        },
+      ],
+      promptText: 'The hidden word here is WATER. Write one way YOU can save water at home.',
+      interactionType: 'reflect',
+    },
+    {
+      id: 'ed-helpers',
+      lessonId: 'earth-day',
+      title: 'Discover: Nature\'s Helpers',
+      subtitle: 'Tiny animals, huge jobs',
+      englishContent:
+        'Some of Earth\'s most important workers are small! Worms, bees, ants, and even vultures keep nature healthy. Meet the helpers.',
+      teluguContent:
+        'భూమి యొక్క అత్యంత ముఖ్యమైన పనివారిలో కొందరు చాలా చిన్నవారు! పురుగులు, తేనెటీగలు, చీమలు, రాబందులు కూడా ప్రకృతిని ఆరోగ్యంగా ఉంచుతాయి.',
+      glossary: [
+        { word: 'pollinators', en: 'Animals that carry pollen so plants make seeds & fruit', te: 'పరాగసంపర్కకారులు' },
+        { word: 'earthworms',  en: 'Worms that break down dead plants into rich soil',        te: 'వానపాములు' },
+        { word: 'vultures',    en: 'Birds that clean up dead animals',                          te: 'రాబందులు' },
+      ],
+      parentSuggestion: {
+        tip: 'Reframe "yucky" animals as heroes: worms make soil, vultures stop disease, bees grow our food. This builds respect for the whole web of life.',
+        questions: [
+          'Why are earthworms called "nature\'s recyclers"?',
+          'What would happen to flowers without bees and butterflies?',
+        ],
+      },
+      quiz: [
+        {
+          id: 'edh-q1',
+          question: '______ are nature\'s recyclers — they break down dead plants and waste.',
+          choices: [
+            { id: 'a', label: 'Earthworms', isCorrect: true },
+            { id: 'b', label: 'Sharks',     isCorrect: false },
+            { id: 'c', label: 'Eagles',     isCorrect: false },
+          ],
+          hint: 'They live in soil and wriggle!',
+        },
+        {
+          id: 'edh-q2',
+          question: 'Bees and ______ are pollinators that help plants make seeds and fruit.',
+          choices: [
+            { id: 'a', label: 'Butterflies', isCorrect: true },
+            { id: 'b', label: 'Spiders',     isCorrect: false },
+            { id: 'c', label: 'Snakes',      isCorrect: false },
+          ],
+        },
+        {
+          id: 'edh-q3',
+          question: 'Which birds are "guardians of the environment" because they clean up dead animals?',
+          choices: [
+            { id: 'a', label: 'Vultures', isCorrect: true },
+            { id: 'b', label: 'Parrots',  isCorrect: false },
+            { id: 'c', label: 'Pigeons',  isCorrect: false },
+          ],
+        },
+        {
+          id: 'edh-q4',
+          question: 'Which insects are "nature\'s architects", building complex mounds?',
+          choices: [
+            { id: 'a', label: 'Ants',  isCorrect: true },
+            { id: 'b', label: 'Flies', isCorrect: false },
+            { id: 'c', label: 'Moths', isCorrect: false },
+          ],
+        },
+        {
+          id: 'edh-q5',
+          question: 'The green sea ______ population grew ~30% thanks to conservation efforts.',
+          choices: [
+            { id: 'a', label: 'Turtle',  isCorrect: true },
+            { id: 'b', label: 'Dolphin', isCorrect: false },
+            { id: 'c', label: 'Whale',   isCorrect: false },
+          ],
+        },
+      ],
+      promptText: 'Which of these helpers is your favourite, and why? Write 2 sentences.',
+      interactionType: 'reflect',
+    },
+    {
+      id: 'ed-structure',
+      lessonId: 'earth-day',
+      title: 'Discover: Earth\'s Amazing Structure',
+      subtitle: 'From the core to the crust',
+      englishContent:
+        'Our planet has hot insides, frozen lands, tall flat places, and an invisible line around its middle. Explore the parts of the Earth!',
+      teluguContent:
+        'మన గ్రహానికి వేడి లోపలి భాగం, గడ్డకట్టిన భూములు, ఎత్తైన చదునైన ప్రాంతాలు, మధ్యలో కనిపించని గీత ఉన్నాయి.',
+      glossary: [
+        { word: 'core',       en: 'The very centre of the Earth — extremely hot',  te: 'భూకేంద్రం' },
+        { word: 'crust',      en: 'The thin outer layer of the Earth we live on',  te: 'భూపటలం' },
+        { word: 'equator',    en: 'An imaginary line around the middle of the Earth', te: 'భూమధ్యరేఖ' },
+        { word: 'permafrost', en: 'Ground that stays frozen all year',             te: 'శాశ్వత మంచు' },
+      ],
+      parentSuggestion: {
+        tip: 'Cut an apple in half to show Earth\'s layers: skin = crust, flesh = mantle, core = core. A 30-second demo that makes the words real.',
+        questions: [
+          'What is hotter — the core or the crust?',
+          'What is the equator, and is it hot or cold there?',
+        ],
+      },
+      quiz: [
+        {
+          id: 'eds-q1',
+          question: 'Earth\'s centre is called the ______ and is as hot as the Sun\'s surface.',
+          choices: [
+            { id: 'a', label: 'Core',  isCorrect: true },
+            { id: 'b', label: 'Crust', isCorrect: false },
+            { id: 'c', label: 'Cloud', isCorrect: false },
+          ],
+        },
+        {
+          id: 'eds-q2',
+          question: 'The thin upper layer of Earth\'s surface is the…',
+          choices: [
+            { id: 'a', label: 'Crust', isCorrect: true },
+            { id: 'b', label: 'Core',  isCorrect: false },
+            { id: 'c', label: 'Ocean', isCorrect: false },
+          ],
+        },
+        {
+          id: 'eds-q3',
+          question: 'The imaginary line that divides Earth into two halves (hot & humid) is the…',
+          choices: [
+            { id: 'a', label: 'Equator', isCorrect: true },
+            { id: 'b', label: 'Glacier', isCorrect: false },
+            { id: 'c', label: 'Trunk',   isCorrect: false },
+          ],
+        },
+        {
+          id: 'eds-q4',
+          question: 'A large area that is flat and high above sea level is a…',
+          choices: [
+            { id: 'a', label: 'Plateau', isCorrect: true },
+            { id: 'b', label: 'Desert',  isCorrect: false },
+            { id: 'c', label: 'Ocean',   isCorrect: false },
+          ],
+        },
+        {
+          id: 'eds-q5',
+          question: '______ create new land by erupting molten magma that hardens after cooling.',
+          choices: [
+            { id: 'a', label: 'Volcanoes', isCorrect: true },
+            { id: 'b', label: 'Rivers',    isCorrect: false },
+            { id: 'c', label: 'Clouds',    isCorrect: false },
+          ],
+        },
+        {
+          id: 'eds-q6',
+          question: 'Permanently frozen land found on or under Earth\'s surface is called…',
+          choices: [
+            { id: 'a', label: 'Permafrost', isCorrect: true },
+            { id: 'b', label: 'Desert',     isCorrect: false },
+            { id: 'c', label: 'Plateau',    isCorrect: false },
+          ],
+        },
+      ],
+      promptText: 'Which Earth fact surprised you the most? Write it in your own words.',
+      interactionType: 'reflect',
+    },
+
+    /* ---------- Clean energy reveals ---------- */
+    {
+      id: 'ed-energy',
+      lessonId: 'earth-day',
+      title: 'Did You Know? Clean & Green',
+      subtitle: 'Energy, air, and recycling',
+      englishContent:
+        'Some of Earth\'s best ideas are clean and never run out. Test these — they all come from your Earth Day worksheet.',
+      teluguContent:
+        'భూమి యొక్క కొన్ని ఉత్తమ ఆలోచనలు పరిశుభ్రమైనవి, ఎప్పటికీ అయిపోవు.',
+      glossary: [
+        { word: 'solar power',    en: 'Electricity made from sunlight',             te: 'సౌర శక్తి' },
+        { word: 'compost',        en: 'Natural fertiliser from rotted food waste',  te: 'కంపోస్ట్' },
+        { word: 'carbon dioxide', en: 'The gas plants breathe in',                  te: 'కార్బన్ డయాక్సైడ్' },
+        { word: 'greenhouse',     en: 'The blanket of air that traps heat & keeps Earth warm', te: 'గ్రీన్‌హౌస్' },
+      ],
+      parentSuggestion: {
+        tip: 'Point out a real solar panel (calculator, street light, rooftop) and a real compost heap or kitchen scraps bin. Connecting the word to a real object makes it permanent.',
+        questions: [
+          'What can we make from the Sun\'s rays?',
+          'What gas do plants breathe in that WE breathe out?',
+        ],
+      },
+      quiz: [
+        {
+          id: 'ede-q1',
+          question: 'Electricity made from sunlight is called…',
+          choices: [
+            { id: 'a', label: 'Solar power', isCorrect: true },
+            { id: 'b', label: 'Tidal power', isCorrect: false },
+            { id: 'c', label: 'Coal power',  isCorrect: false },
+          ],
+        },
+        {
+          id: 'ede-q2',
+          question: '______ is the fertiliser made from food waste that helps plants grow.',
+          choices: [
+            { id: 'a', label: 'Compost',  isCorrect: true },
+            { id: 'b', label: 'Plastic',  isCorrect: false },
+            { id: 'c', label: 'Concrete', isCorrect: false },
+          ],
+          hint: 'You make it from kitchen scraps and leaves.',
+        },
+        {
+          id: 'ede-q3',
+          question: 'Which gas do plants breathe IN?',
+          choices: [
+            { id: 'a', label: 'Carbon dioxide', isCorrect: true },
+            { id: 'b', label: 'Oxygen',         isCorrect: false },
+            { id: 'c', label: 'Helium',         isCorrect: false },
+          ],
+        },
+        {
+          id: 'ede-q4',
+          question: 'Earth\'s atmosphere is nicknamed the "______" because it traps heat and keeps us warm.',
+          choices: [
+            { id: 'a', label: 'Greenhouse', isCorrect: true },
+            { id: 'b', label: 'Icebox',     isCorrect: false },
+            { id: 'c', label: 'Furnace',    isCorrect: false },
+          ],
+        },
+      ],
+      promptText: 'Tap to reveal a clean-energy fact.',
       interactionType: 'tap-reveal',
-      revealAnswer: '☀️ Solar power — energy from sunlight!',
+      revealAnswer: '☀️ The Sun gives us solar power — clean energy that never runs out! Plants give us oxygen, worms give us soil, and Earth gives us everything. Our job is to protect it.',
     },
+
+    /* ---------- Make the Rules ---------- */
     {
-      id: 'ed-4',
+      id: 'ed-rules',
       lessonId: 'earth-day',
-      title: 'Make the Rules',
+      title: 'Make the Rules!',
+      subtitle: 'You are the leader of your city',
       englishContent:
-        'Imagine YOU are the leader of your city. You want a clean and healthy environment for the future.\n\nWhat is ONE rule you would make to help Earth?',
+        'Imagine YOU are the leader of your city. You want a clean and healthy environment for the future. Set goals and make rules to reach them.\n\nHere are example goals and rules to inspire you:\n\n🌳 Goal: Plant more trees\n   • Every student plants a tree when they join school; the family cares for it.\n   • Planting trees is required for building permits (2-room flat = 2 trees).\n\n☀️ Goal: Use more renewable energy\n   • New buildings get solar-panel-ready roofs.\n   • Rainwater harvesting in every home.\n\n💡 Goal: Save more electricity\n   • Motion sensors switch off lights/fans in empty rooms.\n   • Only sell energy-efficient appliances.',
+      teluguContent:
+        'నువ్వే నీ నగరానికి నాయకుడివి అనుకో. భవిష్యత్తు కోసం పరిశుభ్రమైన, ఆరోగ్యకరమైన వాతావరణం కావాలి. లక్ష్యాలు పెట్టుకుని, వాటిని చేరడానికి నియమాలు చేయి.\n\nనీకు స్ఫూర్తి కోసం కొన్ని ఉదాహరణలు:\n\n🌳 లక్ష్యం: ఎక్కువ చెట్లు నాటడం\n   • ప్రతి విద్యార్థి స్కూల్‌లో చేరినప్పుడు ఒక చెట్టు నాటాలి.\n\n☀️ లక్ష్యం: పునరుత్పాదక శక్తి వాడడం\n   • కొత్త భవనాలకు సోలార్ ప్యానెల్స్, వర్షపు నీటి సంరక్షణ.\n\n💡 లక్ష్యం: విద్యుత్ ఆదా చేయడం\n   • ఖాళీ గదుల్లో లైట్లు ఆటోమేటిక్‌గా ఆగిపోవాలి.',
       glossary: [
-        { word: 'environment', en: 'The world around us — air, water, land', te: 'పర్యావరణం' },
-        { word: 'leader',      en: 'Someone who guides others',                te: 'నాయకుడు' },
+        { word: 'renewable',  en: 'Energy that never runs out (sun, wind, water)', te: 'పునరుత్పాదక' },
+        { word: 'harvesting', en: 'Collecting and saving something useful',         te: 'సేకరించడం' },
+        { word: 'efficient',  en: 'Doing a job using less energy or waste',         te: 'సమర్థవంతమైన' },
       ],
       parentSuggestion: {
-        tip: 'There is no wrong answer. Encourage creativity — "no plastic bags", "every street has a tree", etc.',
+        tip: 'There is no wrong answer. Push for the WHY behind each rule — "and how would that help the Earth?" — to build cause-and-effect thinking. She can write more than one goal.',
         questions: [
-          'Why did you pick that rule?',
-          'Who would your rule help most?',
+          'Which of your rules would help the Earth the most? Why?',
+          'Who in the city would need to follow your rule?',
+          'Could our family follow one of your rules starting today?',
         ],
       },
-      promptText: 'Write one rule you would make as city leader.',
+      promptText: 'Write ONE goal and two rules you would make as city leader.',
       interactionType: 'reflect',
     },
   ],

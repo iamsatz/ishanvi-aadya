@@ -21,8 +21,8 @@ export function ChecklistCard({ card, onComplete }: Props) {
     setChecked(checked.includes(id) ? checked.filter((c) => c !== id) : [...checked, id]);
   }
 
-  // Only show the Task Guide if at least one item has what/why info.
-  const hasGuide = items.some((it) => it.what || it.why);
+  // Only show the Task Guide if at least one item has extra info.
+  const hasGuide = items.some((it) => it.what || it.why || it.example || it.challenge);
 
   return (
     <div className="checklist">
@@ -31,14 +31,24 @@ export function ChecklistCard({ card, onComplete }: Props) {
         <details className="task-guide">
           <summary>
             <span className="task-guide__pill" aria-hidden>📋</span>
-            <span>Task Guide — what to do &amp; why it helps</span>
+            <span>Task Guide — what to do, examples &amp; why it helps</span>
           </summary>
           <div className="task-guide__body">
-            {items.map((it) => (it.what || it.why) ? (
+            {items.map((it) => (it.what || it.why || it.example || it.challenge) ? (
               <div key={it.id} className="task-guide__row">
                 <span className="task-guide__name">{it.label}</span>
                 {it.what && <span className="task-guide__what">{it.what}</span>}
-                {it.why  && <span className="task-guide__why">💡 {it.why}</span>}
+                {it.example && (
+                  <span className="task-guide__example">
+                    <strong>Example:</strong> {it.example}
+                  </span>
+                )}
+                {it.challenge && (
+                  <span className="task-guide__challenge">
+                    <strong>🌟 Challenge:</strong> {it.challenge}
+                  </span>
+                )}
+                {it.why && <span className="task-guide__why">💡 {it.why}</span>}
               </div>
             ) : null)}
           </div>

@@ -657,12 +657,35 @@ input, textarea {
   color: var(--c-ink-soft);
   line-height: 1.45;
 }
+.task-guide__example {
+  font-size: var(--fs-sm);
+  color: var(--c-ink);
+  line-height: 1.45;
+  background: rgba(255, 255, 255, 0.7);
+  border-left: 3px solid #C9A86A;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  margin-top: 2px;
+}
+.task-guide__example strong { color: #7A5C20; }
+.task-guide__challenge {
+  font-size: var(--fs-sm);
+  color: var(--c-ink);
+  line-height: 1.45;
+  background: rgba(232, 90, 79, 0.08);
+  border-left: 3px solid var(--c-primary);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  margin-top: 2px;
+}
+.task-guide__challenge strong { color: var(--c-primary); }
 .task-guide__why {
   font-size: var(--fs-xs);
   font-weight: 500;
   color: var(--c-accent);
   font-style: italic;
   line-height: 1.4;
+  margin-top: 2px;
 }
 
 /* Checklist items — back to simple single-line */

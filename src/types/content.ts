@@ -33,6 +33,10 @@ export interface ChecklistItem {
   what?: string;
   /** One sentence: why this task is helpful specifically for a Grade 4 child. */
   why?: string;
+  /** A worked example from the source (shown in a tinted box). */
+  example?: string;
+  /** A "try this" challenge that stretches the task further. */
+  challenge?: string;
 }
 
 /** A vocabulary tooltip: highlight `word` in englishContent on hover. */
