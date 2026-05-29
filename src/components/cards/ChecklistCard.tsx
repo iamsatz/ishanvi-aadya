@@ -35,7 +35,15 @@ export function ChecklistCard({ card, onComplete }: Props) {
             aria-pressed={isChecked}
           >
             <span className="check-box" aria-hidden>{isChecked ? '✓' : ''}</span>
-            <span>{it.label}</span>
+            <span className="check-item__content">
+              <span className="check-item__label">{it.label}</span>
+              {it.what && (
+                <span className="check-item__what">{it.what}</span>
+              )}
+              {it.why && (
+                <span className="check-item__why">💡 {it.why}</span>
+              )}
+            </span>
           </button>
         );
       })}

@@ -27,7 +27,12 @@ export interface Pair {
 
 export interface ChecklistItem {
   id: string;
+  /** Short title shown in bold — emoji + action name. */
   label: string;
+  /** One sentence: what Ishanvi actually does for this task. */
+  what?: string;
+  /** One sentence: why this task is helpful specifically for a Grade 4 child. */
+  why?: string;
 }
 
 /** A vocabulary tooltip: highlight `word` in englishContent on hover. */
