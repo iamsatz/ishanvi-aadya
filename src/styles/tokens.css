@@ -1,0 +1,74 @@
+/* ============================================================
+   DESIGN TOKENS — Warm-Editorial × Playful-Color family
+   Intentional: kid-friendly, polished, not childish.
+   Color hierarchy rule: accent only on h1 + CTAs.
+   ============================================================ */
+
+:root {
+  /* Palette — warm cream surfaces, calm ink, single coral accent */
+  --c-bg:           #FBF6EB;   /* warmer cream */
+  --c-surface:      #FFFFFF;
+  --c-surface-2:    #F4EBD6;   /* drawer / chips */
+  --c-surface-3:    #EDE2C5;   /* recessed */
+  --c-ink:          #1B2236;
+  --c-ink-soft:     #5A6378;
+  --c-ink-muted:    #8A92A6;
+  --c-line:         rgba(27, 34, 54, 0.08);
+  --c-primary:      #E85A4F;   /* terracotta-coral — only on h1 + CTAs */
+  --c-primary-ink:  #FFFFFF;
+  --c-accent:       #1F8F86;   /* deeper teal — Telugu pill */
+  --c-success:      #2A9D6B;
+  --c-error:        #D14156;
+  --c-focus:        #2D6CDF;
+  --c-overlay:      rgba(27, 34, 54, 0.55);
+
+  /* Typography */
+  --font-sans:   'Inter', -apple-system, 'Segoe UI', 'Roboto', system-ui, sans-serif;
+  --font-display:'Fraunces', 'Source Serif Pro', Georgia, serif;
+  --font-telugu: 'Noto Sans Telugu', 'Mallanna', 'Gautami', system-ui, sans-serif;
+
+  /* Fluid type — same on mobile + tablet, scales gracefully */
+  --fs-xs:  13px;
+  --fs-sm:  15px;
+  --fs-md:  17px;
+  --fs-lg:  20px;
+  --fs-xl:  clamp(24px, 6vw, 30px);   /* card title */
+  --fs-2xl: clamp(28px, 7vw, 38px);
+  --lh:     1.55;
+  --lh-tight: 1.2;
+
+  /* Spacing — modular 4px base */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  28px;
+  --sp-7:  40px;
+
+  /* Shape */
+  --r-sm:  10px;
+  --r-md:  14px;
+  --r-lg:  22px;
+  --r-pill: 999px;
+
+  /* Elevation — subtle, warm */
+  --sh-1: 0 1px 2px rgba(27, 34, 54, 0.06), 0 1px 1px rgba(27, 34, 54, 0.04);
+  --sh-2: 0 4px 14px rgba(27, 34, 54, 0.08), 0 1px 3px rgba(27, 34, 54, 0.05);
+  --sh-3: 0 18px 48px rgba(27, 34, 54, 0.18);
+
+  /* Motion */
+  --t-fast: 150ms;
+  --t-med:  250ms;
+  --t-slow: 400ms;
+  --ease:   cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Layout */
+  --topbar-h: 60px;
+  --nav-h:    80px;
+  --drawer-w: 320px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --t-fast: 0ms; --t-med: 0ms; --t-slow: 0ms; }
+}
