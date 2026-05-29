@@ -98,6 +98,39 @@ input, textarea {
   letter-spacing: 0;
 }
 
+/* Compact top-nav arrows */
+.topbar__nav {
+  display: flex;
+  gap: var(--sp-1);
+  flex-shrink: 0;
+}
+.topbar__arrow {
+  width: 40px; height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--c-surface);
+  border: 1.5px solid var(--c-line);
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--c-ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition:
+    background var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease),
+    transform var(--t-fast) var(--ease),
+    opacity var(--t-fast) var(--ease);
+}
+.topbar__arrow:hover:not(:disabled) {
+  background: var(--c-surface-3);
+  border-color: var(--c-ink-soft);
+  transform: scale(1.06);
+}
+.topbar__arrow:active:not(:disabled) { transform: scale(0.94); }
+.topbar__arrow:disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+}
+
 .progress-slim {
   height: 4px;
   background: var(--c-surface-3);
@@ -1004,6 +1037,11 @@ input, textarea {
   .topbar__title small {
     font-size: 13px;
     margin-top: 2px;
+  }
+  /* Slightly larger arrows on desktop */
+  .topbar__arrow {
+    width: 44px; height: 44px;
+    font-size: 28px;
   }
 
   /* Slim progress bar sits below topbar */
