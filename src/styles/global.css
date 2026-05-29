@@ -893,3 +893,184 @@ input, textarea {
   }
 }
 .upload-btn input[type="file"] { display: none; }
+
+/* ============================================================
+   DESKTOP / WEB LAYOUT  ≥ 1024px
+   ------------------------------------------------------------
+   - Persistent left sidebar (no hamburger)
+   - Centered reading area, max 880px
+   - Inline (non-sticky) Back / Next
+   - Larger typography, more breathing room
+   - On very wide screens (≥1500px) the whole app is centered
+   ============================================================ */
+@media (min-width: 1024px) {
+  :root {
+    --topbar-h: 72px;
+    --sidebar-w: 300px;
+    --main-max: 880px;
+  }
+
+  .app {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    grid-template-rows: var(--topbar-h) 4px 1fr auto;
+    grid-template-areas:
+      "sidebar topbar"
+      "sidebar progress"
+      "sidebar main"
+      "sidebar nav";
+    min-height: 100vh;
+    min-height: 100dvh;
+    max-width: 1500px;
+    margin: 0 auto;
+    background: var(--c-bg);
+  }
+
+  /* Persistent left rail — no slide-in, no backdrop */
+  .drawer {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    height: auto;
+    grid-area: sidebar;
+    box-shadow: none;
+    border-right: 1px solid var(--c-line);
+    background: var(--c-surface-2);
+  }
+  .drawer-backdrop { display: none !important; }
+
+  /* Sidebar tweaks for persistent mode */
+  .drawer__header {
+    padding: var(--sp-5) var(--sp-5);
+  }
+  .drawer__close { display: none; }   /* no need to close on desktop */
+  .drawer__title { font-size: 24px; }
+  .drawer__tabs { padding: var(--sp-3) var(--sp-5) 0; }
+  .drawer__list { padding: var(--sp-3) var(--sp-5); gap: var(--sp-2); }
+  .drawer__footer { padding: var(--sp-3) var(--sp-5) var(--sp-5); }
+
+  /* Sidebar lesson rows: hover state on desktop */
+  .lesson-item {
+    cursor: pointer;
+    transition:
+      transform var(--t-fast) var(--ease),
+      background var(--t-fast) var(--ease),
+      box-shadow var(--t-fast) var(--ease);
+  }
+  .lesson-item:hover {
+    transform: translateX(2px);
+    box-shadow: var(--sh-2);
+  }
+
+  /* Top bar: drop the hamburger, expand the title, frosted backdrop */
+  .topbar {
+    grid-area: topbar;
+    padding: 0 var(--sp-7);
+    border-bottom: 1px solid var(--c-line);
+    background: color-mix(in srgb, var(--c-bg) 88%, transparent);
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+  }
+  .topbar__hamburger { display: none; }
+  .topbar__title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .topbar__title small {
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  /* Slim progress bar sits below topbar */
+  .progress-slim {
+    grid-area: progress;
+    position: static;
+    height: 4px;
+  }
+
+  /* Main reading column */
+  .main {
+    grid-area: main;
+    max-width: var(--main-max);
+    width: 100%;
+    margin: 0 auto;
+    padding: var(--sp-7) var(--sp-7) var(--sp-5);
+    align-self: stretch;
+  }
+
+  /* Nav becomes inline at the bottom of the column, not pinned */
+  .nav {
+    grid-area: nav;
+    position: static;
+    background: transparent;
+    border-top: none;
+    padding: 0 var(--sp-7) var(--sp-7);
+    max-width: var(--main-max);
+    width: 100%;
+    margin: 0 auto;
+    justify-content: space-between;
+  }
+  .nav .btn { flex: 0 0 auto; min-width: 160px; max-width: none; }
+
+  /* Card — more breathing room, larger type */
+  .card {
+    padding: var(--sp-7);
+    gap: var(--sp-6);
+    border-radius: 28px;
+  }
+  .card__title { font-size: clamp(30px, 3vw, 40px); }
+  .card__subtitle { font-size: var(--fs-md); }
+  .card__english { font-size: 18px; line-height: 1.65; }
+  .card__english p { max-width: 64ch; }
+
+  /* Telugu accordion: bigger pill + better internal type */
+  .accordion__body {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  /* Parent panel: bigger but still subtle */
+  .parent-hint__body { font-size: var(--fs-md); }
+
+  /* Prompt + quiz: scale up gently */
+  .prompt { font-size: var(--fs-xl); }
+  .quiz { padding: var(--sp-5) var(--sp-6); }
+  .quiz__title { font-size: 22px; }
+  .quiz__question { font-size: 17px; }
+  .quiz__choice { font-size: var(--fs-md); min-height: 56px; }
+
+  /* Choice cards (used by Earth Day MCQ): two-column grid on desktop */
+  .choices {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .choices .choice { flex: 1 1 calc(50% - var(--sp-2)); min-width: 220px; }
+
+  /* Reflect textarea: more height for desktop typing */
+  .reflect textarea { min-height: 160px; font-size: var(--fs-md); }
+
+  /* Pairs: keep 2-column but with a bit more spacing */
+  .pairs { gap: var(--sp-3); }
+  .pair-chip { min-height: 64px; font-size: var(--fs-md); }
+
+  /* Drawer footer upload chips fit row */
+  .upload-btn { font-size: var(--fs-sm); }
+
+  /* Tap-reveal sits nicely full-width on desktop */
+  .tap-reveal { font-size: clamp(28px, 3vw, 40px); }
+}
+
+/* Extra-wide screens — frame the canvas */
+@media (min-width: 1500px) {
+  body {
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.02), transparent 80px),
+      var(--c-bg);
+  }
+  .app {
+    border-left: 1px solid var(--c-line);
+    border-right: 1px solid var(--c-line);
+  }
+}
