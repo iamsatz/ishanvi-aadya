@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useStore, selectActiveCard, selectActiveLesson } from '../state/store';
 import { TapRevealCard } from './cards/TapRevealCard';
 import { ChoiceCards } from './cards/ChoiceCards';
@@ -8,6 +8,7 @@ import { MatchPairsCard } from './cards/MatchPairsCard';
 import { QuizBlock } from './cards/QuizBlock';
 import { FeedbackOverlay } from './cards/FeedbackOverlay';
 import { GameCard } from './games/GameCard';
+import { VocabGridCard } from './cards/VocabGridCard';
 import { CharacterBubble } from './CharacterBubble';
 import { ParentPanel } from './ParentPanel';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
@@ -22,6 +23,7 @@ function renderInteraction(card: LearningCard, onComplete: (correct: boolean) =>
     case 'match-pairs':  return <MatchPairsCard  card={card} onComplete={onComplete} />;
     case 'reflect':      return <ReflectCard     card={card} onComplete={onComplete} />;
     case 'checklist':    return <ChecklistCard   card={card} onComplete={onComplete} />;
+    case 'vocab-grid':   return <VocabGridCard   card={card} onComplete={onComplete} />;
     case 'game':         return <GameCard        card={card} onComplete={onComplete} />;
   }
 }
@@ -29,11 +31,23 @@ function renderInteraction(card: LearningCard, onComplete: (correct: boolean) =>
 export function CardViewer() {
   const card = useStore(selectActiveCard);
   const lesson = useStore(selectActiveLesson);
+  const tvMode = useStore((s) => s.tvMode);
   const markCompleted = useStore((s) => s.markCardCompleted);
   const unmarkCompleted = useStore((s) => s.unmarkCardCompleted);
+  const cardRef = useRef<HTMLElement>(null);
 
   const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
   const [resetKey, setResetKey] = useState(0);
+
+  useEffect(() => {
+    if (!tvMode || !card) return;
+    const root = cardRef.current;
+    if (!root) return;
+    const focusable = root.querySelector<HTMLElement>(
+      'button:not([disabled]), a[href], input, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    (focusable ?? root).focus({ preventScroll: true });
+  }, [card?.id, tvMode, resetKey]);
 
   if (!card || !lesson) {
     return <article className="card"><p>No lesson selected.</p></article>;
@@ -54,11 +68,14 @@ export function CardViewer() {
   const isDeck = card.cardStyle === 'deck';
 
   return (
-    <article className="card" key={card.id}>
+    <article className="card" key={card.id} ref={cardRef} tabIndex={tvMode ? -1 : undefined}>
       <header className="card__header">
         <CharacterBubble kid={lesson.kid} />
         <div className="card__header-row">
           <div>
+            {card.sheetTag && (
+              <span className="card__sheet-tag">{card.sheetTag}</span>
+            )}
             <h1 className="card__title">{card.title}</h1>
             {card.subtitle && <span className="card__subtitle">{card.subtitle}</span>}
           </div>
@@ -76,6 +93,11 @@ export function CardViewer() {
 
       <div className="card__body">
         <div className="card__story">
+          {card.imageUrl && (
+            <figure className="card__image">
+              <img src={card.imageUrl} alt="School skill development sheet" />
+            </figure>
+          )}
           <div className={`card__english${card.contentBlocks?.length ? ' card__english--blocks' : ''}`}>
             {card.contentBlocks && card.contentBlocks.length > 0 ? (
               <ContentBlocks

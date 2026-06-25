@@ -10,6 +10,7 @@ const nfCards: LearningCard[] = [
     lessonId: 'number-families',
     title: 'The Secret of Big Numbers',
     subtitle: 'Chapter 1 · Satish at Charminar',
+    sheetTag: 'Foundation',
     englishContent:
       'Satish the guru arrives at Charminar. A billboard flashes:\n\n"Hyderabad — population 1,02,46,000"\n\nIshanvi sighs. "So many digits!"\n\nSatish says gently: "Don\'t read digit by digit. Read FAMILIES."\n\nIn India, digits live in families called periods. Commas show the gaps between families.\n\n🏠 Real life: cricket runs, school fees, movie box office — all use the same family trick.',
     teluguContent:
@@ -30,10 +31,53 @@ const nfCards: LearningCard[] = [
   },
 
   {
+    id: 'nf-vocab',
+    lessonId: 'number-families',
+    title: 'Key Words',
+    subtitle: 'Learn these first — then the games make sense',
+    englishContent:
+      'Satish says: "Before any homework, learn these twelve words. Tap each card to flip. One word at a time is fine!"',
+    teluguContent:
+      'సతీష్: "Homework ముందు ఈ పన్నెండు words నేర్చుకో. Card tap చేసి flip చేయి. ఒక word at a time సరిపోతుంది!"',
+    contentBlocks: [
+      {
+        type: 'system-compare',
+        number: 'Same number, two comma styles:',
+        indian: '12,34,56,789',
+        international: '1,234,567,89',
+      },
+    ],
+    parentSuggestion: {
+      tip: 'Do one word per day if needed. Words 11–12 (Indian vs International) — show one number both ways on paper.',
+      tipTe: 'ఒక word per day సరిపోతుంది. #11–#12 — ఒక number Indian vs International paper మీద చూపించండి.',
+      questions: ['Can she explain "period" in her own words?'],
+      questionsTe: ['"Period" own words లో explain చేయగలరా?'],
+    },
+    promptText: 'Tap each word to reveal its meaning.',
+    interactionType: 'vocab-grid',
+    cardStyle: 'deck',
+    vocab: [
+      { id: 'v1', word: 'Digit', definition: 'One symbol 0–9', definitionTe: 'ఒక symbol 0–9' },
+      { id: 'v2', word: 'Number', definition: 'Digits grouped together to show an amount', definitionTe: 'amount చూపడానికి digits కలిపి' },
+      { id: 'v3', word: 'Place value', definition: 'What a digit is worth because of its seat', definitionTe: 'seat వల్ల digit worth' },
+      { id: 'v4', word: 'Face value', definition: 'What the digit looks like — never changes', definitionTe: 'digit ముఖం — మారదు' },
+      { id: 'v5', word: 'Period', definition: 'A family of digits (Ones, Thousands, Lakhs, Crores)', definitionTe: 'digit కుటుంబం' },
+      { id: 'v6', word: 'Standard form', definition: 'Normal way to write with commas (56,23,407)', definitionTe: 'commas తో normal రాత' },
+      { id: 'v7', word: 'Expanded form', definition: 'Number as added parts (50,00,000 + 6,00,000 + …)', definitionTe: 'parts add చేసిన రూపం' },
+      { id: 'v8', word: 'Number name', definition: 'Number said in words (fifty-six lakh…)', definitionTe: 'words లో చెప్పిన number' },
+      { id: 'v9', word: 'Successor', definition: 'The number just after (+1)', definitionTe: 'తర్వాత number (+1)' },
+      { id: 'v10', word: 'Predecessor', definition: 'The number just before (−1)', definitionTe: 'ముందు number (−1)' },
+      { id: 'v11', word: 'Indian system', definition: 'Groups from right: 3, then 2,2,2… (lakhs, crores)', definitionTe: 'కుడి నుండి 3, తర్వాత 2,2,2…' },
+      { id: 'v12', word: 'International system', definition: 'Groups in threes from the right (millions, billions)', definitionTe: 'కుడి నుండి threes గా groups' },
+    ],
+  },
+
+  {
     id: 'nf-1',
     lessonId: 'number-families',
     title: 'Face Value vs Place Value',
     subtitle: 'The most confusing pair — made simple',
+    sheetTag: 'From Q5',
     englishContent: '',
     contentBlocks: [
       {
@@ -93,6 +137,7 @@ const nfCards: LearningCard[] = [
     lessonId: 'number-families',
     title: 'The Apartment Building',
     subtitle: 'Periods as families · Game: Family Sort',
+    sheetTag: 'From Q3',
     englishContent:
       '🏢 Read a number like floors of a building, top (biggest) to bottom:\n\n🟪 Crores · 🟧 Lakhs · 🟩 Thousands · 🟦 Ones (ground floor = 3 rooms).\n\nNumber 56,23,407 → Lakhs: 56 · Thousands: 23 · Ones: 407.\n\n🏠 Real: a ₹56,23,407 flat — the 56 tells you it is in the "lakhs zone".',
     teluguContent:
@@ -112,6 +157,7 @@ const nfCards: LearningCard[] = [
     lessonId: 'number-families',
     title: 'The Comma Rescue',
     subtitle: 'Game: Comma Drop · price ₹80,12,693',
+    sheetTag: 'From Q2 · Q3b',
     englishContent:
       '🛒 Satish finds a price tag with NO commas: 8012693.\n\n"Rescue mission!" Start from the right: 693 (Ones) → 12 (Thousands) → 80 (Lakhs) → 80,12,693.\n\n⚠️ Your homework Q2 has WRONG commas on the sheet. Trust the method, not bad commas on paper.',
     teluguContent:
@@ -130,6 +176,7 @@ const nfCards: LearningCard[] = [
     lessonId: 'number-families',
     title: 'Read It Like a News Anchor',
     subtitle: 'Game: Anchor Race',
+    sheetTag: 'From Q3 · Case study',
     englishContent:
       '📺 Anchors read period by period: "Fifty-six lakh… twenty-three thousand… four hundred seven."\n\n🌍 Real: budget figures, election vote counts — always read family by family.',
     teluguContent:
@@ -168,6 +215,7 @@ const nfCards: LearningCard[] = [
     lessonId: 'number-families',
     title: 'Build the Number',
     subtitle: 'Game: Number Builder · expanded form',
+    sheetTag: 'From Q1',
     englishContent:
       '💰 Expanded form is like counting notes biggest first:\n\n50,00,000 + 6,00,000 + 20,000 + 3,000 + 400 + 7 = 56,23,407.\n\n🌍 Real: a bill = room + medicine + tests added up.',
     teluguContent:
@@ -191,6 +239,7 @@ const nfCards: LearningCard[] = [
     lessonId: 'number-families',
     title: 'The State Race',
     subtitle: 'Game: Podium · real literacy data',
+    sheetTag: 'From Case study Q3–Q5',
     englishContent:
       '🏁 Four states — who has the most literate people? Compare the LAKHS first.\n\nAndhra Pradesh 24,89,321 · Karnataka 26,78,945 · Tamil Nadu 28,45,612 · Kerala 34,56,789.',
     teluguContent:
@@ -225,6 +274,7 @@ const nfCards: LearningCard[] = [
     lessonId: 'number-families',
     title: 'Find the Neighbours',
     subtitle: 'Game: Successor & Predecessor',
+    sheetTag: 'From Q4.4',
     englishContent:
       '🏘️ Every number has two neighbours:\n\n← Predecessor = just BEFORE (−1)\n→ Successor = just AFTER (+1)\n\nFor 24,89,321: predecessor 24,89,320, successor 24,89,322.',
     teluguContent:
@@ -242,24 +292,20 @@ const nfCards: LearningCard[] = [
   {
     id: 'nf-8',
     lessonId: 'number-families',
-    title: 'Homework Sprint',
-    subtitle: 'Method only · you write answers on paper',
+    title: 'Ready for Your Paper?',
+    subtitle: 'Step 2 is waiting — write answers in your notebook',
     englishContent:
-      '✏️ Open your Silver Oaks sheet and sprint through 5 questions.\n\nThis app taught the METHOD — you write the answers yourself.',
+      'You learned the words and played the games. Now Satish sends you to **Step 2 — Skill Sheet (Paper)**.\n\nOpen your Silver Oaks sheet. Tick each question there as you write — the app will not show answers until you try on paper.',
     teluguContent:
-      '✏️ Silver Oaks sheet తీసుకుని 5 questions sprint.\n\nApp METHOD నేర్పింది — answers paper మీద మీరే రాయాలి.',
+      'Words నేర్చుకుని games play చేశావు. ఇప్పుడు సతీష్ **Step 2 — Skill Sheet** కు పంపుతాడు.\n\nSilver Oaks sheet తీసుకుని paper మీద రాయి — answers ముందు app చూపించదు.',
     parentSuggestion: {
-      tip: 'Q2 commas on the printed sheet are wrong. Quiet word to teacher if needed.',
-      tipTe: 'Q2 sheet commas తప్పు. Teacher కు quietly చెప్పవచ్చు.',
+      tip: 'Use the Learn / Paper pills at the top to jump between teaching and homework anytime.',
+      tipTe: 'Top Learn / Paper pills use చేసి teaching homework మధ్య jump చేయండి.',
     },
-    promptText: 'Tick each as you finish on paper.',
-    interactionType: 'checklist',
-    checklist: [
-      { id: 'hw1', label: 'Q1 — Add expanded → standard + name', example: '30,27,46,092' },
-      { id: 'hw2', label: 'Q2 — Fix commas (ignore sheet)', example: '7451293 → 74,51,293' },
-      { id: 'hw3', label: 'Q3 — Periods + expanded + name', example: '5623407 → 56,23,407' },
-      { id: 'hw4', label: 'Q4 — Order states + successor', example: 'Kerala wins at 34 lakhs' },
-    ],
+    promptText: 'Tap when you are ready to go to Step 2.',
+    interactionType: 'tap-reveal',
+    cardStyle: 'deck',
+    revealAnswer: 'Go to Step 2 — Skill Sheet (Paper) in the menu, or tap the Paper pill at the top. ✏️',
   },
 
   {
@@ -313,7 +359,7 @@ const nfCards: LearningCard[] = [
 
 export const numberFamilies: Lesson = {
   id: 'number-families',
-  title: 'Number Families',
+  title: 'Step 1 — Learn Number Families',
   subtitle: 'Indian Number System · play & learn',
   kid: 'ishanvi',
   subject: 'maths',

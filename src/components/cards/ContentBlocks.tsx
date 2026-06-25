@@ -1,4 +1,5 @@
 import { renderWithGlossary } from '../../lib/renderWithGlossary';
+import { CaseStudyTable } from './CaseStudyTable';
 import type { ContentBlock, GlossaryEntry } from '../../types/content';
 
 interface Props {
@@ -30,6 +31,28 @@ export function ContentBlocks({ blocks, glossary, cardId }: Props) {
         if (block.type === 'face-place-table') {
           return (
             <FacePlaceTable key={`${cardId}-table-${i}`} block={block} />
+          );
+        }
+
+        if (block.type === 'case-study-table') {
+          return <CaseStudyTable key={`${cardId}-cs-${i}`} block={block} />;
+        }
+
+        if (block.type === 'system-compare') {
+          return (
+            <div className="system-compare" key={`${cardId}-sys-${i}`}>
+              <p className="system-compare__number">{block.number}</p>
+              <div className="system-compare__cols">
+                <div className="system-compare__col">
+                  <span className="system-compare__label">🇮🇳 Indian</span>
+                  <span className="system-compare__value">{block.indian}</span>
+                </div>
+                <div className="system-compare__col">
+                  <span className="system-compare__label">🌍 International</span>
+                  <span className="system-compare__value">{block.international}</span>
+                </div>
+              </div>
+            </div>
           );
         }
 

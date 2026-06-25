@@ -18,6 +18,7 @@
 
 import type { LearningCard, Lesson } from '../types/content';
 import { numberFamilies } from './numberFamilies';
+import { skillSheet } from './skillSheet';
 import { aadyaLessons } from './aadyaPlaceholders';
 
 /* ============================================================
@@ -2802,5 +2803,6 @@ export const fixtureLessons: Lesson[] = [
   summerProject,
   earthDay,
   numberFamilies,
+  skillSheet,
   ...aadyaLessons,
 ];

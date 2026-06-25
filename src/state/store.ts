@@ -11,10 +11,13 @@ interface AppState {
   /** Map<lessonId, cardId[]> of completed cards. */
   completed: Record<string, string[]>;
   drawerOpen: boolean;
+  navDropdownOpen: boolean;
+  tvMode: boolean;
 
   setActiveKid: (kid: KidId) => void;
   setActiveLesson: (lessonId: string) => void;
   setActiveIndex: (index: number) => void;
+  jumpToCard: (lessonId: string, cardId: string) => void;
   next: () => void;
   back: () => void;
   markCardCompleted: (lessonId: string, cardId: string) => void;
@@ -23,6 +26,9 @@ interface AppState {
   resetProgress: () => void;
   openDrawer: () => void;
   closeDrawer: () => void;
+  setNavDropdownOpen: (open: boolean) => void;
+  setTvMode: (on: boolean) => void;
+  toggleTvMode: () => void;
 }
 
 const firstLessonId = fixtureLessons[0]?.id ?? '';
@@ -39,13 +45,20 @@ function firstLessonForKid(kid: KidId): Lesson | undefined {
   return fixtureLessons.find((l) => l.kid === kid);
 }
 
+function cardIndex(lesson: Lesson | undefined, cardId: string): number {
+  if (!lesson) return 0;
+  const idx = lesson.cards.findIndex((c) => c.id === cardId);
+  return idx >= 0 ? idx : 0;
+}
+
 /** Repair persisted nav state so a bad localStorage value cannot blank the app. */
 function sanitizeNavState(partial: {
   activeKid?: unknown;
   activeLessonId?: unknown;
   activeIndex?: unknown;
   completed?: unknown;
-}): Pick<AppState, 'activeKid' | 'activeLessonId' | 'activeIndex' | 'completed'> {
+  tvMode?: unknown;
+}): Pick<AppState, 'activeKid' | 'activeLessonId' | 'activeIndex' | 'completed' | 'tvMode'> {
   const activeKid = isKidId(partial.activeKid) ? partial.activeKid : 'ishanvi';
 
   let activeLessonId =
@@ -64,7 +77,9 @@ function sanitizeNavState(partial: {
       ? (partial.completed as Record<string, string[]>)
       : {};
 
-  return { activeKid, activeLessonId, activeIndex, completed };
+  const tvMode = partial.tvMode === true;
+
+  return { activeKid, activeLessonId, activeIndex, completed, tvMode };
 }
 
 export const useStore = create<AppState>()(
@@ -76,6 +91,8 @@ export const useStore = create<AppState>()(
       activeIndex: 0,
       completed: {},
       drawerOpen: false,
+      navDropdownOpen: false,
+      tvMode: false,
 
       setActiveKid: (kid) => {
         const first = firstLessonForKid(kid);
@@ -97,6 +114,17 @@ export const useStore = create<AppState>()(
       },
 
       setActiveIndex: (index) => set({ activeIndex: index }),
+
+      jumpToCard: (lessonId, cardId) => {
+        const lesson = lessonById(lessonId) ?? get().lessons.find((l) => l.id === lessonId);
+        if (!lesson) return;
+        set({
+          activeLessonId: lessonId,
+          activeKid: lesson.kid,
+          activeIndex: cardIndex(lesson, cardId),
+          drawerOpen: false,
+        });
+      },
 
       next: () => {
         const { lessons, activeLessonId, activeIndex } = get();
@@ -131,16 +159,22 @@ export const useStore = create<AppState>()(
 
       openDrawer: () => set({ drawerOpen: true }),
       closeDrawer: () => set({ drawerOpen: false }),
+
+      setNavDropdownOpen: (open) => set({ navDropdownOpen: open }),
+
+      setTvMode: (on) => set({ tvMode: on }),
+      toggleTvMode: () => set({ tvMode: !get().tvMode }),
     }),
     {
       name: 'ishanvi-aadya-progress',
-      version: 3,
+      version: 4,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({
         activeKid: s.activeKid,
         activeLessonId: s.activeLessonId,
         activeIndex: s.activeIndex,
         completed: s.completed,
+        tvMode: s.tvMode,
       }),
       merge: (persisted, current) => ({
         ...current,
@@ -151,6 +185,9 @@ export const useStore = create<AppState>()(
         const state = (persisted ?? {}) as Record<string, unknown>;
         if (version < 3 && !state.activeKid) {
           return { ...state, activeKid: 'ishanvi' };
+        }
+        if (version < 4 && state.tvMode === undefined) {
+          return { ...state, tvMode: false };
         }
         return state;
       },

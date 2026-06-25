@@ -1,0 +1,93 @@
+/* ============================================================
+   TV MODE — 10-foot sizing, overscan, stronger focus rings
+   Scoped to .app[data-tv="true"] only
+   ============================================================ */
+
+.app[data-tv="true"] {
+  --fs-xs: 1.125rem;
+  --fs-sm: 1.25rem;
+  --fs-base: 1.5rem;
+  --fs-md: 1.75rem;
+  --fs-lg: 2.125rem;
+  --fs-xl: 2.75rem;
+  --fs-2xl: 3.25rem;
+}
+
+.app[data-tv="true"] .main {
+  max-width: none;
+  padding: 5vh 5vw 8vh;
+}
+
+.app[data-tv="true"] .card {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.app[data-tv="true"] .btn,
+.app[data-tv="true"] .choice,
+.app[data-tv="true"] .check-item,
+.app[data-tv="true"] .topbar__arrow,
+.app[data-tv="true"] .nav-dd__trigger,
+.app[data-tv="true"] .topbar__pill {
+  min-height: 3.25rem;
+  font-size: var(--fs-base);
+}
+
+.app[data-tv="true"] .vocab-grid__card {
+  min-height: 7rem;
+}
+
+.app[data-tv="true"] :focus {
+  outline: 5px solid var(--accent, #f59e0b);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.35);
+}
+
+.app[data-tv="true"] :focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.app[data-tv="true"] :focus-visible {
+  outline: 5px solid var(--accent, #f59e0b);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.35);
+}
+
+.app[data-tv="true"] .topbar {
+  padding: 1rem 5vw;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.app[data-tv="true"] .topbar__meta {
+  font-size: var(--fs-base);
+}
+
+.app[data-tv="true"] .nav-dd__panel {
+  font-size: var(--fs-base);
+  min-width: 22rem;
+}
+
+.app[data-tv="true"] .prompt {
+  font-size: var(--fs-md);
+}
+
+.app[data-tv="true"] .card__title {
+  font-size: var(--fs-xl);
+}
+
+.app[data-tv="true"] .deck-flip {
+  min-height: 12rem;
+}
+
+.app[data-tv="true"] .deck-flip__face {
+  font-size: var(--fs-md);
+}
+
+/* Reduce hover-only reliance */
+.app[data-tv="true"] .word-tip:hover .word-tip__popup,
+.app[data-tv="true"] .word-tip:focus-within .word-tip__popup {
+  opacity: 1;
+  visibility: visible;
+}

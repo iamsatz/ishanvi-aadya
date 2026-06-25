@@ -7,11 +7,12 @@ interface Props {
   nav: ReactNode;
   children: ReactNode;
   activeKid?: KidId;
+  tvMode?: boolean;
 }
 
-export function AppShell({ topbar, progress, nav, children, activeKid = 'ishanvi' }: Props) {
+export function AppShell({ topbar, progress, nav, children, activeKid = 'ishanvi', tvMode = false }: Props) {
   return (
-    <div className="app" data-kid={activeKid}>
+    <div className="app" data-kid={activeKid} data-tv={tvMode ? 'true' : undefined}>
       {topbar}
       {progress}
       <main className="main" id="main">{children}</main>

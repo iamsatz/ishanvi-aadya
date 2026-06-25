@@ -307,6 +307,41 @@ input, textarea {
   cursor: not-allowed;
 }
 
+.topbar__pills {
+  display: flex;
+  gap: var(--sp-1);
+  flex-shrink: 0;
+}
+
+.topbar__pill {
+  padding: 0 var(--sp-3);
+  min-height: 36px;
+  border-radius: var(--r-pill);
+  background: var(--c-surface);
+  border: 1.5px solid var(--c-line);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--c-ink);
+  transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+
+.topbar__pill:hover {
+  background: var(--c-surface-3);
+  border-color: var(--c-ink-soft);
+}
+
+.topbar__pill--paper {
+  background: #FBF5E7;
+  border-color: #C9A86A;
+  color: #7A5C20;
+}
+
+.topbar__pill--tv.topbar__pill--on {
+  background: #1e293b;
+  border-color: #f59e0b;
+  color: #fbbf24;
+}
+
 .progress-slim {
   flex-shrink: 0;
   height: 4px;
@@ -623,6 +658,32 @@ input, textarea {
   font-size: var(--fs-xs);
   color: var(--c-ink-muted);
   font-style: italic;
+}
+
+.card__sheet-tag {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: #7A5C20;
+  background: #FBF5E7;
+  border: 1px solid #C9A86A;
+  border-radius: var(--r-pill);
+  padding: 2px var(--sp-2);
+  margin-bottom: var(--sp-1);
+}
+
+.card__image {
+  margin: 0 0 var(--sp-3);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--c-line);
+}
+.card__image img {
+  display: block;
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  background: #fff;
 }
 
 .card__english {
@@ -1347,9 +1408,11 @@ input, textarea {
   margin-top: 2px;
 }
 
-/* Checklist items — back to simple single-line */
+/* Checklist items */
 .check-item {
-  display: flex; align-items: center; gap: var(--sp-3);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
   padding: var(--sp-3) var(--sp-4);
   background: var(--c-surface);
   border-radius: var(--r-md);
@@ -1391,6 +1454,217 @@ input, textarea {
   font-size: var(--fs-sm);
   color: var(--c-ink-muted);
   padding-top: var(--sp-2);
+}
+
+.check-item-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.check-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.check-item__what,
+.check-item__example {
+  font-size: var(--fs-xs);
+  color: var(--c-ink-soft);
+  line-height: 1.4;
+}
+
+.check-item__example {
+  font-style: italic;
+}
+
+.check-item__learn {
+  align-self: flex-start;
+  margin-left: calc(26px + var(--sp-3));
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+  border: 1.5px solid var(--c-line);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--c-primary);
+}
+
+.check-item__learn:hover {
+  background: color-mix(in srgb, var(--c-primary) 8%, var(--c-surface));
+  border-color: var(--c-primary);
+}
+
+/* ---------- Vocab grid ---------- */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-2);
+}
+
+@media (max-width: 520px) {
+  .vocab-grid { grid-template-columns: 1fr; }
+}
+
+.vocab-grid__card {
+  perspective: 800px;
+  min-height: 5.5rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.vocab-grid__inner {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 5.5rem;
+  transform-style: preserve-3d;
+  transition: transform 0.35s var(--ease);
+}
+
+.vocab-grid__card--open .vocab-grid__inner {
+  transform: rotateY(180deg);
+}
+
+.vocab-grid__front,
+.vocab-grid__back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--r-md);
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 2px solid var(--c-line);
+}
+
+.vocab-grid__front {
+  background: linear-gradient(145deg, #fff7ed, #ffedd5);
+}
+
+.vocab-grid__back {
+  background: #fff;
+  transform: rotateY(180deg);
+  gap: var(--sp-1);
+}
+
+.vocab-grid__word {
+  font-weight: 800;
+  font-size: var(--fs-sm);
+  color: var(--c-ink);
+}
+
+.vocab-grid__hint {
+  font-size: var(--fs-xs);
+  color: var(--c-ink-muted);
+  margin-top: 4px;
+}
+
+.vocab-grid__def {
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  color: var(--c-ink);
+}
+
+.vocab-grid__def-te {
+  font-size: var(--fs-xs);
+  color: var(--c-ink-muted);
+}
+
+.vocab-grid__progress {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-ink-muted);
+  margin: 0;
+}
+
+/* ---------- System compare / case study ---------- */
+.system-compare {
+  margin: var(--sp-3) 0;
+  padding: var(--sp-3);
+  background: var(--c-surface);
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-line);
+}
+
+.system-compare__number {
+  font-weight: 700;
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-sm);
+}
+
+.system-compare__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+}
+
+.system-compare__col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--sp-2);
+  background: var(--c-bg);
+  border-radius: var(--r-sm);
+}
+
+.system-compare__label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+
+.system-compare__value {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.case-study-table {
+  margin: var(--sp-3) 0;
+}
+
+.case-study-table__caption {
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  margin-bottom: var(--sp-2);
+}
+
+.case-study-table__wrap {
+  overflow-x: auto;
+}
+
+.case-study-table__grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.case-study-table__grid th,
+.case-study-table__grid td {
+  border: 1px solid var(--c-line);
+  padding: var(--sp-2) var(--sp-3);
+  text-align: left;
+}
+
+.case-study-table__grid th {
+  background: var(--c-surface-2);
+  font-weight: 700;
+}
+
+.case-study-table__grid td:last-child {
+  font-family: var(--font-mono, monospace);
+  font-weight: 600;
 }
 
 /* ---------- Feedback overlay ---------- */

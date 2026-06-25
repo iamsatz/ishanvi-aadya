@@ -29,12 +29,16 @@ export function NavDropdown() {
   const [open, setOpen] = useState(false);
   const [browseKid, setBrowseKid] = useState<KidId>('ishanvi');
   const panelRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   const lessons = useStore((s) => s.lessons);
   const activeLessonId = useStore((s) => s.activeLessonId);
   const activeKid = useStore((s) => s.activeKid);
+  const tvMode = useStore((s) => s.tvMode);
   const setActiveLesson = useStore((s) => s.setActiveLesson);
   const setActiveKid = useStore((s) => s.setActiveKid);
+  const setNavDropdownOpen = useStore((s) => s.setNavDropdownOpen);
+  const navDropdownOpen = useStore((s) => s.navDropdownOpen);
 
   const activeLesson = lessons.find((l) => l.id === activeLessonId);
   const kid = kidById[activeKid] ?? kidById.ishanvi;
@@ -43,6 +47,27 @@ export function NavDropdown() {
   useEffect(() => {
     if (!open) setBrowseKid(activeKid);
   }, [open, activeKid]);
+
+  useEffect(() => {
+    setNavDropdownOpen(open);
+  }, [open, setNavDropdownOpen]);
+
+  useEffect(() => {
+    if (!navDropdownOpen && open) setOpen(false);
+  }, [navDropdownOpen, open]);
+
+  useEffect(() => {
+    if (!open || !tvMode) return;
+    const first = panelRef.current?.querySelector<HTMLElement>(
+      'button:not([disabled]), a[href]'
+    );
+    first?.focus({ preventScroll: true });
+  }, [open, tvMode, browseKid]);
+
+  useEffect(() => {
+    if (open) return;
+    if (tvMode) triggerRef.current?.focus({ preventScroll: true });
+  }, [open, tvMode]);
 
   useEffect(() => {
     if (!open) return;
@@ -69,6 +94,7 @@ export function NavDropdown() {
     <div className="nav-dd" ref={panelRef}>
       <button
         type="button"
+        ref={triggerRef}
         className="nav-dd__trigger"
         aria-expanded={open}
         aria-haspopup="true"

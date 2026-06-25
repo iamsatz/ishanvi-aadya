@@ -32,6 +32,7 @@ export type InteractionType =
   | 'match-pairs'   // match left items to right items
   | 'reflect'       // free-text response, no right answer
   | 'checklist'     // tick items as you do them (great for projects)
+  | 'vocab-grid'    // grid of tap-to-flip vocabulary cards
   | 'game';         // an interactive mini-game (see GameConfig)
 
 /* ============================================================
@@ -124,6 +125,16 @@ export interface ChecklistItem {
   example?: string;
   /** A "try this" challenge that stretches the task further. */
   challenge?: string;
+  /** Jump to a teaching card in another lesson. */
+  learnLink?: { lessonId: string; cardId: string; label?: string };
+}
+
+/** One flip-card entry in a vocab-grid interaction. */
+export interface VocabItem {
+  id: string;
+  word: string;
+  definition: string;
+  definitionTe?: string;
 }
 
 /** A vocabulary tooltip: highlight `word` in englishContent on hover. */
@@ -172,9 +183,27 @@ export interface FacePlaceTableBlock {
   highlightIndex?: number;
 }
 
+/** Literacy case-study table (states + numbers). */
+export interface CaseStudyTableBlock {
+  type: 'case-study-table';
+  caption?: string;
+  headers: string[];
+  rows: string[][];
+}
+
+/** Side-by-side Indian vs International comma grouping. */
+export interface SystemCompareBlock {
+  type: 'system-compare';
+  number: string;
+  indian: string;
+  international: string;
+}
+
 export type ContentBlock =
   | ({ type: 'topic' } & TopicBlock)
-  | FacePlaceTableBlock;
+  | FacePlaceTableBlock
+  | CaseStudyTableBlock
+  | SystemCompareBlock;
 
 export interface LearningCard {
   id: string;
@@ -184,6 +213,10 @@ export interface LearningCard {
   title: string;
   /** Optional small subtitle (author, "Book 1", etc). */
   subtitle?: string;
+  /** Small badge linking this card to a homework question (e.g. "From Q3a"). */
+  sheetTag?: string;
+  /** Optional hero image (e.g. scanned homework sheet). */
+  imageUrl?: string;
 
   /** Main English content — paragraphs separated by \n\n, line breaks by \n. */
   englishContent: string;
@@ -212,6 +245,7 @@ export interface LearningCard {
   choices?: Choice[];
   pairs?: Pair[];
   checklist?: ChecklistItem[];
+  vocab?: VocabItem[];
   revealAnswer?: string;
   /** Used when interactionType === 'game'. */
   game?: GameConfig;

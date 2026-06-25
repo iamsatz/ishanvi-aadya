@@ -3,21 +3,42 @@ import { useEffect } from 'react';
 interface Options {
   onNext: () => void;
   onBack: () => void;
+  onRemoteBack?: () => void;
+  tvMode?: boolean;
   enabled?: boolean;
 }
 
-/** Wires ← / → arrow keys to back/next handlers. Ignores when typing in inputs. */
-export function useKeyboardNav({ onNext, onBack, enabled = true }: Options) {
+function isRemoteBack(key: string): boolean {
+  return key === 'Escape' || key === 'Backspace' || key === 'BrowserBack';
+}
+
+/** Wires keyboard nav: arrows for back/next (desktop) or spatial nav (TV). */
+export function useKeyboardNav({
+  onNext,
+  onBack,
+  onRemoteBack,
+  tvMode = false,
+  enabled = true,
+}: Options) {
   useEffect(() => {
     if (!enabled) return;
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       const tag = target?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || target?.isContentEditable) return;
+
+      if (tvMode) {
+        if (isRemoteBack(e.key)) {
+          e.preventDefault();
+          (onRemoteBack ?? onBack)();
+        }
+        return;
+      }
+
       if (e.key === 'ArrowRight') { e.preventDefault(); onNext(); }
       if (e.key === 'ArrowLeft')  { e.preventDefault(); onBack(); }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [onNext, onBack, enabled]);
+  }, [onNext, onBack, onRemoteBack, tvMode, enabled]);
 }

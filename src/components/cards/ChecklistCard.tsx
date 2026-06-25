@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import type { LearningCard } from '../../types/content';
 import { useCardStorage } from '../../hooks/useCardStorage';
+import { useStore } from '../../state/store';
 
 interface Props {
   card: LearningCard;
@@ -10,6 +11,7 @@ interface Props {
 export function ChecklistCard({ card, onComplete }: Props) {
   const items = card.checklist ?? [];
   const [checked, setChecked] = useCardStorage<string[]>(card.id, 'checklist', []);
+  const jumpToCard = useStore((s) => s.jumpToCard);
   const allDone = items.length > 0 && checked.length === items.length;
 
   // First tick counts the card as "done" so progress moves.
@@ -59,16 +61,33 @@ export function ChecklistCard({ card, onComplete }: Props) {
       {items.map((it) => {
         const isChecked = checked.includes(it.id);
         return (
-          <button
-            key={it.id}
-            className="check-item"
-            data-checked={isChecked}
-            onClick={() => toggle(it.id)}
-            aria-pressed={isChecked}
-          >
-            <span className="check-box" aria-hidden>{isChecked ? '✓' : ''}</span>
-            <span className="check-item__label">{it.label}</span>
-          </button>
+          <div key={it.id} className="check-item-wrap">
+            <button
+              type="button"
+              className="check-item"
+              data-checked={isChecked}
+              onClick={() => toggle(it.id)}
+              aria-pressed={isChecked}
+            >
+              <span className="check-box" aria-hidden>{isChecked ? '✓' : ''}</span>
+              <span className="check-item__body">
+                <span className="check-item__label">{it.label}</span>
+                {it.what && <span className="check-item__what">{it.what}</span>}
+                {it.example && (
+                  <span className="check-item__example">Example: {it.example}</span>
+                )}
+              </span>
+            </button>
+            {it.learnLink && (
+              <button
+                type="button"
+                className="check-item__learn"
+                onClick={() => jumpToCard(it.learnLink!.lessonId, it.learnLink!.cardId)}
+              >
+                {it.learnLink.label ?? 'Learn it here →'}
+              </button>
+            )}
+          </div>
         );
       })}
 
