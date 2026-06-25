@@ -23,6 +23,7 @@ interface AppState {
   next: () => void;
   back: () => void;
   markCardCompleted: (lessonId: string, cardId: string) => void;
+  unmarkCardCompleted: (lessonId: string, cardId: string) => void;
   addLesson: (lesson: Lesson) => void;
   resetProgress: () => void;
   openDrawer: () => void;
@@ -80,6 +81,17 @@ export const useStore = create<AppState>()(
         const prev = get().completed[lessonId] ?? [];
         if (prev.includes(cardId)) return;
         set({ completed: { ...get().completed, [lessonId]: [...prev, cardId] } });
+      },
+
+      unmarkCardCompleted: (lessonId, cardId) => {
+        const prev = get().completed[lessonId] ?? [];
+        if (!prev.includes(cardId)) return;
+        set({
+          completed: {
+            ...get().completed,
+            [lessonId]: prev.filter((id) => id !== cardId),
+          },
+        });
       },
 
       addLesson: (lesson) => set({ lessons: [...get().lessons, lesson] }),

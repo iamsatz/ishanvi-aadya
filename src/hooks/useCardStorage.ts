@@ -16,6 +16,20 @@ export function useCardStorage<T>(cardId: string, suffix: string, initial: T) {
     try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* ignore */ }
   }, [key, value]);
 
-  const reset = useCallback(() => setValue(initial), [initial]);
+  const reset = useCallback(() => {
+    setValue(initial);
+    try { localStorage.removeItem(key); } catch { /* ignore */ }
+  }, [initial, key]);
   return [value, setValue, reset] as const;
+}
+
+/** Remove all persisted per-card keys (reflect, checklist, etc.). */
+export function clearCardStorage(cardId: string) {
+  const prefix = `card:${cardId}:`;
+  try {
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const k = localStorage.key(i);
+      if (k?.startsWith(prefix)) localStorage.removeItem(k);
+    }
+  } catch { /* ignore */ }
 }

@@ -542,6 +542,32 @@ input, textarea {
 }
 
 .card__header { display: flex; flex-direction: column; gap: var(--sp-1); }
+.card__header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.card__header-row > div { flex: 1; min-width: 0; }
+.card__reset {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+  border: 1.5px solid var(--c-line);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--c-ink-soft);
+  white-space: nowrap;
+  transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.card__reset:hover {
+  background: var(--c-surface-3);
+  border-color: color-mix(in srgb, var(--c-primary) 35%, transparent);
+  color: var(--c-primary);
+}
+.card__reset:active { transform: scale(0.96); }
 .card__title {
   font-family: var(--font-display);
   font-size: var(--fs-xl);

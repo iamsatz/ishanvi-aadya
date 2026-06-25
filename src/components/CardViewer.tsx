@@ -9,6 +9,7 @@ import { QuizBlock } from './cards/QuizBlock';
 import { FeedbackOverlay } from './cards/FeedbackOverlay';
 import { GameCard } from './games/GameCard';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
+import { clearCardStorage } from '../hooks/useCardStorage';
 import type { LearningCard } from '../types/content';
 
 function renderInteraction(card: LearningCard, onComplete: (correct: boolean) => void) {
@@ -26,8 +27,10 @@ export function CardViewer() {
   const card = useStore(selectActiveCard);
   const lesson = useStore(selectActiveLesson);
   const markCompleted = useStore((s) => s.markCardCompleted);
+  const unmarkCompleted = useStore((s) => s.unmarkCardCompleted);
 
   const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
+  const [resetKey, setResetKey] = useState(0);
 
   if (!card || !lesson) {
     return <article className="card"><p>No lesson selected.</p></article>;
@@ -38,6 +41,13 @@ export function CardViewer() {
     if (correct && card) markCompleted(lesson!.id, card.id);
   }
 
+  function handleReset() {
+    clearCardStorage(card!.id);
+    unmarkCompleted(lesson!.id, card!.id);
+    setFeedback(null);
+    setResetKey((k) => k + 1);
+  }
+
   const hasParentTip =
     card.parentSuggestion?.tip ||
     (card.parentSuggestion?.questions?.length ?? 0) > 0 ||
@@ -46,15 +56,27 @@ export function CardViewer() {
   return (
     <article className="card" key={card.id}>
       <header className="card__header">
-        <h1 className="card__title">{card.title}</h1>
-        {card.subtitle && <span className="card__subtitle">{card.subtitle}</span>}
+        <div className="card__header-row">
+          <div>
+            <h1 className="card__title">{card.title}</h1>
+            {card.subtitle && <span className="card__subtitle">{card.subtitle}</span>}
+          </div>
+          <button
+            type="button"
+            className="card__reset"
+            onClick={handleReset}
+            aria-label="Reset this page and try again"
+            title="Reset and try again"
+          >
+            ↺ Try again
+          </button>
+        </div>
       </header>
 
       <div className="card__english">
         {renderWithGlossary(card.englishContent, card.glossary, `en-${card.id}`)}
       </div>
 
-      {/* Telugu accordion — only on lessons that have Telugu, collapsed by default */}
       {lesson.hasTelugu && card.teluguContent && (
         <details className="accordion">
           <summary>
@@ -73,7 +95,6 @@ export function CardViewer() {
         </details>
       )}
 
-      {/* Parent suggestion — collapsed by default */}
       {hasParentTip && (
         <details className="parent-hint">
           <summary>
@@ -101,17 +122,18 @@ export function CardViewer() {
         </details>
       )}
 
-      {/* Quick Check — knowledge-test MCQs, rendered before the main prompt */}
-      {card.quiz && card.quiz.length > 0 && (
-        <QuizBlock
-          questions={card.quiz}
-          onAnswer={(correct) => setFeedback(correct ? 'correct' : 'incorrect')}
-        />
-      )}
+      <div key={resetKey}>
+        {card.quiz && card.quiz.length > 0 && (
+          <QuizBlock
+            questions={card.quiz}
+            onAnswer={(correct) => setFeedback(correct ? 'correct' : 'incorrect')}
+          />
+        )}
 
-      <p className="prompt">{card.promptText}</p>
+        <p className="prompt">{card.promptText}</p>
 
-      {renderInteraction(card, handleComplete)}
+        {renderInteraction(card, handleComplete)}
+      </div>
 
       <FeedbackOverlay
         kind={feedback}
