@@ -7,7 +7,7 @@
 export type KidId = 'ishanvi' | 'aadya';
 
 /** Visual avatar for a kid's guide character. */
-export type AvatarId = 'arjuna-guru' | 'emoji';
+export type AvatarId = 'satish-guru' | 'emoji';
 
 /** Subject id within a kid's curriculum (e.g. maths, stories). */
 export interface SubjectDef {

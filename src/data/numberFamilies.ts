@@ -9,11 +9,11 @@ const nfCards: LearningCard[] = [
     id: 'nf-0',
     lessonId: 'number-families',
     title: 'The Secret of Big Numbers',
-    subtitle: 'Chapter 1 · Arjuna at Charminar',
+    subtitle: 'Chapter 1 · Satish at Charminar',
     englishContent:
-      'Arjuna the guru arrives at Charminar. A billboard flashes:\n\n"Hyderabad — population 1,02,46,000"\n\nIshanvi sighs. "So many digits!"\n\nArjuna says gently: "Don\'t read digit by digit. Read FAMILIES."\n\nIn India, digits live in families called periods. Commas show the gaps between families.\n\n🏠 Real life: cricket runs, school fees, movie box office — all use the same family trick.',
+      'Satish the guru arrives at Charminar. A billboard flashes:\n\n"Hyderabad — population 1,02,46,000"\n\nIshanvi sighs. "So many digits!"\n\nSatish says gently: "Don\'t read digit by digit. Read FAMILIES."\n\nIn India, digits live in families called periods. Commas show the gaps between families.\n\n🏠 Real life: cricket runs, school fees, movie box office — all use the same family trick.',
     teluguContent:
-      'అర్జున గురువు చార్మినార్ వద్దకు వచ్చాడు. Billboard flash అవుతోంది:\n\n"హైదరాబాద్ — జనాభా 1,02,46,000"\n\nఇషాన్వి: "ఎన్ని digits!"\n\nఅర్జున మృదువుగా: "Digit by digit చదవకు. FAMILIES గా చదవు."\n\nభారతదేశంలో digits periods అనే కుటుంబాల్లో ఉంటాయి. Commas కుటుంబాల మధ్య gaps చూపిస్తాయి.\n\n🏠 నిజ జీవితం: cricket runs, school fees — అందరూ ఇదే trick.',
+      'సతీష్ గురువు చార్మినార్ వద్దకు వచ్చాడు. Billboard flash అవుతోంది:\n\n"హైదరాబాద్ — జనాభా 1,02,46,000"\n\nఇషాన్వి: "ఎన్ని digits!"\n\nసతీష్ మృదువుగా: "Digit by digit చదవకు. FAMILIES గా చదవు."\n\nభారతదేశంలో digits periods అనే కుటుంబాల్లో ఉంటాయి. Commas కుటుంబాల మధ్య gaps చూపిస్తాయి.\n\n🏠 నిజ జీవితం: cricket runs, school fees — అందరూ ఇదే trick.',
     glossary: [
       { word: 'periods', en: 'Families of digits in a big number', te: 'అంక కుటుంబాలు' },
     ],
@@ -23,7 +23,7 @@ const nfCards: LearningCard[] = [
       questions: ['Can you find a comma in today\'s newspaper?'],
       questionsTe: ['ఈరోజు paper లో comma ఉన్న number కనిపిస్తుందా?'],
     },
-    promptText: 'Tap for the one rule Arjuna teaches.',
+    promptText: 'Tap for the one rule Satish teaches.',
     interactionType: 'tap-reveal',
     cardStyle: 'deck',
     revealAnswer: 'From the RIGHT: group 3 digits (Ones), then 2-2-2… (Thousands, Lakhs, Crores). Commas sit BETWEEN families — never inside one.',
@@ -113,7 +113,7 @@ const nfCards: LearningCard[] = [
     title: 'The Comma Rescue',
     subtitle: 'Game: Comma Drop · price ₹80,12,693',
     englishContent:
-      '🛒 Arjuna finds a price tag with NO commas: 8012693.\n\n"Rescue mission!" Start from the right: 693 (Ones) → 12 (Thousands) → 80 (Lakhs) → 80,12,693.\n\n⚠️ Your homework Q2 has WRONG commas on the sheet. Trust the method, not bad commas on paper.',
+      '🛒 Satish finds a price tag with NO commas: 8012693.\n\n"Rescue mission!" Start from the right: 693 (Ones) → 12 (Thousands) → 80 (Lakhs) → 80,12,693.\n\n⚠️ Your homework Q2 has WRONG commas on the sheet. Trust the method, not bad commas on paper.',
     teluguContent:
       '🛒 Commas లేని price: 8012693.\n\n"Rescue!" కుడి నుండి: 693 (Ones) → 12 (Thousands) → 80 (Lakhs) → 80,12,693.\n\n⚠️ Homework Q2 sheet మీద commas wrong. Method నమ్ము, paper commas కాదు.',
     parentSuggestion: {
@@ -267,8 +267,8 @@ const nfCards: LearningCard[] = [
     lessonId: 'number-families',
     title: 'Victory Quiz',
     subtitle: '60 seconds · flip-card quiz',
-    englishContent: 'Arjuna: "Four quick ones. Then close the app and do your sheet!"',
-    teluguContent: 'అర్జున: "నాలుగు quick questions. App close చేసి sheet చేయి!"',
+    englishContent: 'Satish: "Four quick ones. Then close the app and do your sheet!"',
+    teluguContent: 'సతీష్: "నాలుగు quick questions. App close చేసి sheet చేయి!"',
     quiz: [
       {
         id: 'nf-9-q1',

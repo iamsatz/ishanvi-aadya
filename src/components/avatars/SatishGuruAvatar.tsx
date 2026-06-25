@@ -6,7 +6,7 @@ interface Props {
 }
 
 /** Kid-friendly Vyasa-style guru portrait — spectacles, beard, tilak, saffron. */
-export function ArjunaGuruAvatar({ size = 64, className = '', compact = false }: Props) {
+export function SatishGuruAvatar({ size = 64, className = '', compact = false }: Props) {
   const s = compact ? 24 : size;
   return (
     <svg
@@ -17,7 +17,7 @@ export function ArjunaGuruAvatar({ size = 64, className = '', compact = false }:
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       role="img"
-      aria-label="Arjuna, wise guru guide"
+      aria-label="Satish, wise guru guide"
     >
       {/* Saffron shawl / background halo */}
       <circle cx="32" cy="34" r="30" fill="#FFF4E6" />

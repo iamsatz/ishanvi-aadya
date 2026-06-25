@@ -6,7 +6,7 @@ export const kids: Kid[] = [
     name: 'Ishanvi',
     grade: 'Grade 4',
     board: 'IB',
-    mascot: { name: 'Arjuna', avatar: 'arjuna-guru', role: 'Wise guru guide' },
+    mascot: { name: 'Satish', avatar: 'satish-guru', role: 'Wise guru guide' },
     subjects: [
       { id: 'stories',  label: 'Stories',  icon: '📚' },
       { id: 'projects', label: 'Projects', icon: '📝' },

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { AvatarId } from '../types/content';
-import { ArjunaGuruAvatar } from './avatars/ArjunaGuruAvatar';
+import { SatishGuruAvatar } from './avatars/SatishGuruAvatar';
 
 interface Props {
   avatar: AvatarId;
@@ -11,9 +11,9 @@ interface Props {
 }
 
 export function MascotAvatar({ avatar, emoji, size = 64, compact = false, className = '' }: Props) {
-  if (avatar === 'arjuna-guru') {
+  if (avatar === 'satish-guru') {
     return (
-      <ArjunaGuruAvatar
+      <SatishGuruAvatar
         size={size}
         compact={compact}
         className={className}

@@ -13,8 +13,8 @@ export interface CharacterGuide {
 export const characters: Record<KidId, CharacterGuide> = {
   ishanvi: {
     kid: 'ishanvi',
-    name: 'Arjuna',
-    avatar: 'arjuna-guru',
+    name: 'Satish',
+    avatar: 'satish-guru',
     role: 'Your wise guru guide · Grade 4',
     cheer: 'Learn well, little one — you’ve got this!',
   },
