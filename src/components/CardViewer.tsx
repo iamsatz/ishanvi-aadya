@@ -8,6 +8,8 @@ import { MatchPairsCard } from './cards/MatchPairsCard';
 import { QuizBlock } from './cards/QuizBlock';
 import { FeedbackOverlay } from './cards/FeedbackOverlay';
 import { GameCard } from './games/GameCard';
+import { CharacterBubble } from './CharacterBubble';
+import { ParentPanel } from './ParentPanel';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
 import { clearCardStorage } from '../hooks/useCardStorage';
 import type { LearningCard } from '../types/content';
@@ -48,14 +50,12 @@ export function CardViewer() {
     setResetKey((k) => k + 1);
   }
 
-  const hasParentTip =
-    card.parentSuggestion?.tip ||
-    (card.parentSuggestion?.questions?.length ?? 0) > 0 ||
-    !!card.parentHint;
+  const isDeck = card.cardStyle === 'deck';
 
   return (
     <article className="card" key={card.id}>
       <header className="card__header">
+        <CharacterBubble kid={lesson.kid} />
         <div className="card__header-row">
           <div>
             <h1 className="card__title">{card.title}</h1>
@@ -73,66 +73,46 @@ export function CardViewer() {
         </div>
       </header>
 
-      <div className="card__english">
-        {renderWithGlossary(card.englishContent, card.glossary, `en-${card.id}`)}
-      </div>
+      <div className="card__body">
+        <div className="card__story">
+          <div className="card__english">
+            {renderWithGlossary(card.englishContent, card.glossary, `en-${card.id}`)}
+          </div>
 
-      {lesson.hasTelugu && card.teluguContent && (
-        <details className="accordion">
-          <summary>
-            <span className="accordion__pill">తె</span>
-            <span>తెలుగు చదవండి · Read in Telugu</span>
-          </summary>
-          <div className="accordion__body" lang="te">
-            {card.teluguContent.split('\n\n').map((para, i) => (
-              <p key={i}>
-                {para.split('\n').map((line, j, arr) => (
-                  <span key={j}>{line}{j < arr.length - 1 ? <br /> : null}</span>
+          {card.teluguContent && (
+            <details className="accordion accordion--compact">
+              <summary>
+                <span className="accordion__pill">తె</span>
+                <span>తెలుగు చదవండి · Read in Telugu</span>
+              </summary>
+              <div className="accordion__body" lang="te">
+                {card.teluguContent.split('\n\n').map((para, i) => (
+                  <p key={i}>
+                    {para.split('\n').map((line, j, arr) => (
+                      <span key={j}>{line}{j < arr.length - 1 ? <br /> : null}</span>
+                    ))}
+                  </p>
                 ))}
-              </p>
-            ))}
-          </div>
-        </details>
-      )}
+              </div>
+            </details>
+          )}
 
-      {hasParentTip && (
-        <details className="parent-hint">
-          <summary>
-            <span className="parent-hint__pill">👩‍👧</span>
-            <span>For Parent · అమ్మ కోసం</span>
-          </summary>
-          <div className="parent-hint__body">
-            {card.parentSuggestion?.tip && (
-              <p className="parent-hint__tip">{card.parentSuggestion.tip}</p>
-            )}
-            {card.parentHint && !card.parentSuggestion?.tip && (
-              <p className="parent-hint__tip">{card.parentHint}</p>
-            )}
-            {card.parentSuggestion?.questions && card.parentSuggestion.questions.length > 0 && (
-              <>
-                <p className="parent-hint__label">Ask her:</p>
-                <ul className="parent-hint__questions">
-                  {card.parentSuggestion.questions.map((q, i) => (
-                    <li key={i}>{q}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </div>
-        </details>
-      )}
+          <ParentPanel suggestion={card.parentSuggestion} legacyHint={card.parentHint} />
+        </div>
 
-      <div key={resetKey}>
-        {card.quiz && card.quiz.length > 0 && (
-          <QuizBlock
-            questions={card.quiz}
-            onAnswer={(correct) => setFeedback(correct ? 'correct' : 'incorrect')}
-          />
-        )}
+        <div className={`card__play${isDeck ? ' card__play--deck' : ''}`} key={resetKey}>
+          {card.quiz && card.quiz.length > 0 && (
+            <QuizBlock
+              questions={card.quiz}
+              deck={isDeck}
+              onAnswer={(correct) => setFeedback(correct ? 'correct' : 'incorrect')}
+            />
+          )}
 
-        <p className="prompt">{card.promptText}</p>
+          <p className="prompt">{card.promptText}</p>
 
-        {renderInteraction(card, handleComplete)}
+          {renderInteraction(card, handleComplete)}
+        </div>
       </div>
 
       <FeedbackOverlay

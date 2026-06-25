@@ -11,6 +11,7 @@ type Status = 'idle' | 'correct' | 'incorrect';
 export function ChoiceCards({ card, onComplete }: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [status, setStatus] = useState<Status>('idle');
+  const isDeck = card.cardStyle === 'deck';
 
   function handlePick(choiceId: string, isCorrect: boolean) {
     if (status === 'correct') return;
@@ -22,13 +23,18 @@ export function ChoiceCards({ card, onComplete }: Props) {
 
   return (
     <div>
-      <div className="choices" role="group" aria-label="Choices">
+      <div
+        className={isDeck ? 'choices choices--deck' : 'choices'}
+        role="group"
+        aria-label="Choices"
+      >
         {card.choices?.map((c) => {
           const isSel = selectedId === c.id;
           const cls =
-            'choice' +
-            (isSel && status === 'correct'   ? ' choice--correct'   : '') +
-            (isSel && status === 'incorrect' ? ' choice--incorrect' : '');
+            (isDeck ? 'deck-card' : 'choice') +
+            (isSel && status === 'correct'   ? ' choice--correct deck-card--correct'   : '') +
+            (isSel && status === 'incorrect' ? ' choice--incorrect deck-card--incorrect' : '') +
+            (isSel ? ' deck-card--flipped' : '');
           return (
             <button
               key={c.id}
@@ -37,12 +43,28 @@ export function ChoiceCards({ card, onComplete }: Props) {
               disabled={status === 'correct'}
               aria-label={c.label}
             >
-              <span className="choice__icon" aria-hidden>
-                {isSel && status === 'correct'   ? '✓'
-                 : isSel && status === 'incorrect' ? '✕'
-                 : ''}
-              </span>
-              <span className="choice__text">{c.label}</span>
+              {isDeck ? (
+                <>
+                  <span className="deck-card__back" aria-hidden>🃏</span>
+                  <span className="deck-card__face">
+                    <span className="choice__icon" aria-hidden>
+                      {isSel && status === 'correct'   ? '✓'
+                       : isSel && status === 'incorrect' ? '✕'
+                       : ''}
+                    </span>
+                    <span className="choice__text">{c.label}</span>
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="choice__icon" aria-hidden>
+                    {isSel && status === 'correct'   ? '✓'
+                     : isSel && status === 'incorrect' ? '✕'
+                     : ''}
+                  </span>
+                  <span className="choice__text">{c.label}</span>
+                </>
+              )}
             </button>
           );
         })}

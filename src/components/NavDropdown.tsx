@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useStore } from '../state/store';
 import { kids, kidById } from '../data/kids';
 import { useProgress } from '../hooks/useProgress';
+import { MascotAvatar } from './MascotAvatar';
 import type { KidId, Lesson } from '../types/content';
 
 function LessonLink({ lesson, active, onSelect }: {
@@ -103,6 +104,13 @@ export function NavDropdown() {
                 aria-pressed={browseKid === k.id}
                 onClick={() => setBrowseKid(k.id)}
               >
+                <span className="nav-dd__kid-mascot">
+                  <MascotAvatar
+                    avatar={k.mascot.avatar}
+                    emoji={k.mascot.emoji}
+                    compact
+                  />
+                </span>
                 {k.name}
                 <small>{k.grade}</small>
               </button>

@@ -6,6 +6,9 @@
 
 export type KidId = 'ishanvi' | 'aadya';
 
+/** Visual avatar for a kid's guide character. */
+export type AvatarId = 'arjuna-guru' | 'emoji';
+
 /** Subject id within a kid's curriculum (e.g. maths, stories). */
 export interface SubjectDef {
   id: string;
@@ -19,6 +22,8 @@ export interface Kid {
   grade: string;
   board: string;
   subjects: SubjectDef[];
+  /** Cartoon guide for this child. */
+  mascot: { name: string; avatar: AvatarId; emoji?: string; role: string };
 }
 
 export type InteractionType =
@@ -131,12 +136,12 @@ export interface GlossaryEntry {
   te: string;
 }
 
-/** Structured tip for the adult helping the child. */
+/** Structured tip for the adult helping the child — English + Telugu. */
 export interface ParentSuggestion {
-  /** Short tip — what the lesson is about, why it matters. */
   tip?: string;
-  /** Suggested questions the parent can ask the child. */
+  tipTe?: string;
   questions?: string[];
+  questionsTe?: string[];
 }
 
 /** A single knowledge-test question shown inline on a card. */
@@ -184,6 +189,9 @@ export interface LearningCard {
   revealAnswer?: string;
   /** Used when interactionType === 'game'. */
   game?: GameConfig;
+
+  /** Visual style — `deck` renders flip playing-card choices. */
+  cardStyle?: 'default' | 'deck';
 
   hint?: string;
 }

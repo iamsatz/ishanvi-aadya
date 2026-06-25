@@ -5,6 +5,8 @@ interface Props {
   questions: QuizQuestion[];
   /** Called once per correct answer — for the FeedbackOverlay confetti. */
   onAnswer?: (correct: boolean) => void;
+  /** Render choices as flip playing cards. */
+  deck?: boolean;
 }
 
 type QState = { picked: string | null; status: 'idle' | 'correct' | 'incorrect' };
@@ -14,7 +16,7 @@ type QState = { picked: string | null; status: 'idle' | 'correct' | 'incorrect' 
  * card interaction. Each question is independent: tap a choice → instant
  * ✓ / ✕ feedback. Wrong answers shake and let you retry.
  */
-export function QuizBlock({ questions, onAnswer }: Props) {
+export function QuizBlock({ questions, onAnswer, deck }: Props) {
   const [state, setState] = useState<Record<string, QState>>(() =>
     Object.fromEntries(questions.map((q) => [q.id, { picked: null, status: 'idle' }]))
   );
@@ -52,13 +54,14 @@ export function QuizBlock({ questions, onAnswer }: Props) {
             <p className="quiz__question">
               <span className="quiz__qnum">Q{qi + 1}.</span> {q.question}
             </p>
-            <div className="quiz__choices" role="group">
+            <div className={deck ? 'quiz__choices quiz__choices--deck' : 'quiz__choices'} role="group">
               {q.choices.map((c) => {
                 const isSel = cur?.picked === c.id;
                 const cls =
-                  'quiz__choice' +
-                  (isSel && cur?.status === 'correct'   ? ' quiz__choice--correct'   : '') +
-                  (isSel && cur?.status === 'incorrect' ? ' quiz__choice--incorrect' : '');
+                  (deck ? 'deck-card quiz__deck-card' : 'quiz__choice') +
+                  (isSel && cur?.status === 'correct'   ? ' quiz__choice--correct deck-card--correct'   : '') +
+                  (isSel && cur?.status === 'incorrect' ? ' quiz__choice--incorrect deck-card--incorrect' : '') +
+                  (isSel && deck ? ' deck-card--flipped' : '');
                 return (
                   <button
                     key={c.id}
@@ -67,12 +70,28 @@ export function QuizBlock({ questions, onAnswer }: Props) {
                     disabled={cur?.status === 'correct'}
                     aria-label={c.label}
                   >
-                    <span className="quiz__choice-icon" aria-hidden>
-                      {isSel && cur?.status === 'correct'   ? '✓'
-                       : isSel && cur?.status === 'incorrect' ? '✕'
-                       : ''}
-                    </span>
-                    <span className="quiz__choice-text">{c.label}</span>
+                    {deck ? (
+                      <>
+                        <span className="deck-card__back" aria-hidden>🃏</span>
+                        <span className="deck-card__face">
+                          <span className="quiz__choice-icon" aria-hidden>
+                            {isSel && cur?.status === 'correct'   ? '✓'
+                             : isSel && cur?.status === 'incorrect' ? '✕'
+                             : ''}
+                          </span>
+                          <span className="quiz__choice-text">{c.label}</span>
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="quiz__choice-icon" aria-hidden>
+                          {isSel && cur?.status === 'correct'   ? '✓'
+                           : isSel && cur?.status === 'incorrect' ? '✕'
+                           : ''}
+                        </span>
+                        <span className="quiz__choice-text">{c.label}</span>
+                      </>
+                    )}
                   </button>
                 );
               })}

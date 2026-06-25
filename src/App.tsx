@@ -8,10 +8,12 @@ import { useKeyboardNav } from './hooks/useKeyboardNav';
 export default function App() {
   const next = useStore((s) => s.next);
   const back = useStore((s) => s.back);
+  const activeKid = useStore((s) => s.activeKid);
   useKeyboardNav({ onNext: next, onBack: back });
 
   return (
     <AppShell
+      activeKid={activeKid}
       topbar={<TopBar />}
       progress={<ProgressSlim />}
       nav={<NavControls />}

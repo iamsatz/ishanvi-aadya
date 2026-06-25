@@ -18,6 +18,7 @@
 
 import type { LearningCard, Lesson } from '../types/content';
 import { numberFamilies } from './numberFamilies';
+import { aadyaLessons } from './aadyaPlaceholders';
 
 /* ============================================================
    1) STORIES — 25 cards
@@ -2801,4 +2802,5 @@ export const fixtureLessons: Lesson[] = [
   summerProject,
   earthDay,
   numberFamilies,
+  ...aadyaLessons,
 ];

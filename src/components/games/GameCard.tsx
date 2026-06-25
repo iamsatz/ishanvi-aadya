@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { LearningCard } from '../../types/content';
 import { SeatSwap } from './SeatSwap';
 import { FamilySort } from './FamilySort';
@@ -16,13 +17,18 @@ export function GameCard({ card, onComplete }: Props) {
   const game = card.game;
   if (!game) return null;
 
+  const wrap = (node: ReactNode) =>
+    card.cardStyle === 'deck'
+      ? <div className="game-deck">{node}</div>
+      : node;
+
   switch (game.kind) {
-    case 'seat-swap':      return <SeatSwap      game={game} onComplete={onComplete} />;
-    case 'family-sort':    return <FamilySort    game={game} onComplete={onComplete} />;
-    case 'comma-drop':     return <CommaDrop     game={game} onComplete={onComplete} />;
-    case 'anchor-race':    return <AnchorRace    game={game} onComplete={onComplete} />;
-    case 'number-builder': return <NumberBuilder game={game} onComplete={onComplete} />;
-    case 'podium':         return <Podium        game={game} onComplete={onComplete} />;
-    case 'neighbours':     return <Neighbours    game={game} onComplete={onComplete} />;
+    case 'seat-swap':      return wrap(<SeatSwap      game={game} onComplete={onComplete} />);
+    case 'family-sort':    return wrap(<FamilySort    game={game} onComplete={onComplete} />);
+    case 'comma-drop':     return wrap(<CommaDrop     game={game} onComplete={onComplete} />);
+    case 'anchor-race':    return wrap(<AnchorRace    game={game} onComplete={onComplete} />);
+    case 'number-builder': return wrap(<NumberBuilder game={game} onComplete={onComplete} />);
+    case 'podium':         return wrap(<Podium        game={game} onComplete={onComplete} />);
+    case 'neighbours':     return wrap(<Neighbours    game={game} onComplete={onComplete} />);
   }
 }
