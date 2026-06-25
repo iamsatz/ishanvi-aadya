@@ -37,7 +37,7 @@ export function NavDropdown() {
   const setActiveKid = useStore((s) => s.setActiveKid);
 
   const activeLesson = lessons.find((l) => l.id === activeLessonId);
-  const kid = kidById[activeKid];
+  const kid = kidById[activeKid] ?? kidById.ishanvi;
   const subjectDef = kid.subjects.find((s) => s.id === activeLesson?.subject);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export function NavDropdown() {
     setOpen(false);
   }
 
-  const browseKidDef = kidById[browseKid];
+  const browseKidDef = kidById[browseKid] ?? kidById.ishanvi;
 
   return (
     <div className="nav-dd" ref={panelRef}>

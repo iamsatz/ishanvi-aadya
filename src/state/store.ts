@@ -1,8 +1,3 @@
-/* ============================================================
-   GLOBAL STORE — zustand + localStorage persistence
-   Tracks: active kid/lesson/card, completion, drawer open.
-   ============================================================ */
-
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { Lesson, LearningCard, KidId } from '../types/content';
@@ -32,8 +27,44 @@ interface AppState {
 
 const firstLessonId = fixtureLessons[0]?.id ?? '';
 
-function firstLessonForKid(lessons: Lesson[], kid: KidId): Lesson | undefined {
-  return lessons.find((l) => l.kid === kid);
+function isKidId(value: unknown): value is KidId {
+  return value === 'ishanvi' || value === 'aadya';
+}
+
+function lessonById(lessonId: string): Lesson | undefined {
+  return fixtureLessons.find((l) => l.id === lessonId);
+}
+
+function firstLessonForKid(kid: KidId): Lesson | undefined {
+  return fixtureLessons.find((l) => l.kid === kid);
+}
+
+/** Repair persisted nav state so a bad localStorage value cannot blank the app. */
+function sanitizeNavState(partial: {
+  activeKid?: unknown;
+  activeLessonId?: unknown;
+  activeIndex?: unknown;
+  completed?: unknown;
+}): Pick<AppState, 'activeKid' | 'activeLessonId' | 'activeIndex' | 'completed'> {
+  const activeKid = isKidId(partial.activeKid) ? partial.activeKid : 'ishanvi';
+
+  let activeLessonId =
+    typeof partial.activeLessonId === 'string' ? partial.activeLessonId : firstLessonId;
+  if (!lessonById(activeLessonId)) {
+    activeLessonId = firstLessonForKid(activeKid)?.id ?? firstLessonId;
+  }
+
+  const lesson = lessonById(activeLessonId);
+  const maxIndex = Math.max(0, (lesson?.cards.length ?? 1) - 1);
+  const rawIndex = typeof partial.activeIndex === 'number' ? partial.activeIndex : 0;
+  const activeIndex = Math.min(Math.max(0, rawIndex), maxIndex);
+
+  const completed =
+    partial.completed && typeof partial.completed === 'object' && !Array.isArray(partial.completed)
+      ? (partial.completed as Record<string, string[]>)
+      : {};
+
+  return { activeKid, activeLessonId, activeIndex, completed };
 }
 
 export const useStore = create<AppState>()(
@@ -47,7 +78,7 @@ export const useStore = create<AppState>()(
       drawerOpen: false,
 
       setActiveKid: (kid) => {
-        const first = firstLessonForKid(get().lessons, kid);
+        const first = firstLessonForKid(kid);
         set({
           activeKid: kid,
           activeLessonId: first?.id ?? get().activeLessonId,
@@ -103,7 +134,7 @@ export const useStore = create<AppState>()(
     }),
     {
       name: 'ishanvi-aadya-progress',
-      version: 2,
+      version: 3,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({
         activeKid: s.activeKid,
@@ -111,10 +142,17 @@ export const useStore = create<AppState>()(
         activeIndex: s.activeIndex,
         completed: s.completed,
       }),
-      migrate: (persisted) => {
-        const state = persisted as Record<string, unknown>;
-        if (state.activeKid) return persisted as unknown as AppState;
-        return { ...state, activeKid: 'ishanvi' } as unknown as AppState;
+      merge: (persisted, current) => ({
+        ...current,
+        ...sanitizeNavState((persisted ?? {}) as Record<string, unknown>),
+        lessons: fixtureLessons,
+      }),
+      migrate: (persisted, version) => {
+        const state = (persisted ?? {}) as Record<string, unknown>;
+        if (version < 3 && !state.activeKid) {
+          return { ...state, activeKid: 'ishanvi' };
+        }
+        return state;
       },
     }
   )

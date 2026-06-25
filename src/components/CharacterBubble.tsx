@@ -9,7 +9,7 @@ interface Props {
 }
 
 export function CharacterBubble({ kid, line }: Props) {
-  const c = characters[kid];
+  const c = characters[kid] ?? characters.ishanvi;
   const isIllustration = c.avatar !== 'emoji';
 
   return (
