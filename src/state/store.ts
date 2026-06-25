@@ -1,23 +1,23 @@
 /* ============================================================
    GLOBAL STORE — zustand + localStorage persistence
-   Tracks: active section/lesson/card, completion, drawer open.
+   Tracks: active kid/lesson/card, completion, drawer open.
    ============================================================ */
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import type { Lesson, LearningCard, Section } from '../types/content';
+import type { Lesson, LearningCard, KidId } from '../types/content';
 import { fixtureLessons } from '../data/fixtures';
 
 interface AppState {
   lessons: Lesson[];
-  activeSection: Section;
+  activeKid: KidId;
   activeLessonId: string;
   activeIndex: number;
   /** Map<lessonId, cardId[]> of completed cards. */
   completed: Record<string, string[]>;
   drawerOpen: boolean;
 
-  setActiveSection: (s: Section) => void;
+  setActiveKid: (kid: KidId) => void;
   setActiveLesson: (lessonId: string) => void;
   setActiveIndex: (index: number) => void;
   next: () => void;
@@ -31,21 +31,25 @@ interface AppState {
 
 const firstLessonId = fixtureLessons[0]?.id ?? '';
 
+function firstLessonForKid(lessons: Lesson[], kid: KidId): Lesson | undefined {
+  return lessons.find((l) => l.kid === kid);
+}
+
 export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
       lessons: fixtureLessons,
-      activeSection: 'stories',
+      activeKid: 'ishanvi',
       activeLessonId: firstLessonId,
       activeIndex: 0,
       completed: {},
       drawerOpen: false,
 
-      setActiveSection: (s) => {
-        const firstInSection = get().lessons.find((l) => l.section === s);
+      setActiveKid: (kid) => {
+        const first = firstLessonForKid(get().lessons, kid);
         set({
-          activeSection: s,
-          activeLessonId: firstInSection?.id ?? get().activeLessonId,
+          activeKid: kid,
+          activeLessonId: first?.id ?? get().activeLessonId,
           activeIndex: 0,
         });
       },
@@ -54,7 +58,7 @@ export const useStore = create<AppState>()(
         const lesson = get().lessons.find((l) => l.id === lessonId);
         set({
           activeLessonId: lessonId,
-          activeSection: lesson?.section ?? get().activeSection,
+          activeKid: lesson?.kid ?? get().activeKid,
           activeIndex: 0,
           drawerOpen: false,
         });
@@ -87,13 +91,19 @@ export const useStore = create<AppState>()(
     }),
     {
       name: 'ishanvi-aadya-progress',
+      version: 2,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({
-        activeSection: s.activeSection,
+        activeKid: s.activeKid,
         activeLessonId: s.activeLessonId,
         activeIndex: s.activeIndex,
         completed: s.completed,
       }),
+      migrate: (persisted) => {
+        const state = persisted as Record<string, unknown>;
+        if (state.activeKid) return persisted as unknown as AppState;
+        return { ...state, activeKid: 'ishanvi' } as unknown as AppState;
+      },
     }
   )
 );

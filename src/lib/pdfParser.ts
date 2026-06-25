@@ -40,7 +40,8 @@ export async function parsePdfFile(file: File): Promise<Lesson> {
   return {
     id,
     title,
-    section: 'stories',
+    kid: 'ishanvi',
+    subject: 'stories',
     hasTelugu: false,
     icon: '📄',
     cards,
@@ -52,7 +53,8 @@ export async function parseImageFile(file: File): Promise<Lesson> {
   return {
     id,
     title: file.name,
-    section: 'stories',
+    kid: 'ishanvi',
+    subject: 'stories',
     hasTelugu: false,
     icon: '🖼️',
     cards: [

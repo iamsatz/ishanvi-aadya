@@ -4,7 +4,22 @@
    only data changes — no component changes.
    ============================================================ */
 
-export type Section = 'stories' | 'projects';
+export type KidId = 'ishanvi' | 'aadya';
+
+/** Subject id within a kid's curriculum (e.g. maths, stories). */
+export interface SubjectDef {
+  id: string;
+  label: string;
+  icon: string;
+}
+
+export interface Kid {
+  id: KidId;
+  name: string;
+  grade: string;
+  board: string;
+  subjects: SubjectDef[];
+}
 
 export type InteractionType =
   | 'tap-reveal'    // tap to flip and reveal an answer
@@ -108,7 +123,11 @@ export interface Lesson {
   id: string;
   title: string;
   subtitle?: string;
-  section: Section;
+  kid: KidId;
+  /** Subject id — must match a subject in src/data/kids.ts for that kid. */
+  subject: string;
+  /** Optional chapter name for future grouping (data-only, no nav change yet). */
+  chapter?: string;
   /** Whether this lesson includes Telugu translations on its cards. */
   hasTelugu: boolean;
   /** Optional emoji or short icon to show in the lesson list. */

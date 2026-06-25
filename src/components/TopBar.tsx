@@ -1,42 +1,37 @@
 import { useStore, selectActiveLesson } from '../state/store';
 import { useProgress } from '../hooks/useProgress';
+import { NavDropdown } from './NavDropdown';
 
 export function TopBar() {
-  const openDrawer = useStore((s) => s.openDrawer);
-  const lesson     = useStore(selectActiveLesson);
-  const idx        = useStore((s) => s.activeIndex);
-  const back       = useStore((s) => s.back);
-  const next       = useStore((s) => s.next);
-  const total      = lesson?.cards.length ?? 0;
+  const lesson = useStore(selectActiveLesson);
+  const idx = useStore((s) => s.activeIndex);
+  const back = useStore((s) => s.back);
+  const next = useStore((s) => s.next);
+  const total = lesson?.cards.length ?? 0;
+  const lessonId = useStore((s) => s.activeLessonId);
+  const { percent } = useProgress(lessonId);
 
   const atFirst = idx === 0;
-  const atLast  = idx >= total - 1;
+  const atLast = idx >= total - 1;
 
   return (
     <header className="topbar" role="banner">
-      {/* Hamburger — hidden on desktop via CSS */}
-      <button
-        className="topbar__hamburger"
-        onClick={openDrawer}
-        aria-label="Open lessons menu"
-      >
-        ☰
-      </button>
+      <NavDropdown />
 
-      {/* Title + card counter */}
-      <div className="topbar__title">
-        {lesson?.icon ?? '📖'} {lesson?.title ?? 'Learning'}
-        <small>Card {Math.min(idx + 1, total)} of {total}</small>
+      <div className="topbar__meta">
+        <span className="topbar__step">
+          Step {Math.min(idx + 1, total)}/{total}
+        </span>
+        <span className="topbar__pct">{percent}%</span>
       </div>
 
-      {/* Top-level compact nav arrows — always visible, no scrolling required */}
       <nav className="topbar__nav" aria-label="Quick card navigation">
         <button
           className="topbar__arrow"
           onClick={back}
           disabled={atFirst}
           aria-label="Previous card"
-          title="Previous card (←)"
+          title="Previous (←)"
         >
           ‹
         </button>
@@ -45,7 +40,7 @@ export function TopBar() {
           onClick={next}
           disabled={atLast}
           aria-label="Next card"
-          title="Next card (→)"
+          title="Next (→)"
         >
           ›
         </button>

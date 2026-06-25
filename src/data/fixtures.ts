@@ -17,6 +17,7 @@
    ============================================================ */
 
 import type { LearningCard, Lesson } from '../types/content';
+import { numberFamilies } from './numberFamilies';
 
 /* ============================================================
    1) STORIES — 25 cards
@@ -1735,7 +1736,8 @@ const stories: Lesson = {
   id: 'stories',
   title: 'My Story Book',
   subtitle: '25 stories · summer reading + reflection',
-  section: 'stories',
+  kid: 'ishanvi',
+  subject: 'stories',
   hasTelugu: true,
   icon: '📖',
   cards: storyCards,
@@ -1749,7 +1751,8 @@ const summerProject: Lesson = {
   id: 'summer-project',
   title: 'Summer Vacation Project',
   subtitle: 'Grade 4 · 80 hours · Math · English · Science',
-  section: 'projects',
+  kid: 'ishanvi',
+  subject: 'projects',
   hasTelugu: true,
   icon: '☀️',
   cards: [
@@ -2264,7 +2267,8 @@ const earthDay: Lesson = {
   id: 'earth-day',
   title: 'Earth Day 2026',
   subtitle: 'Sort waste · discover facts · make rules',
-  section: 'projects',
+  kid: 'ishanvi',
+  subject: 'projects',
   hasTelugu: true,
   icon: '🌍',
   cards: [
@@ -2796,4 +2800,5 @@ export const fixtureLessons: Lesson[] = [
   stories,
   summerProject,
   earthDay,
+  numberFamilies,
 ];
