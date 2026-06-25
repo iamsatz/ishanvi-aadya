@@ -1,5 +1,5 @@
 /* ============================================================
-   NUMBER FAMILIES — story-led, real-world, no fluff
+   NUMBER FAMILIES — story-led, real-world, game per concept
    ============================================================ */
 
 import type { LearningCard, Lesson } from '../types/content';
@@ -11,7 +11,7 @@ const nfCards: LearningCard[] = [
     title: 'The Secret of Big Numbers',
     subtitle: 'Chapter 1 · Arjuna at Charminar',
     englishContent:
-      '🦉 Arjuna the owl lands on Charminar. A billboard flashes:\n\n"Hyderabad — population 1,02,46,000"\n\nIshanvi sighs. "So many digits!"\n\nArjuna hoots: "Don\'t read digit by digit. Read FAMILIES."\n\nIn India, digits live in families called periods. Commas show the gaps between families.\n\n🏠 Real life: cricket runs (14,52,000), school fees (₹45,000), Tollywood box office (₹186 crore) — all use the same family trick.',
+      '🦉 Arjuna the owl lands on Charminar. A billboard flashes:\n\n"Hyderabad — population 1,02,46,000"\n\nIshanvi sighs. "So many digits!"\n\nArjuna hoots: "Don\'t read digit by digit. Read FAMILIES."\n\nIn India, digits live in families called periods. Commas show the gaps between families.\n\n🏠 Real life: cricket runs, school fees, movie box office — all use the same family trick.',
     glossary: [
       { word: 'periods', en: 'Families of digits in a big number', te: 'అంక కుటుంబాలు' },
     ],
@@ -26,120 +26,157 @@ const nfCards: LearningCard[] = [
   {
     id: 'nf-1',
     lessonId: 'number-families',
-    title: 'Word Power — 5 Must-Know Words',
-    subtitle: 'Quick vocab · tap each',
+    title: 'Face Value vs Place Value',
+    subtitle: 'The most confusing pair — made simple',
     englishContent:
-      '📖 Story shortcut — learn these 5 and you\'re 80% ready:\n\n1. Digit = one symbol (0–9). Like a single Lego brick.\n2. Place value = what a digit is WORTH because of its seat.\n3. Face value = the digit itself (6 is always 6).\n4. Period = a family of digits (Ones, Thousands, Lakhs…).\n5. Successor / Predecessor = next number (+1) / previous (−1).\n\n🌍 Example: In IPL, if a player has 7,234 runs — 7 is a digit, but its place value is 7,000 (thousands seat).',
-    promptText: 'Tap: face value vs place value of 6 in 56,23,407.',
-    interactionType: 'tap-reveal',
-    revealAnswer: 'Face value = 6. Place value = 6,00,000 (6 lakhs). Same digit, different seat = different worth!',
+      'Two words, but they mean very different things:\n\n👀 FACE value = the digit\'s FACE. What it LOOKS like. It never changes. A 6 always looks like 6.\n\n💪 PLACE value = the digit\'s POWER. How much it is WORTH. This changes depending on WHERE the digit stands.\n\n— — — Two ways to picture it — — —\n\n💰 MONEY: Six ₹1 coins in your hand = ₹6. Now move that same 6 into the lakhs seat — it becomes 6 bundles of ₹1,00,000 = ₹6,00,000. Same 6, much bigger power.\n\n🏟️ STADIUM: A "6" sitting in the Ones row scores 6 points. Move the very same "6" to the Lakhs row and it scores 6,00,000 points. The player didn\'t change — the ROW gave it power.',
+    glossary: [
+      { word: 'FACE value', en: 'The digit itself — what it looks like', te: 'ముఖ విలువ' },
+      { word: 'PLACE value', en: 'What the digit is worth, by its position', te: 'స్థాన విలువ' },
+    ],
+    parentSuggestion: {
+      tip: 'Use real coins: put a 6 in different "seats" drawn on paper and ask how much it is worth each time.',
+      questions: ['Does the FACE of 6 ever change?', 'What gives the 6 more power — the digit or the seat?'],
+    },
+    promptText: 'Play: move the 6 to the Lakhs seat and watch its value grow.',
+    interactionType: 'game',
+    game: { kind: 'seat-swap', digit: '6', targetSeat: 5 },
   },
 
   {
     id: 'nf-2',
     lessonId: 'number-families',
     title: 'The Apartment Building',
-    subtitle: 'Periods as families',
+    subtitle: 'Periods as families · Game: Family Sort',
     englishContent:
-      '🏢 Imagine a building read from the TOP floor down:\n\n🟪 Crores — penthouse (biggest)\n🟧 Lakhs — floor below\n🟩 Thousands — next floor\n🟦 Ones — ground floor (3 rooms: ones, tens, hundreds)\n\nNumber 56,23,407:\n• Lakhs family: 56\n• Thousands family: 23\n• Ones family: 407\n\n🌍 Real: A ₹56,23,407 flat in Gachibowli — the 56 tells you it\'s in the "lakhs zone" of the price.',
-    promptText: 'Match each family to what it holds in 56,23,407.',
-    interactionType: 'match-pairs',
-    pairs: [
-      { id: 'p1', left: '🟦 Ones', right: '407' },
-      { id: 'p2', left: '🟩 Thousands', right: '23' },
-      { id: 'p3', left: '🟧 Lakhs', right: '56' },
-      { id: 'p4', left: 'Comma rule', right: 'Between families only' },
-    ],
-    hint: 'Read from the RIGHT: 407 → 23 → 56.',
+      '🏢 Read a number like floors of a building, top (biggest) to bottom:\n\n🟪 Crores · 🟧 Lakhs · 🟩 Thousands · 🟦 Ones (the ground floor has 3 rooms: ones, tens, hundreds).\n\nNumber 56,23,407 → Lakhs family: 56 · Thousands family: 23 · Ones family: 407.\n\n🏠 Real: a ₹56,23,407 flat — the 56 tells you it is in the "lakhs zone" of the price.',
+    promptText: 'Put each group into its correct family house.',
+    interactionType: 'game',
+    game: { kind: 'family-sort', digits: '5623407' },
   },
 
   {
     id: 'nf-3',
     lessonId: 'number-families',
     title: 'The Comma Rescue',
-    subtitle: 'Practice · Flipkart price ₹80,12,693',
+    subtitle: 'Game: Comma Drop · price ₹80,12,693',
     englishContent:
-      '🛒 Arjuna finds a price tag with NO commas: 8012693\n\n"Rescue mission!" he says. Start from the right:\n693 (Ones) → 12 (Thousands) → 80 (Lakhs)\n\n✅ Correct: 80,12,693\n\n⚠️ Your homework Q2 has WRONG commas on the sheet!\n7451293 → 74,51,293 (not 7,45,12,93)\n18690214 → 1,86,90,214 (not 18,69,02,14)\n\nTrust the method, not bad commas on paper.',
-    promptText: 'Where do commas go in 8012693?',
-    interactionType: 'choice-cards',
-    choices: [
-      { id: 'a', label: '8,012,693', isCorrect: false },
-      { id: 'b', label: '80,12,693', isCorrect: true },
-      { id: 'c', label: '801,269,3', isCorrect: false },
-    ],
-    hint: 'Indian rule: 3, then 2, then 2 from the right.',
+      '🛒 Arjuna finds a price tag with NO commas: 8012693.\n\n"Rescue mission!" Start from the right: 693 (Ones) → 12 (Thousands) → 80 (Lakhs) → 80,12,693.\n\n⚠️ Your homework Q2 has WRONG commas on the sheet. Trust the method, not bad commas on paper.',
+    parentSuggestion: {
+      tip: 'Q2 printed commas (7,45,12,93) are wrong. Correct: 74,51,293. Worth a quiet word to the teacher.',
+    },
+    promptText: 'Tap the gaps where commas belong.',
+    interactionType: 'game',
+    game: { kind: 'comma-drop', digits: '8012693' },
   },
 
   {
     id: 'nf-4',
     lessonId: 'number-families',
     title: 'Read It Like a News Anchor',
-    subtitle: 'From Q3a · 56,23,407',
+    subtitle: 'Game: Anchor Race',
     englishContent:
-      '📺 News anchor style for 56,23,407:\n\n"Fifty-SIX lakh" (56) + "twenty-THREE thousand" (23) + "four hundred seven" (407)\n\n= Fifty-six lakh twenty-three thousand four hundred seven\n\n🌍 Real: Telangana budget numbers, election vote counts — anchors always read period by period.',
-    quiz: [
-      {
-        id: 'nf-4-q1',
-        question: 'Place value of 3 in 56,23,407?',
-        choices: [
-          { id: 'a', label: '3', isCorrect: false },
-          { id: 'b', label: '3,000', isCorrect: true },
-          { id: 'c', label: '30,000', isCorrect: false },
-        ],
-      },
-    ],
-    promptText: 'Tap for expanded form (Q3a).',
-    interactionType: 'tap-reveal',
-    revealAnswer: '50,00,000 + 6,00,000 + 20,000 + 3,000 + 400 + 7',
+      '📺 Anchors read period by period: "Fifty-six lakh… twenty-three thousand… four hundred seven."\n\n🌍 Real: budget figures, election vote counts — always read family by family, never digit by digit.',
+    promptText: 'Match each number to the way an anchor would say it.',
+    interactionType: 'game',
+    game: {
+      kind: 'anchor-race',
+      rounds: [
+        {
+          number: '28,45,612',
+          name: 'Twenty-eight lakh forty-five thousand six hundred twelve',
+          distractors: [
+            'Twenty-eight thousand four hundred fifty-six',
+            'Two crore eighty-four lakh',
+          ],
+        },
+        {
+          number: '34,56,789',
+          name: 'Thirty-four lakh fifty-six thousand seven hundred eighty-nine',
+          distractors: [
+            'Three lakh forty-five thousand',
+            'Thirty-four thousand five hundred sixty-seven',
+          ],
+        },
+        {
+          number: '56,23,407',
+          name: 'Fifty-six lakh twenty-three thousand four hundred seven',
+          distractors: [
+            'Five lakh sixty-two thousand',
+            'Fifty-six thousand two hundred thirty-four',
+          ],
+        },
+      ],
+    },
   },
 
   {
     id: 'nf-5',
     lessonId: 'number-families',
-    title: 'Build a Number — Expanded Form',
-    subtitle: 'From Q1a · like stacking money',
+    title: 'Build the Number',
+    subtitle: 'Game: Number Builder · expanded form',
     englishContent:
-      '💰 Think of expanded form like counting notes in a wallet:\n\n30 crore note + 20 lakh + 7 lakh + 40 thousand + 6 thousand + 90 + 2\n\n= 30,27,46,092\n\n🌍 Real: A hospital bill breaks into room charge + medicine + tests — expanded form does the same for numbers.',
-    promptText: 'Tap the standard form of Q1a.',
-    interactionType: 'tap-reveal',
-    revealAnswer: '30,27,46,092 — Thirty crore twenty-seven lakh forty-six thousand ninety-two',
+      '💰 Expanded form is like counting notes biggest first:\n\n50,00,000 + 6,00,000 + 20,000 + 3,000 + 400 + 7 = 56,23,407.\n\n🌍 Real: a bill = room + medicine + tests added up. Same idea.',
+    promptText: 'Tap the pieces from BIGGEST to smallest to build 56,23,407.',
+    interactionType: 'game',
+    game: {
+      kind: 'number-builder',
+      pieces: ['50,00,000', '6,00,000', '20,000', '3,000', '400', '7'],
+      result: '56,23,407',
+    },
   },
 
   {
     id: 'nf-6',
     lessonId: 'number-families',
     title: 'The State Race',
-    subtitle: 'From Q4 · real literacy data',
+    subtitle: 'Game: Podium · real literacy data',
     englishContent:
-      '🏁 Four states compete. Who has the most literate people?\n\nAndhra Pradesh: 24,89,321\nKarnataka: 26,78,945\nTamil Nadu: 28,45,612\nKerala: 34,56,789\n\nArjuna\'s trick: compare Lakhs first (34 > 28 > 26 > 24). No calculator needed!\n\nOrder: AP → Karnataka → TN → Kerala',
+      '🏁 Four states, who has the most literate people? Arjuna\'s trick: compare the LAKHS first — no calculator needed.\n\nAndhra Pradesh 24,89,321 · Karnataka 26,78,945 · Tamil Nadu 28,45,612 · Kerala 34,56,789.',
     quiz: [
       {
         id: 'nf-6-q1',
-        question: 'Who wins without calculating?',
+        question: 'Who wins, just by comparing the lakhs?',
         choices: [
           { id: 'a', label: 'Tamil Nadu', isCorrect: false },
           { id: 'b', label: 'Kerala', isCorrect: true },
           { id: 'c', label: 'Andhra Pradesh', isCorrect: false },
         ],
+        hint: 'Compare 34 vs 28 vs 26 vs 24.',
       },
     ],
-    promptText: 'Successor of Andhra Pradesh (24,89,321)?',
-    interactionType: 'choice-cards',
-    choices: [
-      { id: 'a', label: '24,89,320', isCorrect: false },
-      { id: 'b', label: '24,89,322', isCorrect: true },
-      { id: 'c', label: '24,90,321', isCorrect: false },
-    ],
-    hint: 'Successor = +1 on the ones place.',
+    promptText: 'Put the states in order: smallest to greatest.',
+    interactionType: 'game',
+    game: {
+      kind: 'podium',
+      items: [
+        { label: 'Andhra Pradesh', value: 2489321 },
+        { label: 'Karnataka', value: 2678945 },
+        { label: 'Tamil Nadu', value: 2845612 },
+        { label: 'Kerala', value: 3456789 },
+      ],
+    },
   },
 
   {
     id: 'nf-7',
     lessonId: 'number-families',
+    title: 'Find the Neighbours',
+    subtitle: 'Game: Successor & Predecessor',
+    englishContent:
+      '🏘️ Every number has two neighbours:\n\n← Predecessor = the number just BEFORE (−1)\n→ Successor = the number just AFTER (+1)\n\nFor Andhra Pradesh 24,89,321: predecessor 24,89,320, successor 24,89,322.',
+    promptText: 'Tap the correct neighbour in each row.',
+    interactionType: 'game',
+    game: { kind: 'neighbours', center: '2489321' },
+  },
+
+  {
+    id: 'nf-8',
+    lessonId: 'number-families',
     title: 'Homework Sprint',
     subtitle: 'Method only · you write answers on paper',
     englishContent:
-      '✏️ Done learning? Open your Silver Oaks sheet and sprint through 5 questions.\n\nThis app taught the METHOD — you write the answers yourself. That\'s how writing muscle grows.',
+      '✏️ Done learning? Open your Silver Oaks sheet and sprint through 5 questions.\n\nThis app taught the METHOD — you write the answers yourself. That is how writing muscle grows.',
     parentSuggestion: {
       tip: 'Q2 commas on the printed sheet are wrong. Quiet word to teacher if needed.',
     },
@@ -154,15 +191,15 @@ const nfCards: LearningCard[] = [
   },
 
   {
-    id: 'nf-8',
+    id: 'nf-9',
     lessonId: 'number-families',
     title: 'Victory Quiz',
     subtitle: '60 seconds · 4 questions',
     englishContent: '🦉 Arjuna: "Four quick ones. Then close the app and do your sheet!"',
     quiz: [
       {
-        id: 'nf-8-q1',
-        question: 'First group from RIGHT has how many digits?',
+        id: 'nf-9-q1',
+        question: 'First group from the RIGHT has how many digits?',
         choices: [
           { id: 'a', label: '2', isCorrect: false },
           { id: 'b', label: '3', isCorrect: true },
@@ -170,17 +207,18 @@ const nfCards: LearningCard[] = [
         ],
       },
       {
-        id: 'nf-8-q2',
-        question: 'Which is a DIGIT?',
+        id: 'nf-9-q2',
+        question: 'FACE value of 8 in 80,12,693?',
         choices: [
-          { id: 'a', label: '56,23,407', isCorrect: false },
-          { id: 'b', label: '7', isCorrect: true },
-          { id: 'c', label: '24,89,321', isCorrect: false },
+          { id: 'a', label: '8', isCorrect: true },
+          { id: 'b', label: '80,00,000', isCorrect: false },
+          { id: 'c', label: '800', isCorrect: false },
         ],
+        hint: 'Face value = what the digit looks like.',
       },
       {
-        id: 'nf-8-q3',
-        question: 'Period before Lakhs (from right)?',
+        id: 'nf-9-q3',
+        question: 'Period right before Lakhs (from the right)?',
         choices: [
           { id: 'a', label: 'Ones', isCorrect: false },
           { id: 'b', label: 'Thousands', isCorrect: true },
@@ -188,20 +226,21 @@ const nfCards: LearningCard[] = [
         ],
       },
     ],
-    promptText: 'Face value of 8 in 80,12,693?',
+    promptText: 'PLACE value of 6 in 56,23,407?',
     interactionType: 'choice-cards',
     choices: [
-      { id: 'a', label: '8', isCorrect: true },
-      { id: 'b', label: '80,00,000', isCorrect: false },
-      { id: 'c', label: '800', isCorrect: false },
+      { id: 'a', label: '6', isCorrect: false },
+      { id: 'b', label: '6,00,000', isCorrect: true },
+      { id: 'c', label: '60,000', isCorrect: false },
     ],
+    hint: 'The 6 sits in the Lakhs seat.',
   },
 ];
 
 export const numberFamilies: Lesson = {
   id: 'number-families',
   title: 'Number Families',
-  subtitle: 'Indian Number System · 9 quick steps',
+  subtitle: 'Indian Number System · play & learn',
   kid: 'ishanvi',
   subject: 'maths',
   chapter: 'Number System',

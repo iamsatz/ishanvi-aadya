@@ -26,7 +26,74 @@ export type InteractionType =
   | 'choice-cards'  // multiple choice, one correct
   | 'match-pairs'   // match left items to right items
   | 'reflect'       // free-text response, no right answer
-  | 'checklist';    // tick items as you do them (great for projects)
+  | 'checklist'     // tick items as you do them (great for projects)
+  | 'game';         // an interactive mini-game (see GameConfig)
+
+/* ============================================================
+   GAMES — touch-first mini-games (pointer/tap based, no native DnD)
+   Each game calls onComplete(true) when solved.
+   ============================================================ */
+
+/** Seat Swap — move one digit across period seats; watch its value change. */
+export interface SeatSwapGame {
+  kind: 'seat-swap';
+  /** The single digit the child moves (e.g. '6'). */
+  digit: string;
+  /** Seat the child must land the digit on to win (0 = ones, up to 7 = crores). */
+  targetSeat: number;
+}
+
+/** Family Sort — drop loose digits into the correct period houses. */
+export interface FamilySortGame {
+  kind: 'family-sort';
+  /** Number to sort, no commas (e.g. '5623407'). */
+  digits: string;
+}
+
+/** Comma Drop — tap the correct gaps to place Indian-system commas. */
+export interface CommaDropGame {
+  kind: 'comma-drop';
+  /** Number without commas (e.g. '8012693'). */
+  digits: string;
+}
+
+/** Anchor Race — match a number to its spoken name. */
+export interface AnchorRaceGame {
+  kind: 'anchor-race';
+  rounds: { number: string; name: string; distractors: string[] }[];
+}
+
+/** Number Builder — tap expanded-form pieces in order to build the number. */
+export interface NumberBuilderGame {
+  kind: 'number-builder';
+  /** Expanded pieces in CORRECT order (largest first), e.g. ['50,00,000','6,00,000',...]. */
+  pieces: string[];
+  /** The final standard-form result shown on success. */
+  result: string;
+}
+
+/** Podium — order items from smallest to greatest. */
+export interface PodiumGame {
+  kind: 'podium';
+  /** Items with numeric value; correct order is ascending by value. */
+  items: { label: string; value: number }[];
+}
+
+/** Neighbours — tap the successor (+1) and predecessor (-1). */
+export interface NeighboursGame {
+  kind: 'neighbours';
+  /** The centre number as a plain integer string (e.g. '2489321'). */
+  center: string;
+}
+
+export type GameConfig =
+  | SeatSwapGame
+  | FamilySortGame
+  | CommaDropGame
+  | AnchorRaceGame
+  | NumberBuilderGame
+  | PodiumGame
+  | NeighboursGame;
 
 export interface Choice {
   id: string;
@@ -115,6 +182,8 @@ export interface LearningCard {
   pairs?: Pair[];
   checklist?: ChecklistItem[];
   revealAnswer?: string;
+  /** Used when interactionType === 'game'. */
+  game?: GameConfig;
 
   hint?: string;
 }

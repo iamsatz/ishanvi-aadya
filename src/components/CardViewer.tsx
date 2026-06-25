@@ -7,6 +7,7 @@ import { ChecklistCard } from './cards/ChecklistCard';
 import { MatchPairsCard } from './cards/MatchPairsCard';
 import { QuizBlock } from './cards/QuizBlock';
 import { FeedbackOverlay } from './cards/FeedbackOverlay';
+import { GameCard } from './games/GameCard';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
 import type { LearningCard } from '../types/content';
 
@@ -17,6 +18,7 @@ function renderInteraction(card: LearningCard, onComplete: (correct: boolean) =>
     case 'match-pairs':  return <MatchPairsCard  card={card} onComplete={onComplete} />;
     case 'reflect':      return <ReflectCard     card={card} onComplete={onComplete} />;
     case 'checklist':    return <ChecklistCard   card={card} onComplete={onComplete} />;
+    case 'game':         return <GameCard        card={card} onComplete={onComplete} />;
   }
 }
 

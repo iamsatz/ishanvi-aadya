@@ -1,6 +1,5 @@
 import { AppShell } from './components/AppShell';
 import { TopBar, ProgressSlim } from './components/TopBar';
-import { Drawer } from './components/Drawer';
 import { CardViewer } from './components/CardViewer';
 import { NavControls } from './components/NavControls';
 import { useStore } from './state/store';
@@ -15,7 +14,6 @@ export default function App() {
     <AppShell
       topbar={<TopBar />}
       progress={<ProgressSlim />}
-      drawer={<Drawer />}
       nav={<NavControls />}
     >
       <CardViewer />
