@@ -321,13 +321,15 @@ input, textarea {
 .main {
   flex: 1;
   min-height: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: var(--sp-2) var(--sp-3);
-  max-width: 720px;
+  max-width: 920px;
   width: 100%;
   align-self: center;
   display: flex;
   flex-direction: column;
+  -webkit-overflow-scrolling: touch;
 }
 
 .nav {
@@ -535,45 +537,47 @@ input, textarea {
 
 /* ---------- Card ---------- */
 .card {
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
+  flex: 1 1 auto;
+  min-height: min-content;
+  overflow: visible;
   background: var(--c-surface);
   border-radius: var(--r-lg);
   padding: var(--sp-3) var(--sp-4);
   box-shadow: var(--sh-2);
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
+  gap: var(--sp-3);
   border: 1.5px solid color-mix(in srgb, var(--c-primary) 12%, transparent);
 }
 
 .card__body {
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
-  overflow: hidden;
+  gap: var(--sp-4);
+  overflow: visible;
 }
 
 .card__story {
   flex: 0 1 auto;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
+  gap: var(--sp-3);
 }
 
 .card__play {
-  flex: 1;
+  flex: 0 0 auto;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
-  overflow: hidden;
-  justify-content: flex-end;
+  gap: var(--sp-3);
+  overflow: visible;
+  justify-content: flex-start;
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--c-line);
 }
 
 .card__header { flex-shrink: 0; display: flex; flex-direction: column; gap: var(--sp-1); }
@@ -625,18 +629,160 @@ input, textarea {
   display: flex; flex-direction: column;
   gap: var(--sp-1);
   font-size: var(--fs-sm);
-  line-height: 1.45;
+  line-height: 1.55;
   color: var(--c-ink);
-  overflow: hidden;
+  overflow: visible;
 }
+.card__english--blocks { gap: 0; }
 .card__english p { margin: 0; }
+
+/* ---------- Content blocks (topics + tables) ---------- */
+.content-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.topic-block {
+  display: flex;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-line);
+}
+.topic-block__icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.topic-block__body { flex: 1; min-width: 0; }
+.topic-block__title {
+  margin: 0 0 var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--c-primary);
+}
+.topic-block__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--c-ink-soft);
+}
+.topic-block__text p { margin: 0; }
+
+.face-place-table {
+  padding: var(--sp-5) var(--sp-4);
+  border-radius: var(--r-lg);
+  background: linear-gradient(160deg, #F8F5FF 0%, #FFF7ED 100%);
+  border: 2px solid color-mix(in srgb, var(--c-primary) 18%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  align-items: center;
+}
+.face-place-table__lead {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-ink-soft);
+  text-align: center;
+}
+.face-place-table__number {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--c-primary);
+  line-height: 1;
+}
+.face-place-table__wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.face-place-table__grid {
+  width: 100%;
+  min-width: 320px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--fs-sm);
+}
+.face-place-table__grid th,
+.face-place-table__grid td {
+  padding: var(--sp-3) var(--sp-2);
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--c-primary) 15%, transparent);
+}
+.face-place-table__corner {
+  background: transparent;
+  border: none !important;
+}
+.face-place-table__place {
+  background: var(--c-surface-3);
+  font-weight: 800;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-ink-soft);
+}
+.face-place-table__row-label {
+  text-align: left;
+  font-weight: 700;
+  font-size: var(--fs-xs);
+  background: var(--c-surface);
+  white-space: nowrap;
+  padding-left: var(--sp-3);
+  color: var(--c-ink);
+}
+.face-place-table__tag { margin-right: 4px; }
+.face-place-table__digit {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  background: var(--c-surface);
+  color: var(--c-primary);
+}
+.face-place-table__row--face .face-place-table__cell {
+  background: #EFF6FF;
+  font-weight: 700;
+  color: #1D4ED8;
+}
+.face-place-table__row--place .face-place-table__cell--place {
+  background: #FFF7ED;
+  font-weight: 700;
+  color: #C2410C;
+}
+.face-place-table__col--hi {
+  outline: 3px solid var(--c-accent);
+  outline-offset: -2px;
+  background: #FEF3C7 !important;
+  position: relative;
+  z-index: 1;
+}
+.face-place-table__note {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  color: var(--c-ink-muted);
+  text-align: center;
+  max-width: 36em;
+}
+.face-place-table__note em { font-style: normal; font-weight: 700; color: var(--c-ink-soft); }
 
 .prompt {
   flex-shrink: 0;
   font-size: var(--fs-sm);
   font-weight: 700;
   margin: 0;
-  line-height: 1.35;
+  line-height: 1.45;
+  padding-top: var(--sp-1);
 }
 
 /* Telugu accordion */
@@ -1780,7 +1926,7 @@ input, textarea {
 @media (min-width: 1024px) {
   :root {
     --topbar-h: 72px;
-    --main-max: 880px;
+    --main-max: 960px;
   }
 
   .app {
@@ -1811,12 +1957,12 @@ input, textarea {
     font-size: 28px;
   }
 
-  /* Main reading column — fixed viewport, no page scroll */
+  /* Main reading column — scroll inside viewport */
   .main {
     max-width: var(--main-max);
     width: 100%;
     margin: 0 auto;
-    padding: var(--sp-3) var(--sp-5);
+    padding: var(--sp-4) var(--sp-6);
   }
 
   .nav {
@@ -1847,6 +1993,12 @@ input, textarea {
   /* Prompt + quiz stay compact in viewport layout */
   .card__title { font-size: clamp(22px, 2.5vw, 28px); }
   .card__english { font-size: var(--fs-md); }
+  .topic-block { padding: var(--sp-5); }
+  .topic-block__title { font-size: var(--fs-lg); }
+  .face-place-table { padding: var(--sp-6); }
+  .face-place-table__grid { font-size: var(--fs-md); }
+  .face-place-table__grid th,
+  .face-place-table__grid td { padding: var(--sp-3) var(--sp-4); }
 
   /* Choice cards (used by Earth Day MCQ): two-column grid on desktop */
   .choices {

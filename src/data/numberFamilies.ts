@@ -34,10 +34,44 @@ const nfCards: LearningCard[] = [
     lessonId: 'number-families',
     title: 'Face Value vs Place Value',
     subtitle: 'The most confusing pair — made simple',
-    englishContent:
-      'Two words, but they mean very different things:\n\n👀 FACE value = the digit\'s FACE. What it LOOKS like. It never changes. A 6 always looks like 6.\n\n💪 PLACE value = the digit\'s POWER. How much it is WORTH. This changes depending on WHERE the digit stands.\n\n— — — Two ways to picture it — — —\n\n💰 MONEY: Six ₹1 coins in your hand = ₹6. Move that same 6 into the lakhs seat — ₹6,00,000.\n\n🏟️ STADIUM: A "6" in the Ones row scores 6 points. In the Lakhs row it scores 6,00,000. Same player — different ROW.',
+    englishContent: '',
+    contentBlocks: [
+      {
+        type: 'topic',
+        icon: '👀',
+        title: 'FACE value',
+        body: 'FACE value is the digit\'s FACE — what it LOOKS like.\nIt never changes. A 6 always looks like 6, whether it sits in Ones or Lakhs.',
+      },
+      {
+        type: 'topic',
+        icon: '💪',
+        title: 'PLACE value',
+        body: 'PLACE value is the digit\'s POWER — how much it is WORTH.\nIt changes depending on WHERE the digit stands in the number.',
+      },
+      {
+        type: 'face-place-table',
+        display: '6,234',
+        places: ['Thousands', 'Hundreds', 'Tens', 'Ones'],
+        digits: ['6', '2', '3', '4'],
+        faceValues: ['6', '2', '3', '4'],
+        placeValues: ['6,000', '200', '30', '4'],
+        highlightIndex: 0,
+      },
+      {
+        type: 'topic',
+        icon: '💰',
+        title: 'Picture it with money',
+        body: 'Four ₹1 coins in the Ones seat = ₹4.\nThe same digit 6 in the Thousands seat = ₹6,000.\nSame FACE (6) — different PLACE, different worth.',
+      },
+      {
+        type: 'topic',
+        icon: '🏟️',
+        title: 'Picture it in a stadium',
+        body: 'A "6" in the Ones row scores 6 points.\nMove that same "6" to the Thousands row — it scores 6,000 points.\nThe player (digit) did not change — the ROW (place) gave it power.',
+      },
+    ],
     teluguContent:
-      'రెండు words — రెండు different meanings:\n\n👀 FACE value = digit ముఖం. ఎలా కనిపిస్తుందో అదే. 6 ఎప్పుడూ 6 లా.\n\n💪 PLACE value = digit power. ఎంత worth — digit ఎక్కడ ఉందో బట్టి మారుతుంది.\n\n💰 MONEY: 6 coins = ₹6. అదే 6 lakhs seat లో → ₹6,00,000.\n\n🏟️ STADIUM: Ones row లో 6 = 6 points. Lakhs row లో 6 = 6,00,000 points.',
+      '👀 FACE value = digit ముఖం — ఎలా కనిపిస్తుందో అదే. 6 ఎప్పుడూ 6 లా.\n\n💪 PLACE value = digit power — ఎంత worth. Digit ఎక్కడ ఉందో బట్టి మారుతుంది.\n\n📊 6,234 ఉదాహరణ:\nThousands: 6 (face 6, place 6,000)\nHundreds: 2 (face 2, place 200)\nTens: 3 (face 3, place 30)\nOnes: 4 (face 4, place 4)\n\n💰 Money: Ones లో 6 = ₹6. Thousands లో 6 = ₹6,000.\n\n🏟️ Stadium: Ones row 6 = 6 points. Thousands row 6 = 6,000 points.',
     glossary: [
       { word: 'FACE value', en: 'The digit itself — what it looks like', te: 'ముఖ విలువ' },
       { word: 'PLACE value', en: 'What the digit is worth, by its position', te: 'స్థాన విలువ' },

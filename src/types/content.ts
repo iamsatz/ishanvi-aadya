@@ -152,6 +152,30 @@ export interface QuizQuestion {
   hint?: string;
 }
 
+/** Spaced topic section (icon + title + body). */
+export interface TopicBlock {
+  icon?: string;
+  title: string;
+  body: string;
+}
+
+/** Face vs place table for a 4-digit (or shorter) number. */
+export interface FacePlaceTableBlock {
+  type: 'face-place-table';
+  /** Shown large above the table, e.g. "6,234". */
+  display: string;
+  places: string[];
+  digits: string[];
+  faceValues: string[];
+  placeValues: string[];
+  /** Column index to highlight (the digit you are studying). */
+  highlightIndex?: number;
+}
+
+export type ContentBlock =
+  | ({ type: 'topic' } & TopicBlock)
+  | FacePlaceTableBlock;
+
 export interface LearningCard {
   id: string;
   lessonId: string;
@@ -163,6 +187,8 @@ export interface LearningCard {
 
   /** Main English content — paragraphs separated by \n\n, line breaks by \n. */
   englishContent: string;
+  /** Optional structured blocks with spacing (topics + tables). Renders instead of plain paragraphs when set. */
+  contentBlocks?: ContentBlock[];
   /** Optional Telugu translation — shown inside a collapsed accordion. */
   teluguContent?: string;
 

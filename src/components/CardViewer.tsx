@@ -12,6 +12,7 @@ import { CharacterBubble } from './CharacterBubble';
 import { ParentPanel } from './ParentPanel';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
 import { clearCardStorage } from '../hooks/useCardStorage';
+import { ContentBlocks } from './cards/ContentBlocks';
 import type { LearningCard } from '../types/content';
 
 function renderInteraction(card: LearningCard, onComplete: (correct: boolean) => void) {
@@ -75,8 +76,16 @@ export function CardViewer() {
 
       <div className="card__body">
         <div className="card__story">
-          <div className="card__english">
-            {renderWithGlossary(card.englishContent, card.glossary, `en-${card.id}`)}
+          <div className={`card__english${card.contentBlocks?.length ? ' card__english--blocks' : ''}`}>
+            {card.contentBlocks && card.contentBlocks.length > 0 ? (
+              <ContentBlocks
+                blocks={card.contentBlocks}
+                glossary={card.glossary}
+                cardId={card.id}
+              />
+            ) : (
+              renderWithGlossary(card.englishContent, card.glossary, `en-${card.id}`)
+            )}
           </div>
 
           {card.teluguContent && (
