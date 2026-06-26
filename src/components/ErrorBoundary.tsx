@@ -21,7 +21,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   private handleReset = () => {
     try {
-      localStorage.removeItem('ishanvi-aadya-progress');
+      localStorage.removeItem('ishanvi-aadya-progress-v6');
     } catch {
       /* ignore */
     }

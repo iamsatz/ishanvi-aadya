@@ -26,7 +26,6 @@ export function useKeyboardNav({
       const target = e.target as HTMLElement | null;
       const tag = target?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || target?.isContentEditable) return;
-      if (document.querySelector('.lightbox')) return;
 
       if (tvMode) {
         if (isRemoteBack(e.key)) {
@@ -34,8 +33,14 @@ export function useKeyboardNav({
           (onRemoteBack ?? onBack)();
           return;
         }
-        // Spatial nav runs first; if it couldn't move focus, fall back to card prev/next.
         if (e.defaultPrevented) return;
+        // Don't let arrows flip cards while an overlay owns the screen.
+        if (
+          document.querySelector('.lightbox') ||
+          document.querySelector('.nav-dd__trigger[aria-expanded="true"]')
+        ) {
+          return;
+        }
         if (e.key === 'ArrowRight') { e.preventDefault(); onNext(); }
         if (e.key === 'ArrowLeft')  { e.preventDefault(); onBack(); }
         return;

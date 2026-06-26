@@ -1,72 +1,54 @@
-# Learning Adventures — Ishanvi · Aadya
+# Learning Adventures — Closed Beta
 
-A mobile-first, interactive learning web app for kids 6–9, built from
-5 source PDFs (3 bilingual English+Telugu stories, 2 English-only
-project workbooks). Single-page React + TypeScript app. Progress
-persists in `localStorage`.
+Mobile-first + **Android TV remote** learning app for kids. Parents sign in (magic link), add children by **grade + board**, then upload homework or subject indexes — **AI builds interactive lessons**.
 
-## Run it
+## Quick start
 
 ```bash
 npm install
+cp .env.example .env   # add Supabase keys
 npm run dev
 ```
 
-Open http://localhost:5173.
+Open http://localhost:5173
 
-## What's in it
+## Beta setup (required)
 
-**Stories** (Telugu accordion under each card, collapsed by default)
-- ⚡ The Acorns Power Book — Decoding Power
-- 📚 Stories & My School — 7 stories + Silver Oaks chapters
-- 🌟 Character, Skills & Stories — Being, Doing, Mahatma's mantras
+See **[docs/SUPABASE-SETUP.md](docs/SUPABASE-SETUP.md)**:
 
-**Projects** (English only — no Telugu)
-- 🌍 Earth Day 2026 — waste sorting, fill blanks, reflect
-- ☀️ Summer Vacation Project — Math, English, Science checklists
+1. Run `supabase/schema.sql`
+2. Add tester emails to `allowed_emails`
+3. Deploy `supabase/functions/tutor` with `GEMINI_API_KEY`
+4. Set `VITE_SUPABASE_*` on Vercel / `.env`
 
-Every card has an interaction — no passive reading:
-- `tap-reveal` · `choice-cards` · `match-pairs` · `reflect` (text) · `checklist`
+## Tester flow
 
-## Mobile-first UI
+1. Magic-link login (allowlisted email)
+2. **Add child** (name, grade, board) or **Load demo content**
+3. Menu → **Add homework** (PIN `1234`) — photo/text → AI help
+4. Menu → **Add subject index** — paste syllabus → AI lessons
+5. **TV:** same account, D-pad navigation + focus rings
 
-- Top bar with hamburger ☰ (no sidebar; drawer slides in from left)
-- Drawer has **Stories** | **Projects** tabs
-- Sticky bottom Back / Next buttons (keyboard ← → also works)
-- Telugu translation hidden behind "తెలుగు చదవండి · Read in Telugu"
-- "👩‍👧 అమ్మ కోసం · For Parent" hint also collapsed by default
+## Android APK
 
-## What's where
+```bash
+npm run cap:apk
+```
+
+See [docs/ANDROID-APK.md](docs/ANDROID-APK.md)
+
+## Architecture
 
 | Path | Purpose |
 |------|---------|
-| [src/types/content.ts](src/types/content.ts) | Generic content model (Lesson, Card, Choice, Pair, …) |
-| [src/data/fixtures.ts](src/data/fixtures.ts) | All 5 lessons, hand-authored from the source PDFs |
-| [src/state/store.ts](src/state/store.ts) | Zustand store + localStorage persistence |
-| [src/lib/pdfParser.ts](src/lib/pdfParser.ts) | **🔌 Stub** — plug in `pdfjs-dist` here for real upload parsing |
-| [src/styles/tokens.css](src/styles/tokens.css) | **🎨 Edit me** — palette, fonts, spacing, motion |
-| [src/styles/global.css](src/styles/global.css) | Mobile-first layout, drawer, accordion, animations |
-| [src/components/cards/](src/components/cards) | One file per `interactionType` |
-| [src/hooks/useCardStorage.ts](src/hooks/useCardStorage.ts) | Per-card persisted state (reflect text, checklist ticks) |
+| `src/lib/auth.ts` | Magic-link auth + allowlist |
+| `src/lib/db.ts` | Children, subjects, homework, lessons, feedback |
+| `supabase/schema.sql` | Multi-tenant RLS schema |
+| `supabase/functions/tutor/` | Gemini AI → LearningCard JSON |
+| `src/data/demoContent.ts` | Ishanvi/Aadya demo lessons |
+| `src/components/cards/` | Interactive card renderers |
+| `src/hooks/useSpatialNav.ts` | TV D-pad focus |
 
-## Adding more PDFs/images later
+## Parent PIN
 
-Use **+ PDFs** / **+ Images** in the drawer footer. Files run through
-`parsePdfFile` / `parseImageFile` (currently stubs that produce
-placeholder lessons). To make these meaningful, wire `pdfjs-dist`
-into [src/lib/pdfParser.ts](src/lib/pdfParser.ts) — no other code
-needs to change.
-
-Or just append to [src/data/fixtures.ts](src/data/fixtures.ts):
-```ts
-{ id: 'my-book', title: '…', section: 'stories', hasTelugu: true, icon: '📖', cards: [ … ] }
-```
-
-## Accessibility
-
-- 18–20 px base font, ≥ 56 px tap targets, 3 px visible focus ring
-- Choice feedback uses icon + text + colour (never colour alone)
-- `prefers-reduced-motion` zeroes animation durations
-- Telugu rendered with `font-family: var(--font-telugu)` — falls
-  back to Noto Sans Telugu / Mallanna / Gautami
-- Drawer dismissable via backdrop tap, ✕ button, or ESC
+Default: `1234` — change in `src/config/app.ts`

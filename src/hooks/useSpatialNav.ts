@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 const FOCUSABLE =
-  'button:not([disabled]), a[href], input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  'button:not([disabled]), a[href], input:not([disabled]), textarea:not([disabled]), select:not([disabled]), summary:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 function isTvMode(): boolean {
   return document.querySelector('.app[data-tv="true"]') !== null;
@@ -15,10 +15,40 @@ function isTypingTarget(el: Element | null): boolean {
 
 function visibleFocusables(root: ParentNode): HTMLElement[] {
   return Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((el) => {
-    if (el.offsetParent === null && el.tagName !== 'BODY') return false;
+    if (el.offsetParent === null && el.tagName !== 'BODY' && el.tagName !== 'SUMMARY') {
+      const inOpenDetails = el.closest('details[open]');
+      if (!inOpenDetails) return false;
+    }
     const style = window.getComputedStyle(el);
-    return style.visibility !== 'hidden' && style.display !== 'none';
+    if (style.visibility === 'hidden' || style.display === 'none') return false;
+    if (el.closest('[aria-hidden="true"]')) return false;
+    return true;
   });
+}
+
+/** Modal overlays that should trap D-pad focus while open (checked in priority order). */
+const MODAL_SELECTORS = [
+  '.lightbox',
+  '.ask-teacher',
+  '.settings-panel',
+  '.feedback-panel',
+  '.index-editor',
+  '.parent-upload',
+  '.pin-gate',
+  '.onboarding',
+];
+
+function navRoot(): ParentNode {
+  for (const sel of MODAL_SELECTORS) {
+    const modal = document.querySelector(sel);
+    if (modal) return modal;
+  }
+
+  const menuPanel = document.querySelector('.nav-dd__panel');
+  const menuOpen = document.querySelector('.nav-dd__trigger[aria-expanded="true"]');
+  if (menuOpen && menuPanel) return menuPanel;
+
+  return document.querySelector('.app') ?? document.body;
 }
 
 function center(el: HTMLElement) {
@@ -75,30 +105,26 @@ function tryScrollVertical(key: string, active: HTMLElement | null): boolean {
   if (key !== 'ArrowUp' && key !== 'ArrowDown') return false;
 
   const delta = key === 'ArrowDown' ? 220 : -220;
-  const candidates = [
-    scrollableAncestor(active),
-    document.querySelector<HTMLElement>('.lightbox__scroll'),
-    document.querySelector<HTMLElement>('.card__story'),
-    document.querySelector<HTMLElement>('.card__play'),
-    document.querySelector<HTMLElement>('.card__body'),
-    document.querySelector<HTMLElement>('.main'),
-  ].filter(Boolean) as HTMLElement[];
+  const scrollEl =
+    (active?.closest('.lightbox__scroll') as HTMLElement | null) ??
+    scrollableAncestor(active) ??
+    document.querySelector<HTMLElement>('.main');
 
-  for (const scrollEl of candidates) {
-    if (scrollEl.scrollHeight <= scrollEl.clientHeight + 12) continue;
+  if (!scrollEl || scrollEl.scrollHeight <= scrollEl.clientHeight + 12) return false;
 
-    const atTop = scrollEl.scrollTop <= 0;
-    const atBottom =
-      scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 12;
+  const atTop = scrollEl.scrollTop <= 0;
+  const atBottom = scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 12;
 
-    if (key === 'ArrowDown' && atBottom) continue;
-    if (key === 'ArrowUp' && atTop) continue;
+  if (key === 'ArrowDown' && atBottom) return false;
+  if (key === 'ArrowUp' && atTop) return false;
 
-    scrollEl.scrollTop += delta;
-    return true;
-  }
+  scrollEl.scrollTop += delta;
+  return true;
+}
 
-  return false;
+function focusWithScroll(el: HTMLElement) {
+  el.focus({ preventScroll: true });
+  el.scrollIntoView({ block: 'center', inline: 'nearest' });
 }
 
 /** Geometric D-pad focus movement for TV remote mode. */
@@ -108,22 +134,17 @@ export function useSpatialNav(enabled: boolean) {
 
     const handler = (e: KeyboardEvent) => {
       if (!isTvMode()) return;
-      if (document.querySelector('.lightbox')) return;
       if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) return;
 
       const active = document.activeElement as HTMLElement | null;
       if (isTypingTarget(active)) return;
 
-      if (tryScrollVertical(e.key, active)) {
-        e.preventDefault();
-        return;
-      }
-
-      const root = document.querySelector('.app') ?? document.body;
+      const root = navRoot();
       const focusables = visibleFocusables(root);
       if (focusables.length === 0) return;
 
-      const current = active && focusables.includes(active) ? active : focusables[0];
+      const current =
+        active && focusables.includes(active) ? active : focusables[0];
       const next = nearestInDirection(
         current,
         focusables,
@@ -132,8 +153,14 @@ export function useSpatialNav(enabled: boolean) {
 
       if (next) {
         e.preventDefault();
-        next.focus({ preventScroll: false });
-        next.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        focusWithScroll(next);
+        return;
+      }
+
+      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        if (tryScrollVertical(e.key, active)) {
+          e.preventDefault();
+        }
       }
     };
 

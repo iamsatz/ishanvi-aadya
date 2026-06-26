@@ -1,58 +1,106 @@
-# Supabase setup (phone upload → TV browser)
+# Supabase setup — Closed Beta
 
-**Your project:** [shikwtguxfhefzvfkedo](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo)
+**Project:** [shikwtguxfhefzvfkedo](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo)
 
-Without keys, **Upload homework photo** shows *"Cloud not connected."*
-
----
-
-## Step 1 — Run SQL (one time)
+## Step 1 — Run SQL
 
 1. Open [SQL editor](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo/sql/new)
 2. Paste all of `supabase/schema.sql`
 3. Click **Run**
 
-This creates the `homework` table + public `homework` storage bucket.
+Creates: auth profiles, allowlist, children, subjects, syllabus, lessons, homework, feedback + RLS.
 
----
+## Step 2 — Add beta tester emails
 
-## Step 2 — Copy API keys
+```sql
+insert into public.allowed_emails (email) values
+  ('parent1@example.com'),
+  ('parent2@example.com');
+```
 
-1. Open [Settings → API](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo/settings/api)
-2. Copy:
+## Step 3 — Disable public signup (recommended)
 
-| Key | Value |
-|-----|--------|
-| `VITE_SUPABASE_URL` | `https://shikwtguxfhefzvfkedo.supabase.co` |
-| `VITE_SUPABASE_ANON_KEY` | **anon public** key (long `eyJ…` string) |
+Dashboard → Authentication → Providers → Email → disable "Enable sign ups" is NOT needed if you use allowlist trigger (non-listed emails fail on signup).
 
----
+## Step 4 — Deploy AI tutor function
 
-## Step 3 — Add to Vercel
+Install CLI if needed:
 
-1. Vercel → your project → **Settings → Environment Variables**
-2. Add both variables above (Production + Preview)
-3. **Redeploy**
+```bash
+brew install supabase/tap/supabase
+```
 
----
+Then deploy:
 
-## Step 4 — Local / APK (optional)
+```bash
+npx supabase login
+export GEMINI_API_KEY=your_key_from_aistudio
+npm run deploy-tutor
+```
 
-Create `.env` in project root:
+Or manually:
+
+```bash
+supabase link --project-ref shikwtguxfhefzvfkedo
+supabase secrets set GEMINI_API_KEY=your_key_here
+supabase functions deploy tutor
+```
+
+Get a Gemini key: https://aistudio.google.com/apikey
+
+## Step 5 — Environment variables
+
+`.env` (local) and Vercel:
 
 ```
 VITE_SUPABASE_URL=https://shikwtguxfhefzvfkedo.supabase.co
-VITE_SUPABASE_ANON_KEY=paste_anon_key_here
+VITE_SUPABASE_ANON_KEY=your_anon_key
 ```
 
-Then `npm run build` or `npm run cap:apk`.
+## Step 6 — Test tutor function (CLI harness)
 
----
+After deploy, run the automated smoke test from the repo root:
 
-## Test
+```bash
+npm run test-tutor              # all built-in samples (homework + chat + image)
+npm run test-tutor -- --homework   # homework mode only
+npm run test-tutor -- --chat       # Ask Teacher chat mode only
+npm run test-tutor -- --only 2     # run sample #2 only
+```
 
-**Phone:** Menu → This Weekend → **Upload homework photo** → PIN `1234` → browse → **Send to TV**
+The harness POSTs to `{VITE_SUPABASE_URL}/functions/v1/tutor` and prints, per question:
 
-**TV:** Same app URL → refresh → new item under **This Weekend**
+- `answer` and `explanation` from `tasks[]`
+- warnings if `tasks[]` is empty (Answers page will be blank)
+- warnings if final answers appear to leak into teaching `cards[]`
 
-Verify uploads in [Storage → homework](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo/storage/buckets/homework) and [Table Editor → homework](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo/editor).
+### Answer-accuracy rubric (decision gate)
+
+Run against **5–8 real homework questions** (arithmetic, word problem, multi-step, fill-in-the-blank, Indian number naming). Manually verify each AI answer against the textbook or your own working.
+
+| Accuracy | Action |
+|----------|--------|
+| **≥ 90%** correct | Keep PIN-gated Answers page as-is |
+| **60–90%** | Reframe UI to "worked solution + AI may be wrong — check together" |
+| **< 60%** | Do not surface final answers; hints and steps only |
+
+Also confirm:
+
+- `tasks[]` is populated (not empty) for homework uploads
+- Teaching cards explain **how**, not final copy-paste answers
+
+Record results in [docs/TUTOR-EVAL-RESULTS.md](TUTOR-EVAL-RESULTS.md) (date, N questions, correct count, decision).
+
+## Step 7 — Test app flow
+
+1. **Phone:** open app → magic link login with allowlisted email
+2. **Add child** or **Load demo content**
+3. Menu → **Add homework** (PIN 1234) → photo → AI builds help
+4. Swipe to last card → **Answers & Explanations** (PIN unlock) → tap **Show answer**
+5. Menu → **Ask Teacher** → preset question → answer appears in chat panel
+6. Menu → **Add subject index** → paste TOC → AI builds lessons
+7. **TV:** same login → remote navigation works
+
+## Storage
+
+Homework photos upload to `homework/{user_id}/{date}/...` with RLS.

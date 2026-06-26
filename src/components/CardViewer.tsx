@@ -9,6 +9,7 @@ import { QuizBlock } from './cards/QuizBlock';
 import { FeedbackOverlay } from './cards/FeedbackOverlay';
 import { GameCard } from './games/GameCard';
 import { VocabGridCard } from './cards/VocabGridCard';
+import { AnswersCard } from './cards/AnswersCard';
 import { CharacterBubble } from './CharacterBubble';
 import { ParentPanel } from './ParentPanel';
 import { ImageLightbox } from './ImageLightbox';
@@ -28,6 +29,7 @@ function renderInteraction(card: LearningCard, onComplete: (correct: boolean) =>
     case 'checklist':    return <ChecklistCard   card={card} onComplete={onComplete} />;
     case 'vocab-grid':   return <VocabGridCard   card={card} onComplete={onComplete} />;
     case 'game':         return <GameCard        card={card} onComplete={onComplete} />;
+    case 'answers':      return <AnswersCard     card={card} onComplete={onComplete} />;
   }
 }
 
@@ -41,6 +43,7 @@ export function CardViewer() {
   const cardRef = useRef<HTMLElement>(null);
   const storyRef = useRef<HTMLDivElement>(null);
   const playRef = useRef<HTMLDivElement>(null);
+  const zoomBtnRef = useRef<HTMLButtonElement>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
@@ -49,16 +52,6 @@ export function CardViewer() {
   useEffect(() => {
     setLightboxOpen(false);
   }, [card?.id]);
-
-  useEffect(() => {
-    if (!tvMode || !card) return;
-    const root = cardRef.current;
-    if (!root) return;
-    const focusable = root.querySelector<HTMLElement>(
-      'button:not([disabled]), a[href], input, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    (focusable ?? root).focus({ preventScroll: true });
-  }, [card?.id, tvMode, resetKey]);
 
   if (!card || !lesson) {
     return <article className="card"><p>No lesson selected.</p></article>;
@@ -125,6 +118,7 @@ export function CardViewer() {
               {tvMode && (
                 <button
                   type="button"
+                  ref={zoomBtnRef}
                   className="card__zoom-btn btn btn--accent"
                   onClick={() => setLightboxOpen(true)}
                 >
@@ -205,6 +199,7 @@ export function CardViewer() {
           open={lightboxOpen}
           tvMode={tvMode}
           onClose={() => setLightboxOpen(false)}
+          returnFocusRef={zoomBtnRef}
         />
       )}
 

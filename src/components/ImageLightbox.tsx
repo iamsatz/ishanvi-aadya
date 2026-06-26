@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 const ZOOM_STEPS = [1, 1.25, 1.5, 2, 2.5, 3, 4];
-const SCROLL_STEP = 120;
 
 interface Props {
   src: string;
@@ -10,20 +9,35 @@ interface Props {
   open: boolean;
   tvMode?: boolean;
   onClose: () => void;
+  returnFocusRef?: React.RefObject<HTMLElement | null>;
 }
 
-export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props) {
-  const closeRef = useRef<HTMLButtonElement>(null);
+export function ImageLightbox({
+  src,
+  alt,
+  open,
+  tvMode = false,
+  onClose,
+  returnFocusRef,
+}: Props) {
+  const zoomOutRef = useRef<HTMLButtonElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [zoomIndex, setZoomIndex] = useState(2);
 
   const zoom = ZOOM_STEPS[zoomIndex] ?? 1;
 
+  const close = () => {
+    onClose();
+    window.requestAnimationFrame(() => {
+      returnFocusRef?.current?.focus({ preventScroll: true });
+    });
+  };
+
   useEffect(() => {
     if (!open) return;
     setZoomIndex(tvMode ? 2 : 1);
     document.body.classList.add('lightbox-open');
-    closeRef.current?.focus({ preventScroll: true });
+    zoomOutRef.current?.focus({ preventScroll: true });
     return () => document.body.classList.remove('lightbox-open');
   }, [open, src, tvMode]);
 
@@ -32,29 +46,8 @@ export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
-        return;
-      }
-
-      const scrollEl = scrollRef.current;
-      if (e.key === 'ArrowDown' && scrollEl) {
         e.preventDefault();
-        scrollEl.scrollTop += SCROLL_STEP;
-        return;
-      }
-      if (e.key === 'ArrowUp' && scrollEl) {
-        e.preventDefault();
-        scrollEl.scrollTop -= SCROLL_STEP;
-        return;
-      }
-      if (e.key === 'ArrowLeft' && scrollEl) {
-        e.preventDefault();
-        scrollEl.scrollLeft -= SCROLL_STEP;
-        return;
-      }
-      if (e.key === 'ArrowRight' && scrollEl) {
-        e.preventDefault();
-        scrollEl.scrollLeft += SCROLL_STEP;
+        close();
         return;
       }
       if (e.key === '+' || e.key === '=') {
@@ -68,9 +61,14 @@ export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props
       }
     };
 
+    const onRemoteClose = () => close();
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open, onClose]);
+    window.addEventListener('lightbox-close', onRemoteClose);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('lightbox-close', onRemoteClose);
+    };
+  }, [open]);
 
   if (!open) return null;
 
@@ -92,14 +90,11 @@ export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props
       <div className="lightbox__toolbar">
         <button
           type="button"
-          ref={closeRef}
-          className="lightbox__tool lightbox__tool--close"
-          onClick={onClose}
-          aria-label="Close zoom"
+          ref={zoomOutRef}
+          className="lightbox__tool"
+          onClick={zoomOut}
+          disabled={zoomIndex === 0}
         >
-          ✕ Close
-        </button>
-        <button type="button" className="lightbox__tool" onClick={zoomOut} disabled={zoomIndex === 0}>
           − Zoom out
         </button>
         <span className="lightbox__zoom-pct" aria-live="polite">
@@ -116,6 +111,14 @@ export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props
         <button type="button" className="lightbox__tool" onClick={resetZoom}>
           Reset
         </button>
+        <button
+          type="button"
+          className="lightbox__tool lightbox__tool--close"
+          onClick={close}
+          aria-label="Close zoom"
+        >
+          ✕ Close
+        </button>
       </div>
       <div className="lightbox__scroll" ref={scrollRef} tabIndex={0}>
         <img
@@ -128,7 +131,7 @@ export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props
       </div>
       <p className="lightbox__hint">
         {tvMode
-          ? 'Remote: ▲▼ scroll · ◀▶ pan when zoomed · +/− zoom · ✕ close'
+          ? 'Remote: move across toolbar · ▲▼ scroll image · +/− zoom · Back to close'
           : 'Drag/scroll to read · use toolbar to zoom'}
       </p>
     </div>,

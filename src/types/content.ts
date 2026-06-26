@@ -4,7 +4,11 @@
    only data changes — no component changes.
    ============================================================ */
 
-export type KidId = 'ishanvi' | 'aadya';
+export type KidId = string;
+
+/** Legacy demo kid slugs (built-in demo content). */
+export const DEMO_CHILD_ISHANVI = 'demo-ishanvi';
+export const DEMO_CHILD_AADYA = 'demo-aadya';
 
 /** Visual avatar for a kid's guide character. */
 export type AvatarId = 'satish-guru' | 'emoji';
@@ -33,7 +37,16 @@ export type InteractionType =
   | 'reflect'       // free-text response, no right answer
   | 'checklist'     // tick items as you do them (great for projects)
   | 'vocab-grid'    // grid of tap-to-flip vocabulary cards
-  | 'game';         // an interactive mini-game (see GameConfig)
+  | 'game'          // an interactive mini-game (see GameConfig)
+  | 'answers';      // final answer-key page (PIN-gated per-question reveal)
+
+/** One question's answer + explanation, shown on the PIN-gated Answers page. */
+export interface AnswerItem {
+  question: string;
+  answer: string;
+  /** Why the answer is what it is (kid-friendly). */
+  explanation?: string;
+}
 
 /* ============================================================
    GAMES — touch-first mini-games (pointer/tap based, no native DnD)
@@ -258,14 +271,20 @@ export interface LearningCard {
   cardStyle?: 'default' | 'deck';
 
   hint?: string;
+
+  /** Used when interactionType === 'answers' — the per-question answer key. */
+  answers?: AnswerItem[];
 }
 
 export interface Lesson {
   id: string;
   title: string;
   subtitle?: string;
+  /** Child id (UUID or demo slug). */
   kid: KidId;
-  /** Subject id — must match a subject in src/data/kids.ts for that kid. */
+  /** @deprecated use kid — alias kept for compatibility */
+  childId?: KidId;
+  /** Subject id — slug for demo, UUID for cloud subjects. */
   subject: string;
   /** Optional chapter name for future grouping (data-only, no nav change yet). */
   chapter?: string;

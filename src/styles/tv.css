@@ -96,10 +96,31 @@
   min-height: 5rem;
 }
 
+/* Remote/D-pad moves focus programmatically, which does not reliably trigger
+   :focus-visible — so in TV mode we show the ring on plain :focus too. */
+.app[data-tv="true"] :focus,
 .app[data-tv="true"] :focus-visible {
-  outline: 4px solid var(--accent, #f59e0b);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.3);
+  outline: 5px solid var(--accent, #f59e0b);
+  outline-offset: 3px;
+  box-shadow:
+    0 0 0 8px rgba(245, 158, 11, 0.35),
+    0 0 24px rgba(245, 158, 11, 0.45);
+  transform: scale(1.03);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  z-index: 1;
+  position: relative;
+}
+
+.app[data-tv="true"] summary:focus,
+.app[data-tv="true"] summary:focus-visible {
+  border-radius: var(--r-md);
+}
+
+.app[data-tv="true"] .listen-btn {
+  min-height: 2.75rem;
+  min-width: 7rem;
+  font-size: var(--fs-base);
+  padding: var(--sp-2) var(--sp-3);
 }
 
 .app[data-tv="true"] .topbar {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PARENT_PIN } from '../config/app';
+import { getParentPin } from '../lib/pin';
 
 interface Props {
   open: boolean;
@@ -16,7 +16,7 @@ export function PinGate({ open, title = 'Parent PIN', onSuccess, onCancel }: Pro
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (pin === PARENT_PIN) {
+    if (pin === getParentPin()) {
       setPin('');
       setError(false);
       onSuccess();

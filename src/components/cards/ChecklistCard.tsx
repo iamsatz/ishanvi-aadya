@@ -77,10 +77,7 @@ export function ChecklistCard({ card, onComplete }: Props) {
               <span className="check-item__body">
                 <span className="check-item__label">{it.label}</span>
                 {it.hint && (
-                  <span className="check-item__hint-row">
-                    <span className="check-item__hint">💡 {it.hint}</span>
-                    <ListenButton text={it.hint} label="Listen" />
-                  </span>
+                  <span className="check-item__hint">💡 {it.hint}</span>
                 )}
                 {it.what && !it.hint && <span className="check-item__what">{it.what}</span>}
                 {it.example && exampleVisible && (
@@ -88,6 +85,11 @@ export function ChecklistCard({ card, onComplete }: Props) {
                 )}
               </span>
             </button>
+            {it.hint && (
+              <div className="check-item__listen">
+                <ListenButton text={it.hint} label="Listen" />
+              </div>
+            )}
             {it.example && !parentMode && (
               <button
                 type="button"

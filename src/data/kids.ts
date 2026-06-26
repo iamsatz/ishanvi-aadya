@@ -1,34 +1,56 @@
-import type { Kid } from '../types/content';
+import type { Kid, KidId } from '../types/content';
+import type { ChildRow, SubjectRow } from '../types/db';
+import { boardLabel } from '../types/db';
+import { defaultSubjectsForGrade } from './defaultSubjects';
 
-export const kids: Kid[] = [
-  {
-    id: 'ishanvi',
-    name: 'Ishanvi',
-    grade: 'Grade 4',
-    board: 'IB',
-    mascot: { name: 'Satish', avatar: 'satish-guru', role: 'Wise guru guide' },
-    subjects: [
-      { id: 'homework', label: 'This Weekend', icon: '✏️' },
-      { id: 'maths',    label: 'Maths · Learn', icon: '🧮' },
-      { id: 'stories',  label: 'Summer Stories', icon: '📚' },
-      { id: 'projects', label: 'Summer Projects', icon: '📝' },
-    ],
-  },
-  {
-    id: 'aadya',
-    name: 'Aadya',
-    grade: 'Grade 2',
-    board: 'CBSE · Cambridge',
-    mascot: { name: 'Chiku', avatar: 'emoji', emoji: '🐰', role: 'Bunny buddy' },
-    subjects: [
-      { id: 'maths',   label: 'Maths',   icon: '🧮' },
-      { id: 'english', label: 'English', icon: '📖' },
-      { id: 'evs',     label: 'EVS',     icon: '🌍' },
-    ],
-  },
-];
+export function childToKid(child: ChildRow, subjects?: SubjectRow[]): Kid {
+  const subjectDefs = subjects?.length
+    ? subjects.map((s) => ({ id: s.id, label: s.name, icon: s.icon }))
+    : defaultSubjectsForGrade(child.grade);
 
-export const kidById = Object.fromEntries(kids.map((k) => [k.id, k])) as Record<
-  Kid['id'],
-  Kid
->;
+  const isDemo = child.is_demo;
+  const isIshanvi = child.name.toLowerCase().includes('ishanvi');
+  const isAadya = child.name.toLowerCase().includes('aadya');
+
+  return {
+    id: child.id as KidId,
+    name: child.name.replace(' (Demo)', ''),
+    grade: child.grade,
+    board: boardLabel(child.board),
+    subjects: subjectDefs,
+    mascot: isDemo && isIshanvi
+      ? { name: 'Satish', avatar: 'satish-guru', role: 'Wise guru guide' }
+      : isDemo && isAadya
+        ? { name: 'Chiku', avatar: 'emoji', emoji: '🐰', role: 'Bunny buddy' }
+        : { name: 'Guide', avatar: 'emoji', emoji: '🌟', role: 'Learning buddy' },
+  };
+}
+
+export function kidsFromChildren(
+  children: ChildRow[],
+  subjectsByChild: Record<string, SubjectRow[]>
+): Kid[] {
+  return children.map((c) => childToKid(c, subjectsByChild[c.id]));
+}
+
+/** Local demo kids for the DEV-only offline preview (no Supabase needed). */
+export function devPreviewKids(): Kid[] {
+  return [
+    {
+      id: 'ishanvi' as KidId,
+      name: 'Ishanvi',
+      grade: 'Grade 4',
+      board: 'IB',
+      subjects: defaultSubjectsForGrade('Grade 4'),
+      mascot: { name: 'Satish', avatar: 'satish-guru', role: 'Wise guru guide' },
+    },
+    {
+      id: 'aadya' as KidId,
+      name: 'Aadya',
+      grade: 'Grade 2',
+      board: 'CBSE · Cambridge',
+      subjects: defaultSubjectsForGrade('Grade 2'),
+      mascot: { name: 'Chiku', avatar: 'emoji', emoji: '🐰', role: 'Bunny buddy' },
+    },
+  ];
+}
