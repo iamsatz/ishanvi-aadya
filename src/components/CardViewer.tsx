@@ -103,13 +103,12 @@ export function CardViewer() {
         </div>
       </header>
 
+      {tvMode && (
+        <TvScrollButtons label="Scroll page" />
+      )}
+
       <div className="card__body">
-        <div
-          className="card__story"
-          ref={storyRef}
-          tabIndex={tvMode ? 0 : undefined}
-        >
-          {tvMode && <TvScrollButtons targetRef={storyRef} label="Scroll reading column" />}
+        <div className="card__story" ref={storyRef}>
           {card.imageUrl && (
             <figure className="card__image">
               <button
@@ -183,10 +182,8 @@ export function CardViewer() {
         <div
           className={`card__play${isDeck ? ' card__play--deck' : ''}`}
           ref={playRef}
-          tabIndex={tvMode ? 0 : undefined}
           key={resetKey}
         >
-          {tvMode && <TvScrollButtons targetRef={playRef} label="Scroll tasks column" />}
           {card.quiz && card.quiz.length > 0 && (
             <QuizBlock
               questions={card.quiz}

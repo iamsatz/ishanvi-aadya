@@ -74,27 +74,31 @@ function scrollableAncestor(el: HTMLElement | null): HTMLElement | null {
 function tryScrollVertical(key: string, active: HTMLElement | null): boolean {
   if (key !== 'ArrowUp' && key !== 'ArrowDown') return false;
 
+  const delta = key === 'ArrowDown' ? 220 : -220;
   const candidates = [
     scrollableAncestor(active),
     document.querySelector<HTMLElement>('.lightbox__scroll'),
     document.querySelector<HTMLElement>('.card__story'),
     document.querySelector<HTMLElement>('.card__play'),
+    document.querySelector<HTMLElement>('.card__body'),
     document.querySelector<HTMLElement>('.main'),
   ].filter(Boolean) as HTMLElement[];
 
-  const scrollEl = candidates.find((el) => el.scrollHeight > el.clientHeight + 8);
-  if (!scrollEl) return false;
+  for (const scrollEl of candidates) {
+    if (scrollEl.scrollHeight <= scrollEl.clientHeight + 12) continue;
 
-  const delta = key === 'ArrowDown' ? 120 : -120;
-  const atTop = scrollEl.scrollTop <= 0;
-  const atBottom =
-    scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 8;
+    const atTop = scrollEl.scrollTop <= 0;
+    const atBottom =
+      scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 12;
 
-  if (key === 'ArrowDown' && atBottom) return false;
-  if (key === 'ArrowUp' && atTop) return false;
+    if (key === 'ArrowDown' && atBottom) continue;
+    if (key === 'ArrowUp' && atTop) continue;
 
-  scrollEl.scrollBy({ top: delta, behavior: 'smooth' });
-  return true;
+    scrollEl.scrollTop += delta;
+    return true;
+  }
+
+  return false;
 }
 
 /** Geometric D-pad focus movement for TV remote mode. */

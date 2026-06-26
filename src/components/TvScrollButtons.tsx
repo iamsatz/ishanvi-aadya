@@ -1,23 +1,31 @@
-import type { RefObject } from 'react';
-
 interface Props {
-  targetRef: RefObject<HTMLElement | null>;
   label?: string;
 }
 
-const STEP = 180;
+const STEP = 220;
 
-export function TvScrollButtons({ targetRef, label = 'Scroll' }: Props) {
-  function scroll(delta: number) {
-    targetRef.current?.scrollBy({ top: delta, behavior: 'smooth' });
+function scrollPage(delta: number) {
+  const candidates = [
+    document.querySelector<HTMLElement>('.main'),
+    document.querySelector<HTMLElement>('.card__body'),
+    document.documentElement,
+  ].filter(Boolean) as HTMLElement[];
+
+  for (const el of candidates) {
+    if (el.scrollHeight > el.clientHeight + 12) {
+      el.scrollTop += delta;
+      return;
+    }
   }
+}
 
+export function TvScrollButtons({ label = 'Scroll page' }: Props) {
   return (
-    <div className="tv-scroll" role="group" aria-label={label}>
-      <button type="button" className="tv-scroll__btn" onClick={() => scroll(-STEP)}>
+    <div className="tv-scroll tv-scroll--page" role="group" aria-label={label}>
+      <button type="button" className="tv-scroll__btn" onClick={() => scrollPage(-STEP)}>
         ▲ Scroll up
       </button>
-      <button type="button" className="tv-scroll__btn" onClick={() => scroll(STEP)}>
+      <button type="button" className="tv-scroll__btn" onClick={() => scrollPage(STEP)}>
         ▼ Scroll down
       </button>
     </div>

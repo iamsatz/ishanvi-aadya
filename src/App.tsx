@@ -8,6 +8,7 @@ import { useKeyboardNav } from './hooks/useKeyboardNav';
 import { useSpatialNav } from './hooks/useSpatialNav';
 import { fetchCloudHomework } from './lib/homeworkCloud';
 import { HomeworkUploadHost } from './components/HomeworkUploadHost';
+import { detectTvEnvironment } from './lib/detectTv';
 
 export default function App() {
   const next = useStore((s) => s.next);
@@ -20,8 +21,7 @@ export default function App() {
   const mergeCloudLessons = useStore((s) => s.mergeCloudLessons);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setTvMode(params.get('tv') === '1');
+    if (detectTvEnvironment()) setTvMode(true);
   }, [setTvMode]);
 
   useEffect(() => {

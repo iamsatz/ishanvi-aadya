@@ -20,6 +20,9 @@
   align-self: stretch;
   padding: 1.5vh var(--tv-margin) 2vh;
   overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .app[data-tv="true"] .card {
@@ -27,14 +30,14 @@
   width: 100%;
   margin-inline: 0;
   min-height: 0;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   padding: var(--sp-3) var(--sp-4);
 }
 
 .app[data-tv="true"] .card__body {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   min-height: 0;
-  overflow-y: auto;
+  overflow: visible;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
@@ -42,66 +45,22 @@
   align-items: start;
 }
 
-.app[data-tv="true"] .card__story {
+/* Single scroll on .main — nested scroll breaks Android TV WebView */
+.app[data-tv="true"] .card__story,
+.app[data-tv="true"] .card__play {
   min-height: 0;
-  max-height: calc(100dvh - 11rem);
-  overflow-y: auto;
-  overflow-x: hidden;
+  max-height: none;
+  overflow: visible;
   padding-right: var(--sp-2);
   border-top: none;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
   outline: none;
 }
 
 .app[data-tv="true"] .card__play {
-  min-height: 0;
-  max-height: calc(100dvh - 11rem);
-  overflow-y: auto;
-  overflow-x: hidden;
   padding-top: 0;
   border-top: none;
   border-left: 1px solid var(--c-line);
   padding-left: var(--sp-4);
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  outline: none;
-}
-
-.app[data-tv="true"] .card__story:focus-visible,
-.app[data-tv="true"] .card__play:focus-visible {
-  box-shadow: inset 0 0 0 3px rgba(245, 158, 11, 0.5);
-}
-
-.app[data-tv="true"] .card__zoom-btn {
-  min-height: 3.25rem;
-  font-size: var(--fs-lg);
-}
-
-.app[data-tv="true"] .tv-scroll__btn {
-  min-height: 3rem;
-  font-size: var(--fs-base);
-}
-
-.app[data-tv="true"] .lightbox__toolbar {
-  padding: var(--sp-3) var(--sp-4);
-  gap: var(--sp-3);
-}
-
-.app[data-tv="true"] .lightbox__tool {
-  min-height: 3.25rem;
-  font-size: var(--fs-base);
-  padding: var(--sp-2) var(--sp-5);
-}
-
-.app[data-tv="true"] .lightbox__scroll {
-  flex: 1;
-  min-height: 0;
-}
-
-.app[data-tv="true"] .lightbox__hint {
-  font-size: var(--fs-base);
-  padding: var(--sp-3);
 }
 
 .app[data-tv="true"] .card__english {
@@ -118,7 +77,7 @@
 }
 
 .app[data-tv="true"] .card__image img {
-  max-height: min(42vh, 480px);
+  max-height: min(55vh, 640px);
   width: 100%;
   cursor: zoom-in;
 }
@@ -185,6 +144,52 @@
 .app[data-tv="true"] .word-tip:focus-within .word-tip__popup {
   opacity: 1;
   visibility: visible;
+}
+
+.app[data-tv="true"] .card__zoom-btn {
+  min-height: 3.25rem;
+  font-size: var(--fs-lg);
+}
+
+.app[data-tv="true"] .tv-scroll {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-line);
+  padding: var(--sp-2) 0;
+  margin-bottom: var(--sp-2);
+}
+
+.app[data-tv="true"] .tv-scroll--page {
+  margin: 0 calc(-1 * var(--sp-4)) var(--sp-3);
+  padding: var(--sp-2) var(--sp-4);
+}
+
+.app[data-tv="true"] .tv-scroll__btn {
+  min-height: 3.25rem;
+  font-size: var(--fs-base);
+}
+
+.app[data-tv="true"] .lightbox__toolbar {
+  padding: var(--sp-3) var(--sp-4);
+  gap: var(--sp-3);
+}
+
+.app[data-tv="true"] .lightbox__tool {
+  min-height: 3.25rem;
+  font-size: var(--fs-base);
+  padding: var(--sp-2) var(--sp-5);
+}
+
+.app[data-tv="true"] .lightbox__scroll {
+  flex: 1;
+  min-height: 0;
+}
+
+.app[data-tv="true"] .lightbox__hint {
+  font-size: var(--fs-base);
+  padding: var(--sp-3);
 }
 
 /* Single column on narrow TV browser windows */

@@ -36,12 +36,12 @@ export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props
       const scrollEl = scrollRef.current;
       if (e.key === 'ArrowDown' && scrollEl) {
         e.preventDefault();
-        scrollEl.scrollBy({ top: SCROLL_STEP, behavior: 'smooth' });
+        scrollEl.scrollTop += SCROLL_STEP;
         return;
       }
       if (e.key === 'ArrowUp' && scrollEl) {
         e.preventDefault();
-        scrollEl.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' });
+        scrollEl.scrollTop -= SCROLL_STEP;
         return;
       }
       if (e.key === '+' || e.key === '=') {
