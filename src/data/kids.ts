@@ -9,7 +9,7 @@ export const kids: Kid[] = [
     mascot: { name: 'Satish', avatar: 'satish-guru', role: 'Wise guru guide' },
     subjects: [
       { id: 'homework', label: 'This Weekend', icon: '✏️' },
-      { id: 'maths',    label: 'Maths',        icon: '🧮' },
+      { id: 'maths',    label: 'Maths · Learn', icon: '🧮' },
       { id: 'stories',  label: 'Summer Stories', icon: '📚' },
       { id: 'projects', label: 'Summer Projects', icon: '📝' },
     ],

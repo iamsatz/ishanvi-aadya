@@ -6,16 +6,17 @@
 import type { LearningCard, Lesson } from '../types/content';
 
 const LEARN = 'number-families';
+const DATE_LABEL = '25 Jun 2026';
 
 const ssCards: LearningCard[] = [
   {
     id: 'ss-0',
     lessonId: 'skill-sheet',
     title: 'Your School Paper',
-    subtitle: 'Step 2 · Silver Oaks Skill Development Sheet',
+    subtitle: `Weekend · ${DATE_LABEL} · Silver Oaks sheet`,
     imageUrl: '/homework/skill-sheet-math-g4.svg',
     englishContent:
-      'Your teacher gave this paper. Satish says:\n\nFinish **Learn Number Families** first if any word feels new. Then tick each question as you write it in your notebook.\n\nTry every question yourself first. Use **hints** on each card. Only open **Peek** cards if you are truly stuck.\n\nThis app teaches the **method** — you write the **answers** on paper.',
+      'Your teacher gave this paper. Satish says:\n\nIf any word feels new, use **Maths · Learn** first (games & parent tips). Then tick each question as you write it in your notebook.\n\nTry every question yourself first. Use **hints** on each card. Only open **Peek** cards if you are truly stuck.\n\nThis app teaches the **method** — you write the **answers** on paper.',
     teluguContent:
       'Teacher ఇచ్చిన paper. సతీష్ చెప్పాడు:\n\nWord కొత్తగా అనిపిస్తే ముందు **Learn Number Families** finish చేయి. Notebook లో answer రాస్తూ ప్రతి question tick చేయి.\n\nముందు hints follow చేయి. stuck అయితే మాత్రమే **Peek** cards open చేయి.\n\nApp **method** నేర్పిస్తుంది — **answers** paper మీద మీరే రాయాలి.',
     parentSuggestion: {
@@ -276,12 +277,12 @@ const ssCards: LearningCard[] = [
 
 export const skillSheet: Lesson = {
   id: 'skill-sheet',
-  title: 'Step 2 — Skill Sheet (Paper)',
-  subtitle: 'Silver Oaks · write in notebook',
+  title: `Maths · ${DATE_LABEL}`,
+  subtitle: 'Silver Oaks skill sheet · write in notebook',
   kid: 'ishanvi',
-  subject: 'maths',
-  chapter: 'Number System',
+  subject: 'homework',
+  chapter: 'Weekend',
   hasTelugu: true,
-  icon: '✏️',
+  icon: '🧮',
   cards: ssCards,
 };

@@ -293,19 +293,19 @@ const nfCards: LearningCard[] = [
     id: 'nf-8',
     lessonId: 'number-families',
     title: 'Ready for Your Paper?',
-    subtitle: 'Step 2 is waiting — write answers in your notebook',
+    subtitle: 'Weekend paper is in the menu',
     englishContent:
-      'You learned the words and played the games. Now Satish sends you to **Step 2 — Skill Sheet (Paper)**.\n\nOpen your Silver Oaks sheet. Tick each question there as you write — the app will not show answers until you try on paper.',
+      'You learned the words and played the games. Now Satish sends you to your **weekend maths paper** under **This Weekend** in the menu.\n\nOpen your Silver Oaks sheet. Tick each question as you write — hints first, peek only if stuck.',
     teluguContent:
-      'Words నేర్చుకుని games play చేశావు. ఇప్పుడు సతీష్ **Step 2 — Skill Sheet** కు పంపుతాడు.\n\nSilver Oaks sheet తీసుకుని paper మీద రాయి — answers ముందు app చూపించదు.',
+'Words నేర్చుకుని games play చేశావు. ఇప్పుడు menu లో **This Weekend** → **Maths · 25 Jun** paper కు వెళ్ళు.\n\nSilver Oaks sheet తీసుకుని paper మీద రాయి — hints ముందు, stuck అయితే peek.',
     parentSuggestion: {
-      tip: 'Use the Learn / Paper pills at the top to jump between teaching and homework anytime.',
-      tipTe: 'Top Learn / Paper pills use చేసి teaching homework మధ్య jump చేయండి.',
+      tip: 'Teaching stays here in Maths · Learn. The paper is under This Weekend — two different jobs.',
+      tipTe: 'Teaching ఇక్కడ Maths · Learn. Paper This Weekend లో — రెండు different jobs.',
     },
-    promptText: 'Tap when you are ready to go to Step 2.',
+    promptText: 'Tap when you are ready for the paper.',
     interactionType: 'tap-reveal',
     cardStyle: 'deck',
-    revealAnswer: 'Go to Step 2 — Skill Sheet (Paper) in the menu, or tap the Paper pill at the top. ✏️',
+    revealAnswer: 'Menu → This Weekend → Maths · 25 Jun 2026. Learn stays here if a word feels new. ✏️',
   },
 
   {
@@ -360,7 +360,7 @@ const nfCards: LearningCard[] = [
 export const numberFamilies: Lesson = {
   id: 'number-families',
   title: 'Step 1 — Learn Number Families',
-  subtitle: 'Indian Number System · play & learn',
+  subtitle: 'Games & parent tips · not weekend homework',
   kid: 'ishanvi',
   subject: 'maths',
   chapter: 'Number System',

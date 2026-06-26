@@ -2800,10 +2800,10 @@ const earthDay: Lesson = {
    ============================================================ */
 
 export const fixtureLessons: Lesson[] = [
-  /* Ishanvi — this weekend first, then maths, then summer */
+  /* Ishanvi — weekend homework (English, Science, Maths paper), then learn, then summer */
   ...weekendHomeworkLessons,
-  numberFamilies,
   skillSheet,
+  numberFamilies,
   stories,
   summerProject,
   earthDay,
