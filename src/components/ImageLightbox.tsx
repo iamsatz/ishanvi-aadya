@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const ZOOM_STEPS = [1, 1.25, 1.5, 2, 2.5, 3, 4];
 const SCROLL_STEP = 120;
@@ -21,7 +22,9 @@ export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props
   useEffect(() => {
     if (!open) return;
     setZoomIndex(tvMode ? 2 : 1);
+    document.body.classList.add('lightbox-open');
     closeRef.current?.focus({ preventScroll: true });
+    return () => document.body.classList.remove('lightbox-open');
   }, [open, src, tvMode]);
 
   useEffect(() => {
@@ -42,6 +45,16 @@ export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props
       if (e.key === 'ArrowUp' && scrollEl) {
         e.preventDefault();
         scrollEl.scrollTop -= SCROLL_STEP;
+        return;
+      }
+      if (e.key === 'ArrowLeft' && scrollEl) {
+        e.preventDefault();
+        scrollEl.scrollLeft -= SCROLL_STEP;
+        return;
+      }
+      if (e.key === 'ArrowRight' && scrollEl) {
+        e.preventDefault();
+        scrollEl.scrollLeft += SCROLL_STEP;
         return;
       }
       if (e.key === '+' || e.key === '=') {
@@ -71,10 +84,10 @@ export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props
 
   function resetZoom() {
     setZoomIndex(tvMode ? 2 : 1);
-    scrollRef.current?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    scrollRef.current?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }
 
-  return (
+  return createPortal(
     <div className="lightbox" role="dialog" aria-modal="true" aria-label="Zoomed image">
       <div className="lightbox__toolbar">
         <button
@@ -115,9 +128,10 @@ export function ImageLightbox({ src, alt, open, tvMode = false, onClose }: Props
       </div>
       <p className="lightbox__hint">
         {tvMode
-          ? 'Remote: ▲▼ scroll · +/− zoom · ✕ close'
-          : 'Scroll to read · use toolbar to zoom'}
+          ? 'Remote: ▲▼ scroll · ◀▶ pan when zoomed · +/− zoom · ✕ close'
+          : 'Drag/scroll to read · use toolbar to zoom'}
       </p>
-    </div>
+    </div>,
+    document.body,
   );
 }
