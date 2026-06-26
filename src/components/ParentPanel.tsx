@@ -1,25 +1,36 @@
-import type { ParentSuggestion } from '../types/content';
+import type { LearningCard, Lesson, ParentSuggestion } from '../types/content';
+import { ParentAnswersPanel } from './ParentAnswersPanel';
 
 interface Props {
   suggestion?: ParentSuggestion;
   legacyHint?: string;
+  parentMode?: boolean;
+  card?: LearningCard;
+  lesson?: Lesson;
 }
 
-export function ParentPanel({ suggestion, legacyHint }: Props) {
+export function ParentPanel({
+  suggestion,
+  legacyHint,
+  parentMode = false,
+  card,
+  lesson,
+}: Props) {
   const hasContent =
     suggestion?.tip ||
     suggestion?.tipTe ||
     (suggestion?.questions?.length ?? 0) > 0 ||
     (suggestion?.questionsTe?.length ?? 0) > 0 ||
-    !!legacyHint;
+    !!legacyHint ||
+    (parentMode && card && lesson);
 
   if (!hasContent) return null;
 
   return (
-    <details className="parent-hint parent-hint--compact">
+    <details className="parent-hint parent-hint--compact" open={parentMode}>
       <summary>
         <span className="parent-hint__pill">👩‍👧</span>
-        <span>For Parent · అమ్మ/నాన్న కోసం</span>
+        <span>For Parent · అమ్మ/నాన్న కోసం{parentMode ? ' · unlocked' : ''}</span>
       </summary>
       <div className="parent-hint__body">
         {suggestion?.tip && (
@@ -51,6 +62,9 @@ export function ParentPanel({ suggestion, legacyHint }: Props) {
               ))}
             </ul>
           </>
+        )}
+        {parentMode && card && lesson && (
+          <ParentAnswersPanel card={card} lesson={lesson} />
         )}
       </div>
     </details>

@@ -1,26 +1,82 @@
 /* ============================================================
-   TV MODE — 10-foot sizing, overscan, stronger focus rings
+   TV MODE — full width, two-column, readable at 10-foot
    Scoped to .app[data-tv="true"] only
    ============================================================ */
 
 .app[data-tv="true"] {
-  --fs-xs: 1.125rem;
-  --fs-sm: 1.25rem;
-  --fs-base: 1.5rem;
-  --fs-md: 1.75rem;
-  --fs-lg: 2.125rem;
-  --fs-xl: 2.75rem;
-  --fs-2xl: 3.25rem;
+  --fs-xs: 0.875rem;
+  --fs-sm: 1rem;
+  --fs-base: 1.125rem;
+  --fs-md: 1.25rem;
+  --fs-lg: 1.5rem;
+  --fs-xl: 1.75rem;
+  --fs-2xl: 2rem;
+  --tv-margin: 3vw;
 }
 
 .app[data-tv="true"] .main {
   max-width: none;
-  padding: 5vh 5vw 8vh;
+  width: 100%;
+  align-self: stretch;
+  padding: 1.5vh var(--tv-margin) 2vh;
+  overflow-y: auto;
 }
 
 .app[data-tv="true"] .card {
-  max-width: 1200px;
-  margin-inline: auto;
+  max-width: none;
+  width: 100%;
+  margin-inline: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.app[data-tv="true"] .card__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: var(--sp-4);
+  align-items: start;
+}
+
+.app[data-tv="true"] .card__story {
+  min-height: 0;
+  max-height: calc(100dvh - 11rem);
+  overflow-y: auto;
+  padding-right: var(--sp-2);
+  border-top: none;
+}
+
+.app[data-tv="true"] .card__play {
+  min-height: 0;
+  max-height: calc(100dvh - 11rem);
+  overflow-y: auto;
+  padding-top: 0;
+  border-top: none;
+  border-left: 1px solid var(--c-line);
+  padding-left: var(--sp-4);
+}
+
+.app[data-tv="true"] .card__english {
+  font-size: var(--fs-base);
+  line-height: 1.45;
+}
+
+.app[data-tv="true"] .card__title {
+  font-size: var(--fs-xl);
+}
+
+.app[data-tv="true"] .card__subtitle {
+  font-size: var(--fs-sm);
+}
+
+.app[data-tv="true"] .card__image img {
+  max-height: min(42vh, 480px);
+  width: 100%;
+  cursor: zoom-in;
 }
 
 .app[data-tv="true"] .btn,
@@ -29,65 +85,68 @@
 .app[data-tv="true"] .topbar__arrow,
 .app[data-tv="true"] .nav-dd__trigger,
 .app[data-tv="true"] .topbar__pill {
-  min-height: 3.25rem;
+  min-height: 2.75rem;
   font-size: var(--fs-base);
 }
 
 .app[data-tv="true"] .vocab-grid__card {
-  min-height: 7rem;
-}
-
-.app[data-tv="true"] :focus {
-  outline: 5px solid var(--accent, #f59e0b);
-  outline-offset: 3px;
-  box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.35);
-}
-
-.app[data-tv="true"] :focus:not(:focus-visible) {
-  outline: none;
-  box-shadow: none;
+  min-height: 5rem;
 }
 
 .app[data-tv="true"] :focus-visible {
-  outline: 5px solid var(--accent, #f59e0b);
-  outline-offset: 3px;
-  box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.35);
+  outline: 4px solid var(--accent, #f59e0b);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.3);
 }
 
 .app[data-tv="true"] .topbar {
-  padding: 1rem 5vw;
+  padding: 0.65rem var(--tv-margin);
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .app[data-tv="true"] .topbar__meta {
-  font-size: var(--fs-base);
+  font-size: var(--fs-sm);
 }
 
 .app[data-tv="true"] .nav-dd__panel {
   font-size: var(--fs-base);
-  min-width: 22rem;
+  min-width: 20rem;
 }
 
 .app[data-tv="true"] .prompt {
   font-size: var(--fs-md);
-}
-
-.app[data-tv="true"] .card__title {
-  font-size: var(--fs-xl);
+  margin-bottom: var(--sp-2);
 }
 
 .app[data-tv="true"] .deck-flip {
-  min-height: 12rem;
+  min-height: 8rem;
 }
 
 .app[data-tv="true"] .deck-flip__face {
-  font-size: var(--fs-md);
+  font-size: var(--fs-base);
 }
 
-/* Reduce hover-only reliance */
+.app[data-tv="true"] .check-item__hint {
+  font-size: var(--fs-sm);
+}
+
 .app[data-tv="true"] .word-tip:hover .word-tip__popup,
 .app[data-tv="true"] .word-tip:focus-within .word-tip__popup {
   opacity: 1;
   visibility: visible;
+}
+
+/* Single column on narrow TV browser windows */
+@media (max-width: 900px) {
+  .app[data-tv="true"] .card__body {
+    grid-template-columns: 1fr;
+  }
+
+  .app[data-tv="true"] .card__play {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--c-line);
+    padding-top: var(--sp-3);
+  }
 }

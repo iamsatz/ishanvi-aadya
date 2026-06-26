@@ -11,6 +11,8 @@ import { GameCard } from './games/GameCard';
 import { VocabGridCard } from './cards/VocabGridCard';
 import { CharacterBubble } from './CharacterBubble';
 import { ParentPanel } from './ParentPanel';
+import { ImageLightbox } from './ImageLightbox';
+import { ListenButton } from './ListenButton';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
 import { clearCardStorage } from '../hooks/useCardStorage';
 import { ContentBlocks } from './cards/ContentBlocks';
@@ -32,12 +34,18 @@ export function CardViewer() {
   const card = useStore(selectActiveCard);
   const lesson = useStore(selectActiveLesson);
   const tvMode = useStore((s) => s.tvMode);
+  const parentMode = useStore((s) => s.parentMode);
   const markCompleted = useStore((s) => s.markCardCompleted);
   const unmarkCompleted = useStore((s) => s.unmarkCardCompleted);
   const cardRef = useRef<HTMLElement>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
   const [resetKey, setResetKey] = useState(0);
+
+  useEffect(() => {
+    setLightboxOpen(false);
+  }, [card?.id]);
 
   useEffect(() => {
     if (!tvMode || !card) return;
@@ -66,6 +74,7 @@ export function CardViewer() {
   }
 
   const isDeck = card.cardStyle === 'deck';
+  const imageAlt = card.title || 'Homework page';
 
   return (
     <article className="card" key={card.id} ref={cardRef} tabIndex={tvMode ? -1 : undefined}>
@@ -95,7 +104,15 @@ export function CardViewer() {
         <div className="card__story">
           {card.imageUrl && (
             <figure className="card__image">
-              <img src={card.imageUrl} alt="School skill development sheet" />
+              <button
+                type="button"
+                className="card__image-btn"
+                onClick={() => setLightboxOpen(true)}
+                aria-label="Open full-size image"
+              >
+                <img src={card.imageUrl} alt={imageAlt} />
+                <span className="card__image-zoom-hint">Tap to zoom · read the page</span>
+              </button>
             </figure>
           )}
           <div className={`card__english${card.contentBlocks?.length ? ' card__english--blocks' : ''}`}>
@@ -109,6 +126,12 @@ export function CardViewer() {
               renderWithGlossary(card.englishContent, card.glossary, `en-${card.id}`)
             )}
           </div>
+
+          {card.hint && (
+            <div className="card__voice-hint">
+              <ListenButton text={card.hint} label="Hint" />
+            </div>
+          )}
 
           {card.teluguContent && (
             <details className="accordion accordion--compact">
@@ -128,7 +151,14 @@ export function CardViewer() {
             </details>
           )}
 
-          <ParentPanel suggestion={card.parentSuggestion} legacyHint={card.parentHint} />
+          <ParentPanel
+            suggestion={card.parentSuggestion}
+            legacyHint={card.parentHint}
+            parentMode={parentMode}
+            card={card}
+            lesson={lesson}
+          />
+
         </div>
 
         <div className={`card__play${isDeck ? ' card__play--deck' : ''}`} key={resetKey}>
@@ -145,6 +175,15 @@ export function CardViewer() {
           {renderInteraction(card, handleComplete)}
         </div>
       </div>
+
+      {card.imageUrl && (
+        <ImageLightbox
+          src={card.imageUrl}
+          alt={imageAlt}
+          open={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
 
       <FeedbackOverlay
         kind={feedback}

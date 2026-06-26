@@ -12,6 +12,7 @@ interface AppState {
   completed: Record<string, string[]>;
   drawerOpen: boolean;
   tvMode: boolean;
+  parentMode: boolean;
 
   setActiveKid: (kid: KidId) => void;
   setActiveLesson: (lessonId: string) => void;
@@ -22,11 +23,13 @@ interface AppState {
   markCardCompleted: (lessonId: string, cardId: string) => void;
   unmarkCardCompleted: (lessonId: string, cardId: string) => void;
   addLesson: (lesson: Lesson) => void;
+  mergeCloudLessons: (cloudLessons: Lesson[]) => void;
   resetProgress: () => void;
   openDrawer: () => void;
   closeDrawer: () => void;
   setTvMode: (on: boolean) => void;
   toggleTvMode: () => void;
+  setParentMode: (on: boolean) => void;
 }
 
 const firstLessonId = fixtureLessons[0]?.id ?? '';
@@ -87,6 +90,7 @@ export const useStore = create<AppState>()(
       completed: {},
       drawerOpen: false,
       tvMode: false,
+      parentMode: false,
 
       setActiveKid: (kid) => {
         const first = firstLessonForKid(kid);
@@ -149,6 +153,10 @@ export const useStore = create<AppState>()(
 
       addLesson: (lesson) => set({ lessons: [...get().lessons, lesson] }),
 
+      mergeCloudLessons: (cloudLessons) => {
+        set({ lessons: [...cloudLessons, ...fixtureLessons] });
+      },
+
       resetProgress: () => set({ completed: {}, activeIndex: 0 }),
 
       openDrawer: () => set({ drawerOpen: true }),
@@ -156,6 +164,7 @@ export const useStore = create<AppState>()(
 
       setTvMode: (on) => set({ tvMode: on }),
       toggleTvMode: () => set({ tvMode: !get().tvMode }),
+      setParentMode: (on) => set({ parentMode: on }),
     }),
     {
       name: 'ishanvi-aadya-progress',

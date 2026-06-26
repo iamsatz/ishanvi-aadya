@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { LearningCard } from '../../types/content';
 import { useCardStorage } from '../../hooks/useCardStorage';
 import { useStore } from '../../state/store';
+import { ListenButton } from '../ListenButton';
 
 interface Props {
   card: LearningCard;
@@ -11,10 +12,11 @@ interface Props {
 export function ChecklistCard({ card, onComplete }: Props) {
   const items = card.checklist ?? [];
   const [checked, setChecked] = useCardStorage<string[]>(card.id, 'checklist', []);
+  const [showExamples, setShowExamples] = useState<Set<string>>(new Set());
   const jumpToCard = useStore((s) => s.jumpToCard);
+  const parentMode = useStore((s) => s.parentMode);
   const allDone = items.length > 0 && checked.length === items.length;
 
-  // First tick counts the card as "done" so progress moves.
   useEffect(() => {
     if (checked.length === 1) onComplete(true);
   }, [checked.length, onComplete]);
@@ -23,31 +25,33 @@ export function ChecklistCard({ card, onComplete }: Props) {
     setChecked(checked.includes(id) ? checked.filter((c) => c !== id) : [...checked, id]);
   }
 
-  // Only show the Task Guide if at least one item has extra info.
-  const hasGuide = items.some((it) => it.what || it.why || it.example || it.challenge);
+  function toggleExample(id: string) {
+    setShowExamples((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  const hasGuide = items.some((it) => it.what || it.why || it.challenge);
 
   return (
     <div className="checklist">
-      {/* ── Task Guide (collapsed by default, shown FIRST) ── */}
       {hasGuide && (
         <details className="task-guide">
           <summary>
             <span className="task-guide__pill" aria-hidden>📋</span>
-            <span>Task Guide — what to do, examples &amp; why it helps</span>
+            <span>Task Guide — what to do &amp; why it helps</span>
           </summary>
           <div className="task-guide__body">
-            {items.map((it) => (it.what || it.why || it.example || it.challenge) ? (
+            {items.map((it) => (it.what || it.why || it.challenge) ? (
               <div key={it.id} className="task-guide__row">
                 <span className="task-guide__name">{it.label}</span>
                 {it.what && <span className="task-guide__what">{it.what}</span>}
-                {it.example && (
-                  <span className="task-guide__example">
-                    <strong>Example:</strong> {it.example}
-                  </span>
-                )}
                 {it.challenge && (
                   <span className="task-guide__challenge">
-                    <strong>🌟 Challenge:</strong> {it.challenge}
+                    <strong>Challenge:</strong> {it.challenge}
                   </span>
                 )}
                 {it.why && <span className="task-guide__why">💡 {it.why}</span>}
@@ -57,9 +61,9 @@ export function ChecklistCard({ card, onComplete }: Props) {
         </details>
       )}
 
-      {/* ── Checklist ── */}
       {items.map((it) => {
         const isChecked = checked.includes(it.id);
+        const exampleVisible = parentMode || showExamples.has(it.id);
         return (
           <div key={it.id} className="check-item-wrap">
             <button
@@ -72,13 +76,27 @@ export function ChecklistCard({ card, onComplete }: Props) {
               <span className="check-box" aria-hidden>{isChecked ? '✓' : ''}</span>
               <span className="check-item__body">
                 <span className="check-item__label">{it.label}</span>
-                {it.hint && <span className="check-item__hint">💡 {it.hint}</span>}
+                {it.hint && (
+                  <span className="check-item__hint-row">
+                    <span className="check-item__hint">💡 {it.hint}</span>
+                    <ListenButton text={it.hint} label="Listen" />
+                  </span>
+                )}
                 {it.what && !it.hint && <span className="check-item__what">{it.what}</span>}
-                {it.example && (
+                {it.example && exampleVisible && (
                   <span className="check-item__example">Example: {it.example}</span>
                 )}
               </span>
             </button>
+            {it.example && !parentMode && (
+              <button
+                type="button"
+                className="check-item__example-toggle"
+                onClick={() => toggleExample(it.id)}
+              >
+                {showExamples.has(it.id) ? 'Hide example' : 'See an example →'}
+              </button>
+            )}
             {it.peekLink && (
               <button
                 type="button"
