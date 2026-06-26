@@ -117,6 +117,10 @@ export interface ChecklistItem {
   id: string;
   /** Short title shown in bold — emoji + action name. */
   label: string;
+  /** A hint to think about — not the answer. */
+  hint?: string;
+  /** Jump to an answer / peek card in this lesson when stuck. */
+  peekLink?: { cardId: string; label?: string };
   /** One sentence: what Ishanvi actually does for this task. */
   what?: string;
   /** One sentence: why this task is helpful specifically for a Grade 4 child. */

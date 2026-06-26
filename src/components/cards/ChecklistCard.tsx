@@ -72,12 +72,22 @@ export function ChecklistCard({ card, onComplete }: Props) {
               <span className="check-box" aria-hidden>{isChecked ? '✓' : ''}</span>
               <span className="check-item__body">
                 <span className="check-item__label">{it.label}</span>
-                {it.what && <span className="check-item__what">{it.what}</span>}
+                {it.hint && <span className="check-item__hint">💡 {it.hint}</span>}
+                {it.what && !it.hint && <span className="check-item__what">{it.what}</span>}
                 {it.example && (
                   <span className="check-item__example">Example: {it.example}</span>
                 )}
               </span>
             </button>
+            {it.peekLink && (
+              <button
+                type="button"
+                className="check-item__learn"
+                onClick={() => jumpToCard(card.lessonId, it.peekLink!.cardId)}
+              >
+                {it.peekLink.label ?? 'Stuck? Peek here →'}
+              </button>
+            )}
             {it.learnLink && (
               <button
                 type="button"

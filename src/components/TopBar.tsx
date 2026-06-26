@@ -7,8 +7,6 @@ export function TopBar() {
   const idx = useStore((s) => s.activeIndex);
   const back = useStore((s) => s.back);
   const next = useStore((s) => s.next);
-  const activeKid = useStore((s) => s.activeKid);
-  const jumpToCard = useStore((s) => s.jumpToCard);
   const tvMode = useStore((s) => s.tvMode);
   const toggleTvMode = useStore((s) => s.toggleTvMode);
   const total = lesson?.cards.length ?? 0;
@@ -17,40 +15,10 @@ export function TopBar() {
 
   const atFirst = idx === 0;
   const atLast = idx >= total - 1;
-  const isIshanvi = activeKid === 'ishanvi';
 
   return (
     <header className="topbar" role="banner">
       <NavDropdown />
-
-      {isIshanvi && (
-        <div className="topbar__pills" role="group" aria-label="Ishanvi shortcuts">
-          <button
-            type="button"
-            className="topbar__pill topbar__pill--weekend"
-            onClick={() => jumpToCard('weekend-2026-06-26-english', 'wh-en-0')}
-            aria-label="Go to this weekend English task"
-          >
-            Weekend
-          </button>
-          <button
-            type="button"
-            className="topbar__pill"
-            onClick={() => jumpToCard('number-families', 'nf-vocab')}
-            aria-label="Go to Step 1 Learn"
-          >
-            Learn
-          </button>
-          <button
-            type="button"
-            className="topbar__pill topbar__pill--paper"
-            onClick={() => jumpToCard('skill-sheet', 'ss-0')}
-            aria-label="Go to Step 2 Paper"
-          >
-            Paper
-          </button>
-        </div>
-      )}
 
       <div className="topbar__meta">
         <span className="topbar__step">

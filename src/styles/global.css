@@ -334,12 +334,6 @@ input, textarea {
   cursor: not-allowed;
 }
 
-.topbar__pills {
-  display: flex;
-  gap: var(--sp-1);
-  flex-shrink: 0;
-}
-
 .topbar__pill {
   padding: 0 var(--sp-3);
   min-height: 36px;
@@ -355,19 +349,6 @@ input, textarea {
 .topbar__pill:hover {
   background: var(--c-surface-3);
   border-color: var(--c-ink-soft);
-}
-
-.topbar__pill--paper {
-  background: #FBF5E7;
-  border-color: #C9A86A;
-  color: #7A5C20;
-}
-
-.topbar__pill--weekend {
-  background: #fef3c7;
-  border-color: #f59e0b;
-  color: #92400e;
-  font-weight: 800;
 }
 
 .topbar__pill--tv.topbar__pill--on {
@@ -1504,7 +1485,13 @@ input, textarea {
   min-width: 0;
 }
 
-.check-item__what,
+.check-item__hint {
+  font-size: var(--fs-xs);
+  color: var(--c-ink-soft);
+  line-height: 1.4;
+  font-style: italic;
+}
+
 .check-item__example {
   font-size: var(--fs-xs);
   color: var(--c-ink-soft);
