@@ -2383,6 +2383,39 @@ input, textarea {
   text-align: center;
   background: var(--c-surface-2);
 }
+.card__zoom-btn {
+  width: 100%;
+  margin-top: var(--sp-2);
+  min-height: 3rem;
+  font-size: var(--fs-md);
+}
+
+/* TV scroll + zoom helpers */
+.tv-scroll {
+  display: flex;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: color-mix(in srgb, var(--c-surface) 94%, transparent);
+  padding: var(--sp-1) 0;
+}
+.tv-scroll__btn {
+  flex: 1;
+  min-height: 2.75rem;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
+  border: 2px solid var(--c-line);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.tv-scroll__btn:focus-visible {
+  outline: 4px solid #f59e0b;
+  outline-offset: 2px;
+}
 .lightbox {
   position: fixed;
   inset: 0;
@@ -2402,17 +2435,59 @@ input, textarea {
   font-weight: 700;
   cursor: pointer;
 }
+.lightbox__toolbar {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  background: rgba(0, 0, 0, 0.6);
+}
+.lightbox__tool {
+  padding: var(--sp-2) var(--sp-4);
+  min-height: 2.75rem;
+  background: #fff;
+  border: none;
+  border-radius: var(--r-pill);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.lightbox__tool:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.lightbox__tool--accent {
+  background: var(--c-accent, #7c3aed);
+  color: #fff;
+}
+.lightbox__tool--close {
+  background: #374151;
+  color: #fff;
+}
+.lightbox__zoom-pct {
+  min-width: 3.5rem;
+  text-align: center;
+  font-weight: 800;
+  color: #fff;
+  font-size: var(--fs-md);
+}
 .lightbox__scroll {
   flex: 1;
+  min-height: 0;
   overflow: auto;
   padding: var(--sp-2) var(--sp-4) var(--sp-6);
-  display: flex;
-  justify-content: center;
+  display: block;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 .lightbox__img {
-  max-width: 100%;
+  display: block;
   height: auto;
   object-fit: contain;
+  margin: 0 auto;
 }
 .lightbox__hint {
   text-align: center;

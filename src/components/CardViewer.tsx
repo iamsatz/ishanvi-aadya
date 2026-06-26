@@ -12,6 +12,7 @@ import { VocabGridCard } from './cards/VocabGridCard';
 import { CharacterBubble } from './CharacterBubble';
 import { ParentPanel } from './ParentPanel';
 import { ImageLightbox } from './ImageLightbox';
+import { TvScrollButtons } from './TvScrollButtons';
 import { ListenButton } from './ListenButton';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
 import { clearCardStorage } from '../hooks/useCardStorage';
@@ -38,6 +39,8 @@ export function CardViewer() {
   const markCompleted = useStore((s) => s.markCardCompleted);
   const unmarkCompleted = useStore((s) => s.unmarkCardCompleted);
   const cardRef = useRef<HTMLElement>(null);
+  const storyRef = useRef<HTMLDivElement>(null);
+  const playRef = useRef<HTMLDivElement>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
@@ -101,7 +104,12 @@ export function CardViewer() {
       </header>
 
       <div className="card__body">
-        <div className="card__story">
+        <div
+          className="card__story"
+          ref={storyRef}
+          tabIndex={tvMode ? 0 : undefined}
+        >
+          {tvMode && <TvScrollButtons targetRef={storyRef} label="Scroll reading column" />}
           {card.imageUrl && (
             <figure className="card__image">
               <button
@@ -111,8 +119,19 @@ export function CardViewer() {
                 aria-label="Open full-size image"
               >
                 <img src={card.imageUrl} alt={imageAlt} />
-                <span className="card__image-zoom-hint">Tap to zoom · read the page</span>
+                <span className="card__image-zoom-hint">
+                  {tvMode ? 'Select image or use Zoom button below' : 'Tap to zoom · read the page'}
+                </span>
               </button>
+              {tvMode && (
+                <button
+                  type="button"
+                  className="card__zoom-btn btn btn--accent"
+                  onClick={() => setLightboxOpen(true)}
+                >
+                  🔍 Zoom homework page
+                </button>
+              )}
             </figure>
           )}
           <div className={`card__english${card.contentBlocks?.length ? ' card__english--blocks' : ''}`}>
@@ -161,7 +180,13 @@ export function CardViewer() {
 
         </div>
 
-        <div className={`card__play${isDeck ? ' card__play--deck' : ''}`} key={resetKey}>
+        <div
+          className={`card__play${isDeck ? ' card__play--deck' : ''}`}
+          ref={playRef}
+          tabIndex={tvMode ? 0 : undefined}
+          key={resetKey}
+        >
+          {tvMode && <TvScrollButtons targetRef={playRef} label="Scroll tasks column" />}
           {card.quiz && card.quiz.length > 0 && (
             <QuizBlock
               questions={card.quiz}
@@ -181,6 +206,7 @@ export function CardViewer() {
           src={card.imageUrl}
           alt={imageAlt}
           open={lightboxOpen}
+          tvMode={tvMode}
           onClose={() => setLightboxOpen(false)}
         />
       )}

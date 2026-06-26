@@ -46,18 +46,62 @@
   min-height: 0;
   max-height: calc(100dvh - 11rem);
   overflow-y: auto;
+  overflow-x: hidden;
   padding-right: var(--sp-2);
   border-top: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  outline: none;
 }
 
 .app[data-tv="true"] .card__play {
   min-height: 0;
   max-height: calc(100dvh - 11rem);
   overflow-y: auto;
+  overflow-x: hidden;
   padding-top: 0;
   border-top: none;
   border-left: 1px solid var(--c-line);
   padding-left: var(--sp-4);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  outline: none;
+}
+
+.app[data-tv="true"] .card__story:focus-visible,
+.app[data-tv="true"] .card__play:focus-visible {
+  box-shadow: inset 0 0 0 3px rgba(245, 158, 11, 0.5);
+}
+
+.app[data-tv="true"] .card__zoom-btn {
+  min-height: 3.25rem;
+  font-size: var(--fs-lg);
+}
+
+.app[data-tv="true"] .tv-scroll__btn {
+  min-height: 3rem;
+  font-size: var(--fs-base);
+}
+
+.app[data-tv="true"] .lightbox__toolbar {
+  padding: var(--sp-3) var(--sp-4);
+  gap: var(--sp-3);
+}
+
+.app[data-tv="true"] .lightbox__tool {
+  min-height: 3.25rem;
+  font-size: var(--fs-base);
+  padding: var(--sp-2) var(--sp-5);
+}
+
+.app[data-tv="true"] .lightbox__scroll {
+  flex: 1;
+  min-height: 0;
+}
+
+.app[data-tv="true"] .lightbox__hint {
+  font-size: var(--fs-base);
+  padding: var(--sp-3);
 }
 
 .app[data-tv="true"] .card__english {

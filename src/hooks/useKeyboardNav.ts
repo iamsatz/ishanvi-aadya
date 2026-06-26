@@ -26,6 +26,7 @@ export function useKeyboardNav({
       const target = e.target as HTMLElement | null;
       const tag = target?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || target?.isContentEditable) return;
+      if (document.querySelector('.lightbox')) return;
 
       if (tvMode) {
         if (isRemoteBack(e.key)) {

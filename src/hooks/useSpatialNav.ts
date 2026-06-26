@@ -58,6 +58,45 @@ function nearestInDirection(
   return best;
 }
 
+function scrollableAncestor(el: HTMLElement | null): HTMLElement | null {
+  let node = el?.parentElement ?? null;
+  while (node) {
+    const { overflowY } = window.getComputedStyle(node);
+    const canScroll =
+      (overflowY === 'auto' || overflowY === 'scroll') &&
+      node.scrollHeight > node.clientHeight + 8;
+    if (canScroll) return node;
+    node = node.parentElement;
+  }
+  return null;
+}
+
+function tryScrollVertical(key: string, active: HTMLElement | null): boolean {
+  if (key !== 'ArrowUp' && key !== 'ArrowDown') return false;
+
+  const candidates = [
+    scrollableAncestor(active),
+    document.querySelector<HTMLElement>('.lightbox__scroll'),
+    document.querySelector<HTMLElement>('.card__story'),
+    document.querySelector<HTMLElement>('.card__play'),
+    document.querySelector<HTMLElement>('.main'),
+  ].filter(Boolean) as HTMLElement[];
+
+  const scrollEl = candidates.find((el) => el.scrollHeight > el.clientHeight + 8);
+  if (!scrollEl) return false;
+
+  const delta = key === 'ArrowDown' ? 120 : -120;
+  const atTop = scrollEl.scrollTop <= 0;
+  const atBottom =
+    scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 8;
+
+  if (key === 'ArrowDown' && atBottom) return false;
+  if (key === 'ArrowUp' && atTop) return false;
+
+  scrollEl.scrollBy({ top: delta, behavior: 'smooth' });
+  return true;
+}
+
 /** Geometric D-pad focus movement for TV remote mode. */
 export function useSpatialNav(enabled: boolean) {
   useEffect(() => {
@@ -65,10 +104,16 @@ export function useSpatialNav(enabled: boolean) {
 
     const handler = (e: KeyboardEvent) => {
       if (!isTvMode()) return;
+      if (document.querySelector('.lightbox')) return;
       if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) return;
 
       const active = document.activeElement as HTMLElement | null;
       if (isTypingTarget(active)) return;
+
+      if (tryScrollVertical(e.key, active)) {
+        e.preventDefault();
+        return;
+      }
 
       const root = document.querySelector('.app') ?? document.body;
       const focusables = visibleFocusables(root);
