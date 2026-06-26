@@ -21,7 +21,22 @@ export default function App() {
   const mergeCloudLessons = useStore((s) => s.mergeCloudLessons);
 
   useEffect(() => {
-    if (detectTvEnvironment()) setTvMode(true);
+    const enableTvIfNeeded = () => {
+      if (detectTvEnvironment()) setTvMode(true);
+    };
+
+    enableTvIfNeeded();
+    window.addEventListener('android-tv-ready', enableTvIfNeeded);
+
+    // Native TV flag may arrive slightly after WebView loads
+    const poll = window.setInterval(enableTvIfNeeded, 400);
+    const stop = window.setTimeout(() => window.clearInterval(poll), 4000);
+
+    return () => {
+      window.removeEventListener('android-tv-ready', enableTvIfNeeded);
+      window.clearInterval(poll);
+      window.clearTimeout(stop);
+    };
   }, [setTvMode]);
 
   useEffect(() => {

@@ -29,11 +29,15 @@ Copy to phone or pendrive and install (enable **Install unknown apps**).
 
 ## Android TV APK
 
-The same APK works on Android TV. After install:
+The same APK works on Android TV. TV mode **turns on automatically** on Android TV (native detection). On phone it stays off.
+
+After install:
 
 1. Open the app from the TV app drawer
-2. Use **?tv=1** in the start URL, or tap **TV** in the top bar
+2. **TV** pill in the top bar should be lit — scroll/zoom buttons appear
 3. D-pad / remote: arrows to move focus, Enter to select
+
+Manual override: tap **TV** in the top bar, or open with `?tv=1` in the browser URL.
 
 ### TV launcher (optional)
 

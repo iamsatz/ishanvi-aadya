@@ -8,3 +8,8 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+interface Window {
+  /** Injected by Android MainActivity when running on Android TV. */
+  __ANDROID_TV__?: boolean;
+}
