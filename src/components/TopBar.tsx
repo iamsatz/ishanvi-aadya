@@ -17,14 +17,22 @@ export function TopBar() {
 
   const atFirst = idx === 0;
   const atLast = idx >= total - 1;
-  const isMaths = activeKid === 'ishanvi';
+  const isIshanvi = activeKid === 'ishanvi';
 
   return (
     <header className="topbar" role="banner">
       <NavDropdown />
 
-      {isMaths && (
-        <div className="topbar__pills" role="group" aria-label="Maths shortcuts">
+      {isIshanvi && (
+        <div className="topbar__pills" role="group" aria-label="Ishanvi shortcuts">
+          <button
+            type="button"
+            className="topbar__pill topbar__pill--weekend"
+            onClick={() => jumpToCard('weekend-2026-06-26-english', 'wh-en-0')}
+            aria-label="Go to this weekend English task"
+          >
+            Weekend
+          </button>
           <button
             type="button"
             className="topbar__pill"

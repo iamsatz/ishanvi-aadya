@@ -191,6 +191,33 @@ input, textarea {
   margin: 0 0 var(--sp-2);
   padding-bottom: var(--sp-1);
   border-bottom: 2px solid var(--c-surface-3);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.nav-dd__section--weekend {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 1.5px solid #f59e0b;
+  border-radius: var(--r-md);
+  padding: var(--sp-3);
+  margin-bottom: var(--sp-2);
+}
+
+.nav-dd__section--weekend .nav-dd__section-title {
+  color: #92400e;
+  border-bottom-color: #fcd34d;
+}
+
+.nav-dd__section-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  background: #f59e0b;
+  color: white;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
 }
 .nav-dd__lesson {
   width: 100%;
@@ -334,6 +361,13 @@ input, textarea {
   background: #FBF5E7;
   border-color: #C9A86A;
   color: #7A5C20;
+}
+
+.topbar__pill--weekend {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+  font-weight: 800;
 }
 
 .topbar__pill--tv.topbar__pill--on {

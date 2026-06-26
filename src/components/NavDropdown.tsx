@@ -154,9 +154,18 @@ export function NavDropdown() {
                 (l) => l.kid === browseKid && l.subject === subject.id
               );
               return (
-                <section key={subject.id} className="nav-dd__section">
+                <section
+                  key={subject.id}
+                  className={
+                    'nav-dd__section' +
+                    (subject.id === 'homework' ? ' nav-dd__section--weekend' : '')
+                  }
+                >
                   <h3 className="nav-dd__section-title">
                     {subject.icon} {subject.label}
+                    {subject.id === 'homework' && (
+                      <span className="nav-dd__section-badge">Start here</span>
+                    )}
                   </h3>
                   {subjectLessons.length > 0 ? (
                     subjectLessons.map((l) => (

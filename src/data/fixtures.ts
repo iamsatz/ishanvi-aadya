@@ -19,6 +19,7 @@
 import type { LearningCard, Lesson } from '../types/content';
 import { numberFamilies } from './numberFamilies';
 import { skillSheet } from './skillSheet';
+import { weekendHomeworkLessons } from './weekendHomework';
 import { aadyaLessons } from './aadyaPlaceholders';
 
 /* ============================================================
@@ -2799,10 +2800,13 @@ const earthDay: Lesson = {
    ============================================================ */
 
 export const fixtureLessons: Lesson[] = [
+  /* Ishanvi — this weekend first, then maths, then summer */
+  ...weekendHomeworkLessons,
+  numberFamilies,
+  skillSheet,
   stories,
   summerProject,
   earthDay,
-  numberFamilies,
-  skillSheet,
+  /* Aadya — after Ishanvi */
   ...aadyaLessons,
 ];

@@ -8,9 +8,10 @@ export const kids: Kid[] = [
     board: 'IB',
     mascot: { name: 'Satish', avatar: 'satish-guru', role: 'Wise guru guide' },
     subjects: [
-      { id: 'stories',  label: 'Stories',  icon: '📚' },
-      { id: 'projects', label: 'Projects', icon: '📝' },
-      { id: 'maths',    label: 'Maths',    icon: '🧮' },
+      { id: 'homework', label: 'This Weekend', icon: '✏️' },
+      { id: 'maths',    label: 'Maths',        icon: '🧮' },
+      { id: 'stories',  label: 'Summer Stories', icon: '📚' },
+      { id: 'projects', label: 'Summer Projects', icon: '📝' },
     ],
   },
   {
