@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useStore } from '../state/store';
 import { useProgress } from '../hooks/useProgress';
-import { UploadButton } from './UploadButton';
 import { kids, kidById } from '../data/kids';
 import type { Lesson } from '../types/content';
 
@@ -108,10 +107,6 @@ export function Drawer() {
             );
           })}
         </ul>
-
-        <div className="drawer__footer">
-          <UploadButton />
-        </div>
       </aside>
     </>
   );

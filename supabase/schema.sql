@@ -1,5 +1,7 @@
 -- Run in Supabase SQL editor after creating project.
 -- Storage: create public bucket named "homework" in Dashboard > Storage.
+-- Then run (adjust if using authenticated uploads later):
+-- insert policy for storage.objects bucket_id = 'homework' for select and insert to anon
 
 create table if not exists public.homework (
   id uuid primary key default gen_random_uuid(),

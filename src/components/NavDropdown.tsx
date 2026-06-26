@@ -37,6 +37,7 @@ export function NavDropdown() {
   const tvMode = useStore((s) => s.tvMode);
   const setActiveLesson = useStore((s) => s.setActiveLesson);
   const setActiveKid = useStore((s) => s.setActiveKid);
+  const requestPin = useStore((s) => s.requestPin);
 
   const activeLesson = lessons.find((l) => l.id === activeLessonId);
   const kid = kidById[activeKid] ?? kidById.ishanvi;
@@ -167,6 +168,22 @@ export function NavDropdown() {
                       <span className="nav-dd__section-badge">Start here</span>
                     )}
                   </h3>
+                  {subject.id === 'homework' && !tvMode && (
+                    <button
+                      type="button"
+                      className="nav-dd__upload"
+                      onClick={() => {
+                        setOpen(false);
+                        requestPin('upload');
+                      }}
+                    >
+                      <span className="nav-dd__upload-icon" aria-hidden>📷</span>
+                      <span>
+                        <strong>Upload homework photo</strong>
+                        <small>Phone → appears on TV browser</small>
+                      </span>
+                    </button>
+                  )}
                   {subjectLessons.length > 0 ? (
                     subjectLessons.map((l) => (
                       <LessonLink

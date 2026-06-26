@@ -13,6 +13,9 @@ interface AppState {
   drawerOpen: boolean;
   tvMode: boolean;
   parentMode: boolean;
+  pinGateOpen: boolean;
+  pinPurpose: 'parent' | 'upload';
+  uploadOpen: boolean;
 
   setActiveKid: (kid: KidId) => void;
   setActiveLesson: (lessonId: string) => void;
@@ -30,6 +33,10 @@ interface AppState {
   setTvMode: (on: boolean) => void;
   toggleTvMode: () => void;
   setParentMode: (on: boolean) => void;
+  requestPin: (purpose: 'parent' | 'upload') => void;
+  closePinGate: () => void;
+  openUploadModal: () => void;
+  closeUploadModal: () => void;
 }
 
 const firstLessonId = fixtureLessons[0]?.id ?? '';
@@ -91,6 +98,9 @@ export const useStore = create<AppState>()(
       drawerOpen: false,
       tvMode: false,
       parentMode: false,
+      pinGateOpen: false,
+      pinPurpose: 'parent' as 'parent' | 'upload',
+      uploadOpen: false,
 
       setActiveKid: (kid) => {
         const first = firstLessonForKid(kid);
@@ -165,6 +175,10 @@ export const useStore = create<AppState>()(
       setTvMode: (on) => set({ tvMode: on }),
       toggleTvMode: () => set({ tvMode: !get().tvMode }),
       setParentMode: (on) => set({ parentMode: on }),
+      requestPin: (purpose) => set({ pinGateOpen: true, pinPurpose: purpose }),
+      closePinGate: () => set({ pinGateOpen: false }),
+      openUploadModal: () => set({ uploadOpen: true, pinGateOpen: false }),
+      closeUploadModal: () => set({ uploadOpen: false }),
     }),
     {
       name: 'ishanvi-aadya-progress',

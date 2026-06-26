@@ -219,6 +219,44 @@ input, textarea {
   padding: 2px 8px;
   border-radius: var(--r-pill);
 }
+
+.nav-dd__upload {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  margin-bottom: var(--sp-2);
+  border-radius: var(--r-md);
+  border: 2px dashed #10b981;
+  background: #ecfdf5;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+.nav-dd__upload:hover {
+  background: #d1fae5;
+}
+.nav-dd__upload:active {
+  transform: scale(0.98);
+}
+.nav-dd__upload-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+.nav-dd__upload strong {
+  display: block;
+  font-size: var(--fs-sm);
+  color: #047857;
+}
+.nav-dd__upload small {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--c-ink-soft);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
 .nav-dd__lesson {
   width: 100%;
   display: flex;
@@ -2552,4 +2590,50 @@ input, textarea {
 .parent-upload__warn { background: #fef3c7; }
 .parent-upload__error { background: #fee2e2; color: #991b1b; }
 .parent-upload__actions { display: flex; gap: var(--sp-2); justify-content: flex-end; }
+
+.parent-upload__panel--simple { max-width: 480px; }
+.parent-upload__lead {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--c-ink-soft);
+  line-height: 1.45;
+}
+.parent-upload__file-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.parent-upload__browse {
+  width: 100%;
+  margin-bottom: var(--sp-3);
+}
+.parent-upload__preview {
+  margin: 0 0 var(--sp-3);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--c-line);
+}
+.parent-upload__preview img {
+  display: block;
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  background: #fff;
+}
+.parent-upload__preview figcaption {
+  padding: var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--c-ink-muted);
+}
+.parent-upload__grid--compact { margin-bottom: var(--sp-2); }
+.parent-upload__success {
+  padding: var(--sp-2);
+  border-radius: var(--r-md);
+  background: #d1fae5;
+  color: #047857;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
 

@@ -7,6 +7,7 @@ import { useStore } from './state/store';
 import { useKeyboardNav } from './hooks/useKeyboardNav';
 import { useSpatialNav } from './hooks/useSpatialNav';
 import { fetchCloudHomework } from './lib/homeworkCloud';
+import { HomeworkUploadHost } from './components/HomeworkUploadHost';
 
 export default function App() {
   const next = useStore((s) => s.next);
@@ -49,6 +50,7 @@ export default function App() {
       nav={<NavControls />}
     >
       <CardViewer />
+      <HomeworkUploadHost />
     </AppShell>
   );
 }

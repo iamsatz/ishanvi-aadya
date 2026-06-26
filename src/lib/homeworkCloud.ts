@@ -31,13 +31,21 @@ export function cloudRowToLesson(row: CloudHomeworkRow): Lesson {
   const dateLabel = formatDate(row.task_date);
   const peekId = `${lessonId}-peek`;
 
-  const checklist = row.tasks.map((t, i) => ({
-    id: `${lessonId}-t${i}`,
-    label: t.label,
-    hint: t.hint,
-    example: t.example,
-    ...(t.answer ? { peekLink: { cardId: peekId, label: 'Parent answer →' } } : {}),
-  }));
+  const checklist = row.tasks.length > 0
+    ? row.tasks.map((t, i) => ({
+        id: `${lessonId}-t${i}`,
+        label: t.label,
+        hint: t.hint,
+        example: t.example,
+        ...(t.answer ? { peekLink: { cardId: peekId, label: 'Parent answer →' } } : {}),
+      }))
+    : [
+        {
+          id: `${lessonId}-t0`,
+          label: 'Look at the photo and do the work',
+          hint: 'Read the page on the TV — tap the image to zoom. Write answers in your book.',
+        },
+      ];
 
   const cards: LearningCard[] = [
     {
@@ -124,7 +132,10 @@ export interface UploadHomeworkInput {
 
 export async function uploadHomework(input: UploadHomeworkInput): Promise<{ ok: boolean; error?: string }> {
   if (!isSupabaseConfigured) {
-    return { ok: false, error: 'Supabase not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.' };
+    return { ok: false, error: 'Cloud not connected. Add Supabase keys on Vercel — see docs/SUPABASE-SETUP.md' };
+  }
+  if (!input.imageFile) {
+    return { ok: false, error: 'Please choose a photo to upload.' };
   }
   const sb = getSupabase();
   if (!sb) return { ok: false, error: 'Supabase client unavailable' };
