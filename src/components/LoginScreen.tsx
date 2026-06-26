@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signInWithMagicLink, checkEmailAllowed } from '../lib/auth';
+import { signInWithMagicLink } from '../lib/auth';
 import { isSupabaseConfigured } from '../lib/supabase';
 import { APP_NAME } from '../config/app';
 
@@ -20,13 +20,6 @@ export function LoginScreen({ onSent }: Props) {
     setStatus('sending');
     setError('');
 
-    const allowed = await checkEmailAllowed(trimmed);
-    if (!allowed) {
-      setStatus('error');
-      setError('This email is not on the beta allowlist. Contact the app owner.');
-      return;
-    }
-
     const result = await signInWithMagicLink(trimmed);
     if (result.ok) {
       setStatus('sent');
@@ -42,7 +35,7 @@ export function LoginScreen({ onSent }: Props) {
       <div className="auth-screen__card">
         <h1 className="auth-screen__title">{APP_NAME}</h1>
         <p className="auth-screen__lead">
-          Closed beta — sign in with your invite email. Works on phone and TV.
+          Sign in with your email. Works on phone and TV.
         </p>
 
         {!isSupabaseConfigured && (

@@ -49,16 +49,3 @@ export async function signOut(): Promise<void> {
   const sb = getSupabase();
   if (sb) await sb.auth.signOut();
 }
-
-export async function checkEmailAllowed(email: string): Promise<boolean> {
-  const sb = getSupabase();
-  if (!sb) return false;
-  const { data, error } = await sb.rpc('is_email_allowed', {
-    check_email: email.trim().toLowerCase(),
-  });
-  if (error) {
-    console.warn('[auth] allowlist check failed', error.message);
-    return true;
-  }
-  return Boolean(data);
-}

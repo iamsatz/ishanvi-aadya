@@ -12,7 +12,7 @@ do $$ begin
 exception when duplicate_object then null;
 end $$;
 
--- ── Allowed emails (cap beta testers ~15-20) ─────────────────
+-- ── Allowed emails (optional legacy — not required for login) ──
 create table if not exists public.allowed_emails (
   email text primary key,
   created_at timestamptz not null default now()
@@ -25,7 +25,7 @@ create policy "allowed_emails read own" on public.allowed_emails
   for select to authenticated
   using (lower(email) = lower(auth.jwt() ->> 'email'));
 
--- RPC for pre-login allowlist check (returns boolean only, no email leak)
+-- RPC for optional allowlist check (unused by app after open signup)
 create or replace function public.is_email_allowed(check_email text)
 returns boolean
 language sql
@@ -59,20 +59,13 @@ create policy "profiles insert own" on public.profiles
 create policy "profiles update own" on public.profiles
   for update to authenticated using (id = auth.uid());
 
--- Auto-create profile on signup; reject if email not allowlisted
+-- Auto-create profile on signup (any email allowed)
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
 security definer set search_path = public
 as $$
 begin
-  if not exists (
-    select 1 from public.allowed_emails
-    where lower(email) = lower(new.email)
-  ) then
-    raise exception 'Email not on beta allowlist';
-  end if;
-
   insert into public.profiles (id, email)
   values (new.id, new.email)
   on conflict (id) do nothing;

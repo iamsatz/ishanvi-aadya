@@ -1,4 +1,4 @@
-# Supabase setup — Closed Beta
+# Supabase setup — Learning Adventures
 
 **Project:** [shikwtguxfhefzvfkedo](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo)
 
@@ -8,21 +8,25 @@
 2. Paste all of `supabase/schema.sql`
 3. Click **Run**
 
-Creates: auth profiles, allowlist, children, subjects, syllabus, lessons, homework, feedback + RLS.
+Creates: auth profiles, children, subjects, syllabus, lessons, homework, feedback + RLS.
 
-## Step 2 — Add beta tester emails
+**Already set up?** To remove the old invite allowlist on a live project, run `supabase/migrations/open-signup.sql` once.
 
-```sql
-insert into public.allowed_emails (email) values
-  ('parent1@example.com'),
-  ('parent2@example.com');
-```
+## Step 2 — Sign in (magic link)
 
-## Step 3 — Disable public signup (recommended)
+Parents sign in with **any email** — no invite list required.
 
-Dashboard → Authentication → Providers → Email → disable "Enable sign ups" is NOT needed if you use allowlist trigger (non-listed emails fail on signup).
+1. Enter email in the app → **Send magic link**
+2. Tap the link in email → app opens signed in
+3. Same account works on phone and TV
 
-## Step 4 — Deploy AI tutor function
+This is normal passwordless login, not a separate “invite.”
+
+### Optional: restrict to specific emails later
+
+If you want a closed beta again, add emails to `allowed_emails` and re-enable the allowlist check in code. The table still exists in the schema but is unused by default.
+
+## Step 3 — Deploy AI tutor function
 
 Install CLI if needed:
 
@@ -48,7 +52,7 @@ supabase functions deploy tutor
 
 Get a Gemini key: https://aistudio.google.com/apikey
 
-## Step 5 — Environment variables
+## Step 4 — Environment variables
 
 `.env` (local) and Vercel:
 
@@ -57,7 +61,7 @@ VITE_SUPABASE_URL=https://shikwtguxfhefzvfkedo.supabase.co
 VITE_SUPABASE_ANON_KEY=your_anon_key
 ```
 
-## Step 6 — Test tutor function (CLI harness)
+## Step 5 — Test tutor function (CLI harness)
 
 After deploy, run the automated smoke test from the repo root:
 
@@ -91,9 +95,9 @@ Also confirm:
 
 Record results in [docs/TUTOR-EVAL-RESULTS.md](TUTOR-EVAL-RESULTS.md) (date, N questions, correct count, decision).
 
-## Step 7 — Test app flow
+## Step 6 — Test app flow
 
-1. **Phone:** open app → magic link login with allowlisted email
+1. **Phone:** open app → magic link login with your email
 2. **Add child** or **Load demo content**
 3. Menu → **Add homework** (PIN 1234) → photo → AI builds help
 4. Swipe to last card → **Answers & Explanations** (PIN unlock) → tap **Show answer**
