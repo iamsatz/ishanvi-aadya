@@ -25,10 +25,13 @@ const englishCards: LearningCard[] = [
       questions: ['Can you find page 101 without me?'],
       questionsTe: ['Page 101 నువ్వే find చేయగలవా?'],
     },
-    promptText: `Which book? Tap to check.`,
-    interactionType: 'tap-reveal',
-    cardStyle: 'deck',
-    revealAnswer: `${BOOK} · Unit 7 · pages 101, 102, 104. Write in the book; peek cards are backup only.`,
+    promptText: 'Pick the book you need for today\'s English homework:',
+    interactionType: 'choice-cards',
+    choices: [
+      { id: 'oxford', label: '📗 Oxford English Book', isCorrect: true },
+      { id: 'maths', label: '📐 Maths Silver Oaks sheet', isCorrect: false },
+      { id: 'science', label: '🔬 Science textbook', isCorrect: false },
+    ],
   },
 
   {
@@ -129,9 +132,8 @@ const englishCards: LearningCard[] = [
       tip: 'Cover this card until she has spoken her own answer out loud.',
       tipTe: 'ఆ answer loud చెప్పే varaku card cover చేయండి.',
     },
-    promptText: 'Tap only after you guessed.',
+    promptText: 'Already tried? Tap to compare with these ideas.',
     interactionType: 'tap-reveal',
-    cardStyle: 'deck',
     revealAnswer:
       'A1: all mean friend / close companion.\nA3 starters: bond = close tie · embrace = hug · affection = fondness · respect = admire someone\'s good traits.',
   },
@@ -143,9 +145,8 @@ const englishCards: LearningCard[] = [
     subtitle: 'Check your pairs',
     englishContent:
       'Match these if you are stuck. **Cover and try again tomorrow** without peeking.',
-    promptText: 'Tap to see matches.',
+    promptText: 'Stuck on matching? Tap to see the pairs.',
     interactionType: 'tap-reveal',
-    cardStyle: 'deck',
     revealAnswer:
       'chum → good friend (rhymes) · bond → shared-feeling relationship · embrace → hold close · respect → admire good things · ally → same side · buddy → American good friend · affection → fondness',
   },
@@ -157,9 +158,8 @@ const englishCards: LearningCard[] = [
     subtitle: 'Book definitions',
     englishContent:
       'Official glossary from the textbook. Close this card and explain one word to someone without looking.',
-    promptText: 'Tap to see glossary.',
+    promptText: 'Need the glossary? Tap to show word meanings.',
     interactionType: 'tap-reveal',
-    cardStyle: 'deck',
     revealAnswer:
       '102: peeking = quick secret look · translate = say in another language · whooshed = rushing wind/water sound\n104: lentils = small bean · marbles = glass-ball game\nTrue sentence: Mona & Sitti communicate with gestures and their own language.',
   },
@@ -210,9 +210,8 @@ const scienceCards: LearningCard[] = [
     subtitle: 'Inspiration only · make it yours',
     englishContent:
       'Examples other kids wrote. **Do not copy** — use them to spark your own honest answer.',
-    promptText: 'Tap for starters (then hide and write yours).',
+    promptText: 'Need an idea? Tap for examples — then write your own.',
     interactionType: 'tap-reveal',
-    cardStyle: 'deck',
     revealAnswer:
       'Special because I listen when friends are sad · Mirror can\'t show my kindness · Proud when I kept trying at maths',
   },

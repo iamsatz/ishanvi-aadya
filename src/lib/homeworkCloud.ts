@@ -21,6 +21,25 @@ export interface CloudHomeworkRow {
 
 const BUCKET = 'homework';
 
+export const SUBJECT_OPTIONS = [
+  { id: 'english', label: 'English', icon: '📗' },
+  { id: 'science', label: 'Science', icon: '🔬' },
+  { id: 'maths', label: 'Maths', icon: '📐' },
+  { id: 'other', label: 'Other', icon: '📝' },
+] as const;
+
+export function subjectLabel(subject: string): string {
+  return SUBJECT_OPTIONS.find((s) => s.id === subject)?.label ?? subject;
+}
+
+export function subjectIcon(subject: string): string {
+  return SUBJECT_OPTIONS.find((s) => s.id === subject)?.icon ?? '📝';
+}
+
+export function defaultHomeworkTitle(subject: string, taskDate: string): string {
+  return `${subjectLabel(subject)} · ${taskDate}`;
+}
+
 function formatDate(iso: string): string {
   const d = new Date(iso + (iso.includes('T') ? '' : 'T12:00:00'));
   return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -90,15 +109,18 @@ export function cloudRowToLesson(row: CloudHomeworkRow): Lesson {
     });
   }
 
+  const label = subjectLabel(row.subject);
+  const baseTitle = row.title.startsWith(label) ? row.title : `${label} · ${row.title}`;
+
   return {
     id: lessonId,
-    title: `${row.title} · ${dateLabel}`,
-    subtitle: row.subject,
+    title: `${baseTitle} · ${dateLabel}`,
+    subtitle: label,
     kid: row.kid,
     subject: 'homework',
     chapter: 'Cloud',
     hasTelugu: false,
-    icon: '📝',
+    icon: subjectIcon(row.subject),
     cards,
   };
 }

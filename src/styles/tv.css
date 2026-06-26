@@ -119,8 +119,14 @@
   margin-bottom: var(--sp-2);
 }
 
-.app[data-tv="true"] .deck-flip {
-  min-height: 8rem;
+.app[data-tv="true"] .deck-flip,
+.app[data-tv="true"] .tap-reveal {
+  width: 100%;
+  min-height: 5rem;
+}
+
+.app[data-tv="true"] .choices {
+  width: 100%;
 }
 
 .app[data-tv="true"] .deck-flip__face {

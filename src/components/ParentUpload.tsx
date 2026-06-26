@@ -1,7 +1,13 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { KidId } from '../types/content';
-import { uploadHomework } from '../lib/homeworkCloud';
+import {
+  defaultHomeworkTitle,
+  SUBJECT_OPTIONS,
+  uploadHomework,
+} from '../lib/homeworkCloud';
 import { isSupabaseConfigured } from '../lib/supabase';
+import { useStore } from '../state/store';
+import { kidById } from '../data/kids';
 
 interface Props {
   open: boolean;
@@ -11,14 +17,19 @@ interface Props {
 
 export function ParentUpload({ open, onClose, onSaved }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
+  const activeKid = useStore((s) => s.activeKid);
   const [taskDate, setTaskDate] = useState(() => new Date().toISOString().slice(0, 10));
-  const [kid, setKid] = useState<KidId>('ishanvi');
+  const [kid, setKid] = useState<KidId>(activeKid);
   const [subject, setSubject] = useState('english');
   const [title, setTitle] = useState('');
   const [imageFile, setImageFile] = useState<File | undefined>();
   const [previewUrl, setPreviewUrl] = useState<string | undefined>();
   const [status, setStatus] = useState<'idle' | 'saving' | 'error' | 'done'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    if (open) setKid(activeKid);
+  }, [open, activeKid]);
 
   if (!open) return null;
 
@@ -41,7 +52,7 @@ export function ParentUpload({ open, onClose, onSaved }: Props) {
       taskDate,
       kid,
       subject,
-      title: title.trim() || `Homework · ${taskDate}`,
+      title: title.trim() || defaultHomeworkTitle(subject, taskDate),
       imageFile,
       tasks: [],
     });
@@ -71,7 +82,8 @@ export function ParentUpload({ open, onClose, onSaved }: Props) {
         </header>
 
         <p className="parent-upload__lead">
-          Browse a photo on your phone. It appears on the TV browser under <strong>This Weekend</strong>.
+          Choose who and what subject, then pick the page photo. It appears on the TV under{' '}
+          <strong>This Weekend</strong> for that child.
         </p>
 
         {!isSupabaseConfigured && (
@@ -79,6 +91,42 @@ export function ParentUpload({ open, onClose, onSaved }: Props) {
             Cloud not connected. Add Supabase keys to Vercel (see <code>docs/SUPABASE-SETUP.md</code>).
           </p>
         )}
+
+        <div className="parent-upload__grid parent-upload__grid--compact">
+          <label className="parent-upload__field">
+            <span className="parent-upload__field-q">Who is this for?</span>
+            <select value={kid} onChange={(e) => setKid(e.target.value as KidId)}>
+              <option value="ishanvi">{kidById.ishanvi.name} · {kidById.ishanvi.grade}</option>
+              <option value="aadya">{kidById.aadya.name} · {kidById.aadya.grade}</option>
+            </select>
+          </label>
+          <label className="parent-upload__field">
+            <span className="parent-upload__field-q">Which subject?</span>
+            <select value={subject} onChange={(e) => setSubject(e.target.value)}>
+              {SUBJECT_OPTIONS.map((opt) => (
+                <option key={opt.id} value={opt.id}>
+                  {opt.icon} {opt.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="parent-upload__field">
+            <span className="parent-upload__field-q">When is this homework?</span>
+            <input type="date" value={taskDate} onChange={(e) => setTaskDate(e.target.value)} required />
+          </label>
+          <label className="parent-upload__field parent-upload__full">
+            <span className="parent-upload__field-q">Page name (optional)</span>
+            <input
+              type="text"
+              placeholder="e.g. Oxford pg 105"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <small className="parent-upload__hint">
+              If empty: {defaultHomeworkTitle(subject, taskDate)}
+            </small>
+          </label>
+        </div>
 
         <input
           ref={fileRef}
@@ -93,7 +141,7 @@ export function ParentUpload({ open, onClose, onSaved }: Props) {
           className="parent-upload__browse btn btn--accent"
           onClick={() => fileRef.current?.click()}
         >
-          📷 Browse photos
+          📷 Browse homework photo
         </button>
 
         {previewUrl && (
@@ -103,40 +151,12 @@ export function ParentUpload({ open, onClose, onSaved }: Props) {
           </figure>
         )}
 
-        <div className="parent-upload__grid parent-upload__grid--compact">
-          <label>
-            Date
-            <input type="date" value={taskDate} onChange={(e) => setTaskDate(e.target.value)} required />
-          </label>
-          <label>
-            Kid
-            <select value={kid} onChange={(e) => setKid(e.target.value as KidId)}>
-              <option value="ishanvi">Ishanvi</option>
-              <option value="aadya">Aadya</option>
-            </select>
-          </label>
-          <label>
-            Subject
-            <select value={subject} onChange={(e) => setSubject(e.target.value)}>
-              <option value="english">English</option>
-              <option value="science">Science</option>
-              <option value="maths">Maths</option>
-              <option value="other">Other</option>
-            </select>
-          </label>
-          <label className="parent-upload__full">
-            Title (optional)
-            <input
-              type="text"
-              placeholder="e.g. Oxford pg 105"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </label>
-        </div>
-
         {status === 'error' && <p className="parent-upload__error">{errorMsg}</p>}
-        {status === 'done' && <p className="parent-upload__success">Uploaded — open TV browser to see it!</p>}
+        {status === 'done' && (
+          <p className="parent-upload__success">
+            Uploaded for {kidById[kid].name} — open TV browser to see it!
+          </p>
+        )}
 
         <div className="parent-upload__actions">
           <button type="button" className="btn btn--ghost" onClick={onClose}>

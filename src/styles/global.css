@@ -1216,7 +1216,7 @@ input, textarea {
   box-shadow: 2px 3px 0 #8b7355;
   font-family: var(--font-display);
 }
-.card__play--deck .prompt::before { content: '🃏 '; }
+.card__play--deck .prompt::before { content: '📖 '; }
 
 /* ---------- Aadya — extra kid-friendly ---------- */
 .app[data-kid="aadya"] .card__title { font-size: clamp(1.35rem, 4vw, 1.75rem); }
@@ -2627,7 +2627,18 @@ input, textarea {
   font-size: var(--fs-xs);
   color: var(--c-ink-muted);
 }
-.parent-upload__grid--compact { margin-bottom: var(--sp-2); }
+.parent-upload__grid--compact { margin-bottom: var(--sp-3); }
+.parent-upload__field { display: flex; flex-direction: column; gap: var(--sp-1); }
+.parent-upload__field-q {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--c-ink);
+}
+.parent-upload__hint {
+  font-size: var(--fs-xs);
+  color: var(--c-ink-muted);
+  font-weight: 500;
+}
 .parent-upload__success {
   padding: var(--sp-2);
   border-radius: var(--r-md);

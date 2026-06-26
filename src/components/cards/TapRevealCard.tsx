@@ -26,8 +26,8 @@ export function TapRevealCard({ card, onComplete }: Props) {
       >
         <span className="deck-flip__inner">
           <span className="deck-flip__back">
-            <span className="deck-flip__emoji" aria-hidden>🃏</span>
-            Tap to flip ✨
+            <span className="deck-flip__emoji" aria-hidden>📖</span>
+            Tap to see answer
           </span>
           <span className="deck-flip__face">{card.revealAnswer}</span>
         </span>
@@ -44,7 +44,7 @@ export function TapRevealCard({ card, onComplete }: Props) {
     >
       {revealed
         ? <span className="tap-reveal__answer">{card.revealAnswer}</span>
-        : 'Tap to reveal ✨'}
+        : 'Tap to see answer ✨'}
     </button>
   );
 }

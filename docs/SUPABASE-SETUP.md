@@ -1,27 +1,58 @@
 # Supabase setup (phone upload → TV browser)
 
-Without this, **Upload homework photo** in the menu will show "Cloud not connected."
+**Your project:** [shikwtguxfhefzvfkedo](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo)
 
-## Steps
+Without keys, **Upload homework photo** shows *"Cloud not connected."*
 
-1. [supabase.com](https://supabase.com) → **New project** (free).
-2. **Settings → API** → copy:
-   - Project URL → `VITE_SUPABASE_URL`
-   - anon public key → `VITE_SUPABASE_ANON_KEY`
-3. **SQL editor** → run `supabase/schema.sql`.
-4. **Storage** → New bucket **`homework`** → turn **Public bucket** ON.
-5. **Storage → Policies** → allow anon **SELECT** and **INSERT** on `homework` bucket (or use public bucket).
-6. **Vercel** → Project → Settings → Environment Variables → add both keys → **Redeploy**.
+---
 
-## Use on phone
+## Step 1 — Run SQL (one time)
 
-1. Open app (web or APK).
-2. Menu (top left) → **This Weekend** section.
-3. Tap **Upload homework photo** → PIN `1234`.
-4. **Browse photos** → pick page → **Send to TV**.
+1. Open [SQL editor](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo/sql/new)
+2. Paste all of `supabase/schema.sql`
+3. Click **Run**
 
-## On TV
+This creates the `homework` table + public `homework` storage bucket.
 
-Open the same app URL in the TV browser → menu → new item under **This Weekend** (cloud homework with your photo). Tap image to zoom.
+---
 
-Refresh the TV page if you uploaded while it was already open.
+## Step 2 — Copy API keys
+
+1. Open [Settings → API](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo/settings/api)
+2. Copy:
+
+| Key | Value |
+|-----|--------|
+| `VITE_SUPABASE_URL` | `https://shikwtguxfhefzvfkedo.supabase.co` |
+| `VITE_SUPABASE_ANON_KEY` | **anon public** key (long `eyJ…` string) |
+
+---
+
+## Step 3 — Add to Vercel
+
+1. Vercel → your project → **Settings → Environment Variables**
+2. Add both variables above (Production + Preview)
+3. **Redeploy**
+
+---
+
+## Step 4 — Local / APK (optional)
+
+Create `.env` in project root:
+
+```
+VITE_SUPABASE_URL=https://shikwtguxfhefzvfkedo.supabase.co
+VITE_SUPABASE_ANON_KEY=paste_anon_key_here
+```
+
+Then `npm run build` or `npm run cap:apk`.
+
+---
+
+## Test
+
+**Phone:** Menu → This Weekend → **Upload homework photo** → PIN `1234` → browse → **Send to TV**
+
+**TV:** Same app URL → refresh → new item under **This Weekend**
+
+Verify uploads in [Storage → homework](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo/storage/buckets/homework) and [Table Editor → homework](https://supabase.com/dashboard/project/shikwtguxfhefzvfkedo/editor).
