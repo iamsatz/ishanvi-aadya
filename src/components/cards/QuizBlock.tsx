@@ -81,6 +81,7 @@ export function QuizBlock({ questions, onAnswer, deck }: Props) {
                           </span>
                           <span className="quiz__choice-text">{c.label}</span>
                         </span>
+                        <span className="deck-card__hint">{c.label}</span>
                       </>
                     ) : (
                       <>

@@ -52,7 +52,8 @@ Rules:
 - Output ONLY valid JSON matching the schema below.
 - Include a "Parent, please check" tone in hints where answers are involved.
 - interactionType must be one of: tap-reveal, choice-cards, checklist, reflect, match-pairs, vocab-grid.
-- For homework mode: 3-5 cards — intro, step-by-step checklist, practice choice-cards, reflect.
+- Do NOT use cardStyle "deck" for homework — kids must see choice labels and homework photos clearly.
+- For homework mode: 3-5 cards — intro (with imageUrl on card 1), step-by-step checklist, practice choice-cards, reflect.
 - For index mode: one card per syllabus topic (max 8), mix interaction types.
 
 JSON schema:

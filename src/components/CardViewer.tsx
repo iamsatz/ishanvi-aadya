@@ -134,8 +134,14 @@ export function CardViewer() {
                 glossary={card.glossary}
                 cardId={card.id}
               />
-            ) : (
+            ) : card.englishContent?.trim() ? (
               renderWithGlossary(card.englishContent, card.glossary, `en-${card.id}`)
+            ) : (
+              <p className="card__empty-story">
+                {card.imageUrl
+                  ? 'Read the homework photo above, then answer below.'
+                  : 'Your teacher\'s instructions should appear here. Scroll up or ask a parent to re-upload the homework photo.'}
+              </p>
             )}
           </div>
 

@@ -54,6 +54,7 @@ export function ChoiceCards({ card, onComplete }: Props) {
                     </span>
                     <span className="choice__text">{c.label}</span>
                   </span>
+                  <span className="deck-card__hint">{c.label}</span>
                 </>
               ) : (
                 <>

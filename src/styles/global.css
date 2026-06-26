@@ -1128,10 +1128,42 @@ input, textarea {
   padding: 0;
   text-align: center;
 }
+.deck-card > .deck-card__back,
+.deck-card > .deck-card__face {
+  position: absolute;
+  inset: 0;
+}
+.quiz__deck-card,
+.choices--deck .deck-card {
+  min-height: 100px;
+  padding-bottom: 2.75rem;
+}
+.quiz__deck-card .deck-card__hint,
+.choices--deck .deck-card__hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 .deck-card {
   border: none;
   cursor: pointer;
   transition: transform var(--t-fast) var(--ease);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sp-1);
+  min-height: auto;
+}
+.deck-card__hint {
+  position: relative;
+  display: block;
+  padding: var(--sp-1) var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--c-ink);
 }
 .deck-card__back,
 .deck-card__face {
@@ -1177,7 +1209,8 @@ input, textarea {
 .deck-flip {
   display: block;
   width: 100%;
-  min-height: 120px;
+  min-height: 140px;
+  min-width: 12rem;
   border: none;
   cursor: pointer;
 }
@@ -1209,7 +1242,19 @@ input, textarea {
 .deck-flip__back {
   background: linear-gradient(145deg, #5B3A8C, #3D2560);
   color: white;
-  font-size: var(--fs-lg);
+  font-size: var(--fs-md);
+  text-align: center;
+  line-height: 1.35;
+  padding: var(--sp-3);
+}
+.card__empty-story {
+  margin: 0;
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
+  border: 1px dashed var(--c-border);
+  color: var(--c-ink-muted);
+  line-height: 1.5;
 }
 .deck-flip__emoji { font-size: 2.5rem; }
 .deck-flip__face {

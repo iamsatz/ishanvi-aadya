@@ -27,7 +27,7 @@ export function TapRevealCard({ card, onComplete }: Props) {
         <span className="deck-flip__inner">
           <span className="deck-flip__back">
             <span className="deck-flip__emoji" aria-hidden>📖</span>
-            Tap to see answer
+            Tap here to see the answer
           </span>
           <span className="deck-flip__face">{card.revealAnswer}</span>
         </span>
