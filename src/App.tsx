@@ -14,13 +14,12 @@ export default function App() {
   const tvMode = useStore((s) => s.tvMode);
   const setTvMode = useStore((s) => s.setTvMode);
   const drawerOpen = useStore((s) => s.drawerOpen);
-  const navDropdownOpen = useStore((s) => s.navDropdownOpen);
   const closeDrawer = useStore((s) => s.closeDrawer);
-  const setNavDropdownOpen = useStore((s) => s.setNavDropdownOpen);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('tv') === '1') setTvMode(true);
+    // TV mode is session-only via ?tv=1 — never restore from localStorage (breaks arrow nav).
+    setTvMode(params.get('tv') === '1');
   }, [setTvMode]);
 
   useSpatialNav(tvMode);
@@ -29,8 +28,8 @@ export default function App() {
     onNext: next,
     onBack: back,
     onRemoteBack: () => {
-      if (navDropdownOpen) setNavDropdownOpen(false);
-      else if (drawerOpen) closeDrawer();
+      window.dispatchEvent(new CustomEvent('nav-dd-close'));
+      if (drawerOpen) closeDrawer();
       else back();
     },
     tvMode,

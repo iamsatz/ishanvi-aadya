@@ -7,6 +7,7 @@ export function TopBar() {
   const idx = useStore((s) => s.activeIndex);
   const back = useStore((s) => s.back);
   const next = useStore((s) => s.next);
+  const activeKid = useStore((s) => s.activeKid);
   const jumpToCard = useStore((s) => s.jumpToCard);
   const tvMode = useStore((s) => s.tvMode);
   const toggleTvMode = useStore((s) => s.toggleTvMode);
@@ -16,7 +17,7 @@ export function TopBar() {
 
   const atFirst = idx === 0;
   const atLast = idx >= total - 1;
-  const isMaths = lesson?.subject === 'maths' && lesson?.kid === 'ishanvi';
+  const isMaths = activeKid === 'ishanvi';
 
   return (
     <header className="topbar" role="banner">

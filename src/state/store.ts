@@ -11,7 +11,6 @@ interface AppState {
   /** Map<lessonId, cardId[]> of completed cards. */
   completed: Record<string, string[]>;
   drawerOpen: boolean;
-  navDropdownOpen: boolean;
   tvMode: boolean;
 
   setActiveKid: (kid: KidId) => void;
@@ -26,7 +25,6 @@ interface AppState {
   resetProgress: () => void;
   openDrawer: () => void;
   closeDrawer: () => void;
-  setNavDropdownOpen: (open: boolean) => void;
   setTvMode: (on: boolean) => void;
   toggleTvMode: () => void;
 }
@@ -57,7 +55,6 @@ function sanitizeNavState(partial: {
   activeLessonId?: unknown;
   activeIndex?: unknown;
   completed?: unknown;
-  tvMode?: unknown;
 }): Pick<AppState, 'activeKid' | 'activeLessonId' | 'activeIndex' | 'completed' | 'tvMode'> {
   const activeKid = isKidId(partial.activeKid) ? partial.activeKid : 'ishanvi';
 
@@ -77,9 +74,7 @@ function sanitizeNavState(partial: {
       ? (partial.completed as Record<string, string[]>)
       : {};
 
-  const tvMode = partial.tvMode === true;
-
-  return { activeKid, activeLessonId, activeIndex, completed, tvMode };
+  return { activeKid, activeLessonId, activeIndex, completed, tvMode: false };
 }
 
 export const useStore = create<AppState>()(
@@ -91,7 +86,6 @@ export const useStore = create<AppState>()(
       activeIndex: 0,
       completed: {},
       drawerOpen: false,
-      navDropdownOpen: false,
       tvMode: false,
 
       setActiveKid: (kid) => {
@@ -160,21 +154,18 @@ export const useStore = create<AppState>()(
       openDrawer: () => set({ drawerOpen: true }),
       closeDrawer: () => set({ drawerOpen: false }),
 
-      setNavDropdownOpen: (open) => set({ navDropdownOpen: open }),
-
       setTvMode: (on) => set({ tvMode: on }),
       toggleTvMode: () => set({ tvMode: !get().tvMode }),
     }),
     {
       name: 'ishanvi-aadya-progress',
-      version: 4,
+      version: 5,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({
         activeKid: s.activeKid,
         activeLessonId: s.activeLessonId,
         activeIndex: s.activeIndex,
         completed: s.completed,
-        tvMode: s.tvMode,
       }),
       merge: (persisted, current) => ({
         ...current,
@@ -188,6 +179,10 @@ export const useStore = create<AppState>()(
         }
         if (version < 4 && state.tvMode === undefined) {
           return { ...state, tvMode: false };
+        }
+        if (version < 5) {
+          const { tvMode: _removed, ...rest } = state;
+          return rest;
         }
         return state;
       },

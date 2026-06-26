@@ -31,7 +31,12 @@ export function useKeyboardNav({
         if (isRemoteBack(e.key)) {
           e.preventDefault();
           (onRemoteBack ?? onBack)();
+          return;
         }
+        // Spatial nav runs first; if it couldn't move focus, fall back to card prev/next.
+        if (e.defaultPrevented) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); onNext(); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); onBack(); }
         return;
       }
 

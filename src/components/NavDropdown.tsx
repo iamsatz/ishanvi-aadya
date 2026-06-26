@@ -37,8 +37,6 @@ export function NavDropdown() {
   const tvMode = useStore((s) => s.tvMode);
   const setActiveLesson = useStore((s) => s.setActiveLesson);
   const setActiveKid = useStore((s) => s.setActiveKid);
-  const setNavDropdownOpen = useStore((s) => s.setNavDropdownOpen);
-  const navDropdownOpen = useStore((s) => s.navDropdownOpen);
 
   const activeLesson = lessons.find((l) => l.id === activeLessonId);
   const kid = kidById[activeKid] ?? kidById.ishanvi;
@@ -49,12 +47,10 @@ export function NavDropdown() {
   }, [open, activeKid]);
 
   useEffect(() => {
-    setNavDropdownOpen(open);
-  }, [open, setNavDropdownOpen]);
-
-  useEffect(() => {
-    if (!navDropdownOpen && open) setOpen(false);
-  }, [navDropdownOpen, open]);
+    const close = () => setOpen(false);
+    window.addEventListener('nav-dd-close', close);
+    return () => window.removeEventListener('nav-dd-close', close);
+  }, []);
 
   useEffect(() => {
     if (!open || !tvMode) return;
@@ -72,14 +68,21 @@ export function NavDropdown() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
-    const onClick = (e: MouseEvent) => {
-      if (panelRef.current && !panelRef.current.contains(e.target as Node)) setOpen(false);
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Node | null;
+      if (panelRef.current && target && !panelRef.current.contains(target)) {
+        setOpen(false);
+      }
     };
     window.addEventListener('keydown', onKey);
-    window.addEventListener('mousedown', onClick);
+    // Defer so the opening pointer event doesn't instantly dismiss the panel.
+    const id = window.setTimeout(() => {
+      window.addEventListener('pointerdown', onPointerDown);
+    }, 0);
     return () => {
       window.removeEventListener('keydown', onKey);
-      window.removeEventListener('mousedown', onClick);
+      window.clearTimeout(id);
+      window.removeEventListener('pointerdown', onPointerDown);
     };
   }, [open]);
 
