@@ -1,6 +1,7 @@
 import { useStore, selectActiveLesson } from '../state/store';
 import { useProgress } from '../hooks/useProgress';
 import { NavDropdown } from './NavDropdown';
+import { SchoolLogo } from './SchoolLogo';
 
 export function TopBar() {
   const lesson = useStore(selectActiveLesson);
@@ -21,6 +22,7 @@ export function TopBar() {
 
   return (
     <header className="topbar" role="banner">
+      <SchoolLogo className="topbar__logo" />
       <NavDropdown />
 
       <div className="topbar__meta">

@@ -240,4 +240,61 @@ export const weekendScience: Lesson = {
   cards: scienceCards,
 };
 
-export const weekendHomeworkLessons: Lesson[] = [weekendEnglish, weekendScience];
+const PARENT_HW = 'weekend-2026-06-27-parent';
+const PARENT_DATE = '27 Jun 2026';
+
+const parentNoticeCards: LearningCard[] = [
+  {
+    id: 'wh-pn-0',
+    lessonId: PARENT_HW,
+    title: 'Important information',
+    subtitle: `${PARENT_DATE} · Shruti · HRT`,
+    imageUrl: '/homework/weekend-2026-06-27/parent-notice-shruti.png',
+    englishContent:
+      'Dear parents,\n\nKindly note the following:\n\n• Label all belongings (bags, caps, jackets, books, journals) with **name and e-code**.\n• Send the **red portfolios and box files** on Monday.\n• Make sure all subject **books and journals** are sent to school with labels. They will be kept at school and sent with students as per the home task given.\n• The **interface** continues **29 and 30 June 2026**, 8:30–9:30 a.m. If you missed earlier days, you are welcome to attend on these days.',
+    teluguContent:
+      'Dear parents — labels (name + e-code), red portfolios Monday, books/journals with labels, interface 29 & 30 Jun 8:30–9:30.',
+    parentSuggestion: {
+      tip: 'Tick each item when done so nothing is forgotten before Monday.',
+      tipTe: 'Done అయిన task tick చేయండి — Monday ముందు miss అవ్వదు.',
+    },
+    parentOnlyChecklist: true,
+    promptText: 'Tick each task when complete (Parent PIN required).',
+    interactionType: 'checklist',
+    checklist: [
+      {
+        id: 'pn1',
+        label: 'Label belongings — name + e-code on bags, caps, jackets, books, journals',
+        hint: 'Use permanent marker or iron-on labels.',
+      },
+      {
+        id: 'pn2',
+        label: 'Send red portfolios and box files on Monday',
+      },
+      {
+        id: 'pn3',
+        label: 'All subject books and journals labelled and sent to school',
+        hint: 'Books stay at school; sent home only when homework requires.',
+      },
+      {
+        id: 'pn4',
+        label: 'Interface — 29 & 30 Jun 2026, 8:30–9:30 a.m. (if missed earlier days)',
+        hint: 'Attend on either day if you could not come before.',
+      },
+    ],
+  },
+];
+
+export const weekendParentNotice: Lesson = {
+  id: PARENT_HW,
+  title: `Parent · Important information`,
+  subtitle: `${PARENT_DATE} · Shruti · HRT`,
+  kid: 'ishanvi',
+  subject: 'homework',
+  chapter: 'Weekend',
+  hasTelugu: true,
+  icon: '📋',
+  cards: parentNoticeCards,
+};
+
+export const weekendHomeworkLessons: Lesson[] = [weekendEnglish, weekendScience, weekendParentNotice];

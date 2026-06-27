@@ -84,6 +84,14 @@ input, textarea {
   min-height: var(--topbar-h);
 }
 
+.topbar__logo {
+  flex-shrink: 0;
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  border-radius: var(--r-sm);
+}
+
 /* ---------- Nav dropdown ---------- */
 .nav-dd {
   position: relative;
@@ -1556,6 +1564,47 @@ input, textarea {
   background: var(--c-success);
   border-color: var(--c-success);
 }
+.check-item[data-exam='true']:not([data-checked='true']) {
+  border-color: color-mix(in srgb, var(--c-primary) 35%, var(--c-surface-3));
+}
+.check-item__exam-hint {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--c-primary);
+  margin-top: 2px;
+}
+.check-item__exam {
+  margin-top: var(--sp-2);
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-line);
+  background: var(--c-surface-2);
+}
+.check-item__exam .quiz__title {
+  font-size: var(--fs-md);
+}
+.check-item__praise {
+  margin: var(--sp-2) 0 0;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-pill);
+  background: linear-gradient(135deg, #ecfdf5, #fef3c7);
+  font-weight: 800;
+  font-size: var(--fs-md);
+  text-align: center;
+  animation: pop var(--t-med) var(--ease);
+}
+.checklist--locked {
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-2);
+  padding: var(--sp-4);
+  border: 2px dashed var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-surface-2);
+}
+.checklist__lock-lead { font-size: var(--fs-lg); font-weight: 700; margin: 0; }
+.checklist__lock-sub { color: var(--c-ink-muted); margin: 0 0 var(--sp-2); max-width: 28rem; }
 .check-progress {
   text-align: center;
   font-weight: 600;
@@ -2783,6 +2832,17 @@ input, textarea {
   border-radius: var(--r-lg);
   background: var(--c-surface);
   box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  text-align: center;
+}
+.auth-screen__logo {
+  height: 96px;
+  width: auto;
+  max-width: min(280px, 80vw);
+  object-fit: contain;
 }
 .auth-screen__title {
   font-size: var(--fs-xl);

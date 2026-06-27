@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AppShell } from './components/AppShell';
 import { TopBar, ProgressSlim } from './components/TopBar';
 import { CardViewer } from './components/CardViewer';
 import { NavControls } from './components/NavControls';
-import { LoginScreen } from './components/LoginScreen';
 import { AddChildScreen } from './components/AddChildScreen';
 import { useStore } from './state/store';
 import { useKeyboardNav } from './hooks/useKeyboardNav';
 import { useSpatialNav } from './hooks/useSpatialNav';
 import { HomeworkUploadHost } from './components/HomeworkUploadHost';
+import { SchoolLogo } from './components/SchoolLogo';
 import { detectTvEnvironment } from './lib/detectTv';
-import { onAuthStateChange, getSession } from './lib/auth';
+import { onAuthStateChange, getSession, signInShared } from './lib/auth';
 import { isSupabaseConfigured } from './lib/supabase';
 
 /** Close the top-most overlay (modal/lightbox/menu) if one is open; otherwise go to the previous card. */
@@ -37,7 +37,6 @@ function handleRemoteBack() {
 export default function App() {
   const authReady = useStore((s) => s.authReady);
   const session = useStore((s) => s.session);
-  const showLogin = useStore((s) => s.showLogin);
   const onboardingOpen = useStore((s) => s.onboardingOpen);
   const devPreview = useStore((s) => s.devPreview);
   const lessons = useStore((s) => s.lessons);
@@ -51,8 +50,10 @@ export default function App() {
   const tvMode = useStore((s) => s.tvMode);
   const setTvMode = useStore((s) => s.setTvMode);
   const menuFocusedRef = useRef(false);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [retryTick, setRetryTick] = useState(0);
 
-  // DEV-only offline preview: open with ?dev to skip the Supabase login gate.
+  // DEV-only offline preview: open with ?dev to skip the Supabase gate.
   useEffect(() => {
     if (!import.meta.env.DEV) return;
     if (new URLSearchParams(window.location.search).has('dev')) {
@@ -63,6 +64,7 @@ export default function App() {
   useEffect(() => {
     if (useStore.getState().devPreview) return;
     if (!isSupabaseConfigured) {
+      setAuthError('Cloud not connected. Add Supabase keys to .env');
       setAuthReady(true);
       return;
     }
@@ -70,11 +72,30 @@ export default function App() {
     let cancelled = false;
 
     (async () => {
+      setAuthError(null);
       const existing = await getSession();
-      if (!cancelled) {
+      if (cancelled) return;
+
+      if (existing) {
         setSession(existing);
         setAuthReady(true);
-        if (existing) await loadUserData();
+        await loadUserData();
+        return;
+      }
+
+      // No session: silently sign into the shared family account (no login UI).
+      const res = await signInShared();
+      if (cancelled) return;
+
+      if (res.ok) {
+        const session = await getSession();
+        if (cancelled) return;
+        setSession(session);
+        setAuthReady(true);
+        if (session) await loadUserData();
+      } else {
+        setAuthError(res.error ?? 'Could not connect. Check your internet and try again.');
+        setAuthReady(true);
       }
     })();
 
@@ -87,7 +108,7 @@ export default function App() {
       cancelled = true;
       unsub();
     };
-  }, [setAuthReady, setSession, loadUserData]);
+  }, [setAuthReady, setSession, loadUserData, retryTick]);
 
   useEffect(() => {
     const enableTvIfNeeded = () => {
@@ -134,14 +155,36 @@ export default function App() {
     return (
       <div className="auth-screen">
         <div className="auth-screen__card">
+          <SchoolLogo className="auth-screen__logo" />
           <p>Loading…</p>
         </div>
       </div>
     );
   }
 
-  if (!devPreview && (showLogin || !session)) {
-    return <LoginScreen onSent={() => {}} />;
+  if (!devPreview && !session) {
+    const retry = () => {
+      setAuthError(null);
+      setAuthReady(false);
+      setRetryTick((t) => t + 1);
+    };
+    return (
+      <div className="auth-screen">
+        <div className="auth-screen__card">
+          <SchoolLogo className="auth-screen__logo" />
+          {authError ? (
+            <>
+              <p className="auth-screen__warn">{authError}</p>
+              <button type="button" className="btn btn--accent" onClick={retry}>
+                Try again
+              </button>
+            </>
+          ) : (
+            <p>Connecting…</p>
+          )}
+        </div>
+      </div>
+    );
   }
 
   if (!devPreview && onboardingOpen && lessons.length === 0) {

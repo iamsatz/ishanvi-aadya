@@ -129,6 +129,10 @@
   gap: 0.5rem;
 }
 
+.app[data-tv="true"] .topbar__logo {
+  height: 40px;
+}
+
 .app[data-tv="true"] .topbar__meta {
   font-size: var(--fs-sm);
 }

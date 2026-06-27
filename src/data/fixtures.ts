@@ -21,6 +21,7 @@ import { numberFamilies } from './numberFamilies';
 import { skillSheet } from './skillSheet';
 import { weekendHomeworkLessons } from './weekendHomework';
 import { aadyaLessons } from './aadyaPlaceholders';
+import { sittisSecrets } from './sittisSecrets';
 
 /* ============================================================
    1) STORIES — 25 cards
@@ -2804,6 +2805,7 @@ export const fixtureLessons: Lesson[] = [
   ...weekendHomeworkLessons,
   skillSheet,
   numberFamilies,
+  sittisSecrets,
   stories,
   summerProject,
   earthDay,

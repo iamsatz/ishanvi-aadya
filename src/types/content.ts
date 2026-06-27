@@ -144,6 +144,8 @@ export interface ChecklistItem {
   challenge?: string;
   /** Jump to a teaching card in another lesson. */
   learnLink?: { lessonId: string; cardId: string; label?: string };
+  /** If set, tapping opens a mini-exam; item only ticks when all are correct. */
+  exam?: QuizQuestion[];
 }
 
 /** One flip-card entry in a vocab-grid interaction. */
@@ -271,6 +273,9 @@ export interface LearningCard {
   cardStyle?: 'default' | 'deck';
 
   hint?: string;
+
+  /** Checklist ticks only when Parent mode is unlocked (PIN). */
+  parentOnlyChecklist?: boolean;
 
   /** Used when interactionType === 'answers' — the per-question answer key. */
   answers?: AnswerItem[];
