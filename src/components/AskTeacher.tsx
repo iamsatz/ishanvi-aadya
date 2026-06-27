@@ -4,6 +4,7 @@ import { callTutor } from '../lib/db';
 import { isSupabaseConfigured } from '../lib/supabase';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
 import { tutorErrorMessage } from '../lib/tutorErrors';
+import { buildOfflineTutorCard, shouldUseOfflineFallback } from '../lib/tutorFallback';
 import { ListenButton } from './ListenButton';
 import {
   buildAskPageContext,
@@ -66,19 +67,15 @@ export function AskTeacher({ open, onClose, anchored = false, lesson, card }: Pr
     const q = text.trim();
     if (!q || thinking) return;
     if (!isSupabaseConfigured) {
-      setTurns((t) => [...t, {
-        question: q,
-        error: 'Ask Arjuna is not set up on this device. A parent needs to add Supabase keys in the app settings.',
-      }]);
+      const fallback = buildOfflineTutorCard(q, pageContext, kid?.grade);
+      setTurns((t) => [...t, { question: q, answer: fallback }]);
       setQuestion('');
       return;
     }
 
     if (!navigator.onLine) {
-      setTurns((t) => [...t, {
-        question: q,
-        error: 'You are offline. Connect to Wi-Fi or mobile data, then try again.',
-      }]);
+      const fallback = buildOfflineTutorCard(q, pageContext, kid?.grade);
+      setTurns((t) => [...t, { question: q, answer: fallback }]);
       setQuestion('');
       return;
     }
@@ -106,13 +103,22 @@ export function AskTeacher({ open, onClose, anchored = false, lesson, card }: Pr
       );
     } catch (err) {
       console.error('[AskTeacher] tutor call failed', err);
-      setTurns((t) =>
-        t.map((turn, i) =>
-          i === t.length - 1
-            ? { ...turn, error: tutorErrorMessage(err) }
-            : turn
-        )
-      );
+      if (shouldUseOfflineFallback(err)) {
+        const fallback = buildOfflineTutorCard(q, pageContext, kid?.grade);
+        setTurns((t) =>
+          t.map((turn, i) =>
+            i === t.length - 1 ? { ...turn, answer: fallback } : turn
+          )
+        );
+      } else {
+        setTurns((t) =>
+          t.map((turn, i) =>
+            i === t.length - 1
+              ? { ...turn, error: tutorErrorMessage(err) }
+              : turn
+          )
+        );
+      }
     } finally {
       setThinking(false);
       inputRef.current?.focus();

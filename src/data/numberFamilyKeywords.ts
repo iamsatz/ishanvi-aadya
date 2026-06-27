@@ -7,7 +7,15 @@ import type { LearningCard } from '../types/content';
 
 const TEN_CRORE = '10,00,00,000';
 const TEN_CRORE_INTL = '100,000,000';
-const HW = '56,23,407';
+/** Rotating example numbers — each card uses different ones for quiz vs try-it. */
+const N_A = '80,12,693';
+const N_B = '3,04,567';
+const N_C = '7,02,15,890';
+const N_D = '2,58,000';
+const N_E = '9,15,042';
+const N_F = '1,05,030';
+const N_G = '50,00,000';
+const N_H = '9,99,999';
 
 export const keywordIntro: LearningCard = {
   id: 'nf-kw-intro',
@@ -21,7 +29,7 @@ export const keywordIntro: LearningCard = {
       type: 'topic',
       icon: '📖',
       title: 'How these pages work',
-      body: 'Arjuna teaches **one word per page** — like a mini lesson.\n\nEach page has:\n• a building example\n• a Quick Check quiz\n• one question to try\n\nUse **Next →** to go word by word. All 12 before the games!',
+      body: 'Arjuna teaches **one word per page** — like a mini lesson.\n\nEach page has:\n• a building example (different numbers each time!)\n• a Quick Check quiz\n• one question to try\n\nUse **Next →** to go word by word. All 12 before the games!',
     },
     {
       type: 'topic',
@@ -63,7 +71,7 @@ export const keywordCards: LearningCard[] = [
         type: 'topic',
         icon: '🔢',
         title: 'What is a digit?',
-        body: 'A digit is one symbol from 0 to 9 — like one person in a family.\n\nIn the building number 56,23,407 there are **seven digits**: 5, 6, 2, 3, 4, 0, 7.',
+        body: `A digit is one symbol from 0 to 9 — like one person in a family.\n\nIn ${N_A} there are **eight digits**: 8, 0, 1, 2, 6, 9, 3.`,
       },
       {
         type: 'topic',
@@ -72,7 +80,7 @@ export const keywordCards: LearningCard[] = [
         body: 'Each digit can stand on a different floor. Same digit, different floor → different worth (that comes in Place value!).',
       },
     ],
-    teluguContent: 'Digit = 0–9 లో ఒక symbol.\n\n56,23,407 లో 7 digits: 5,6,2,3,4,0,7.',
+    teluguContent: `Digit = 0–9 లో ఒక symbol.\n\n${N_A} లో 8 digits.`,
     parentSuggestion: {
       tip: 'Write a big number and ask her to circle each digit — count them together.',
       questions: ['How many digits are in our phone number?'],
@@ -80,11 +88,11 @@ export const keywordCards: LearningCard[] = [
     },
     quiz: [{
       id: 'nf-kw-digit-q',
-      question: 'How many digits are in 56,23,407?',
+      question: `How many digits are in ${N_A}?`,
       choices: [
-        { id: 'a', label: '6', isCorrect: false },
-        { id: 'b', label: '7', isCorrect: true },
-        { id: 'c', label: '8', isCorrect: false },
+        { id: 'a', label: '7', isCorrect: false },
+        { id: 'b', label: '8', isCorrect: true },
+        { id: 'c', label: '9', isCorrect: false },
       ],
       hint: 'Count every symbol 0–9, commas don\'t count.',
     }],
@@ -110,7 +118,7 @@ export const keywordCards: LearningCard[] = [
         type: 'topic',
         icon: '🔢',
         title: 'What is a number?',
-        body: 'A **number** is digits grouped together to show an amount.\n\n56,23,407 is one number. 10,00,00,000 is one number — a very tall building!',
+        body: `A **number** is digits grouped together to show an amount.\n\n${N_B} is one number. ${TEN_CRORE} is one number — a very tall building!`,
       },
       {
         type: 'topic',
@@ -119,21 +127,21 @@ export const keywordCards: LearningCard[] = [
         body: 'Cricket score 287, school roll number 1042, population on a billboard — each is a number made of digits.',
       },
     ],
-    teluguContent: 'Number = digits కలిపి amount చూపించడం.\n\n56,23,407 ఒక number. 10,00,00,000 కూడా ఒక number.',
+    teluguContent: `Number = digits కలిపి amount.\n\n${N_B} ఒక number. ${TEN_CRORE} కూడా ఒక number.`,
     parentSuggestion: {
       questions: ['Is "5" a number or a digit? Why?'],
       questionsTe: ['"5" number aa digit aa? ఎందుకు?'],
     },
     quiz: [{
       id: 'nf-kw-number-q',
-      question: 'Which is a complete number (not just one digit)?',
+      question: `Which is a complete number (not just one digit)?`,
       choices: [
-        { id: 'a', label: '9', isCorrect: false },
-        { id: 'b', label: '10,00,00,000', isCorrect: true },
+        { id: 'a', label: '4', isCorrect: false },
+        { id: 'b', label: N_B, isCorrect: true },
         { id: 'c', label: 'A comma', isCorrect: false },
       ],
     }],
-    promptText: 'Digits grouped together make a…',
+    promptText: '72,105 is made of digits grouped together — it is a…',
     interactionType: 'choice-cards',
     choices: [
       { id: 'a', label: 'Comma', isCorrect: false },
@@ -154,7 +162,7 @@ export const keywordCards: LearningCard[] = [
         type: 'topic',
         icon: '💪',
         title: 'Place value = power of the seat',
-        body: 'Place value is what a digit is **worth** because of which floor it stands on.\n\nIn 56,23,407 the 6 sits on the **Lakhs floor** → place value **6,00,000**.',
+        body: `Place value is what a digit is **worth** because of which floor it stands on.\n\nIn ${N_C} the 6 sits on the **Lakhs floor** → place value **6,00,000**.`,
       },
       {
         type: 'topic',
@@ -170,22 +178,22 @@ export const keywordCards: LearningCard[] = [
     },
     quiz: [{
       id: 'nf-kw-place-q',
-      question: 'Place value of 6 in 56,23,407?',
+      question: `Place value of 4 in ${N_B}?`,
       choices: [
-        { id: 'a', label: '6', isCorrect: false },
-        { id: 'b', label: '6,00,000', isCorrect: true },
-        { id: 'c', label: '60,000', isCorrect: false },
+        { id: 'a', label: '4', isCorrect: false },
+        { id: 'b', label: '4,000', isCorrect: true },
+        { id: 'c', label: '40,000', isCorrect: false },
       ],
-      hint: 'Which floor is the 6 on?',
+      hint: 'Which floor is the 4 on?',
     }],
-    promptText: 'The 6 moved to Lakhs floor. Its place value is…',
+    promptText: `The 2 in ${N_C} sits on Lakhs floor. Its place value is…`,
     interactionType: 'choice-cards',
     choices: [
-      { id: 'a', label: '6', isCorrect: false },
-      { id: 'b', label: '6,00,000', isCorrect: true },
-      { id: 'c', label: '600', isCorrect: false },
+      { id: 'a', label: '2', isCorrect: false },
+      { id: 'b', label: '2,00,000', isCorrect: true },
+      { id: 'c', label: '20,000', isCorrect: false },
     ],
-    hint: 'Lakhs floor × 6',
+    hint: 'Lakhs floor × 2',
   },
 
   {
@@ -216,19 +224,19 @@ export const keywordCards: LearningCard[] = [
     },
     quiz: [{
       id: 'nf-kw-face-q',
-      question: 'Face value of 8 in 80,12,693?',
+      question: `Face value of 9 in ${N_E}?`,
       choices: [
-        { id: 'a', label: '80,00,000', isCorrect: false },
-        { id: 'b', label: '8', isCorrect: true },
-        { id: 'c', label: '800', isCorrect: false },
+        { id: 'a', label: '9,00,000', isCorrect: false },
+        { id: 'b', label: '9', isCorrect: true },
+        { id: 'c', label: '90', isCorrect: false },
       ],
     }],
-    promptText: 'Face value never changes. The face of 8 is…',
+    promptText: `Face value never changes. The face of 3 in 4,18,306 is…`,
     interactionType: 'choice-cards',
     choices: [
-      { id: 'a', label: '80,00,000', isCorrect: false },
-      { id: 'b', label: '8', isCorrect: true },
-      { id: 'c', label: '80', isCorrect: false },
+      { id: 'a', label: '4,00,000', isCorrect: false },
+      { id: 'b', label: '3', isCorrect: true },
+      { id: 'c', label: '30', isCorrect: false },
     ],
   },
 
@@ -250,7 +258,7 @@ export const keywordCards: LearningCard[] = [
         type: 'topic',
         icon: '📊',
         title: 'Example',
-        body: `${HW} → Lakhs period: 56 · Thousands period: 23 · Ones period: 407.\n\n${TEN_CRORE} → only Crores period has 10; other floors are 00 or 000.`,
+        body: `Example:\n${N_B} → Lakhs period: 03 · Thousands period: 04 · Ones period: 567.\n\n${TEN_CRORE} → only Crores period has 10; other floors are 00 or 000.`,
       },
     ],
     teluguContent: 'Period = ఒక floor family.\n\nOnes · Thousands · Lakhs · Crores.',
@@ -260,19 +268,19 @@ export const keywordCards: LearningCard[] = [
     },
     quiz: [{
       id: 'nf-kw-period-q',
-      question: 'In 56,23,407 what is in the Lakhs period?',
+      question: `In ${N_B} what is in the Lakhs period?`,
       choices: [
-        { id: 'a', label: '407', isCorrect: false },
-        { id: 'b', label: '56', isCorrect: true },
-        { id: 'c', label: '23', isCorrect: false },
+        { id: 'a', label: '567', isCorrect: false },
+        { id: 'b', label: '03', isCorrect: true },
+        { id: 'c', label: '04', isCorrect: false },
       ],
     }],
-    promptText: 'The Lakhs period in 56,23,407 is…',
+    promptText: `The Thousands period in ${N_C} is…`,
     interactionType: 'choice-cards',
     choices: [
-      { id: 'a', label: '23', isCorrect: false },
-      { id: 'b', label: '56', isCorrect: true },
-      { id: 'c', label: '407', isCorrect: false },
+      { id: 'a', label: '02', isCorrect: true },
+      { id: 'b', label: '15', isCorrect: false },
+      { id: 'c', label: '890', isCorrect: false },
     ],
   },
 
@@ -311,12 +319,12 @@ export const keywordCards: LearningCard[] = [
         { id: 'c', label: '10,000,000', isCorrect: false },
       ],
     }],
-    promptText: 'Ten crores with Indian commas is…',
+    promptText: `${N_D} with Indian commas is…`,
     interactionType: 'choice-cards',
     choices: [
-      { id: 'a', label: '100,000,000', isCorrect: false },
-      { id: 'b', label: '10,00,00,000', isCorrect: true },
-      { id: 'c', label: '1,0,0,0,0,0,0', isCorrect: false },
+      { id: 'a', label: '258,000', isCorrect: false },
+      { id: 'b', label: N_D, isCorrect: true },
+      { id: 'c', label: '2,580,00', isCorrect: false },
     ],
   },
 
@@ -332,7 +340,7 @@ export const keywordCards: LearningCard[] = [
         type: 'topic',
         icon: '💰',
         title: 'Expanded form = stacked parts',
-        body: 'Expanded form splits a number into parts — one part per floor that has value.\n\n56,23,407 = 50,00,000 + 6,00,000 + 20,000 + 3,000 + 400 + 7',
+        body: `Expanded form splits a number into parts — one part per floor that has value.\n\n${N_B} = 3,00,000 + 4,000 + 500 + 60 + 7`,
       },
       {
         type: 'topic',
@@ -348,20 +356,20 @@ export const keywordCards: LearningCard[] = [
     },
     quiz: [{
       id: 'nf-kw-expanded-q',
-      question: 'Expanded form of 10,00,00,000 has how many non-zero parts?',
+      question: `Expanded form of ${N_F} has how many non-zero parts?`,
       choices: [
-        { id: 'a', label: 'Four', isCorrect: false },
-        { id: 'b', label: 'One', isCorrect: true },
-        { id: 'c', label: 'Ten', isCorrect: false },
+        { id: 'a', label: 'Five', isCorrect: false },
+        { id: 'b', label: 'Three', isCorrect: true },
+        { id: 'c', label: 'One', isCorrect: false },
       ],
-      hint: 'Only Crores floor has 10.',
+      hint: '1,00,000 + 5,000 + 30 — count the parts.',
     }],
-    promptText: 'Biggest part of 56,23,407 expanded is…',
+    promptText: `Biggest part of ${N_B} expanded is…`,
     interactionType: 'choice-cards',
     choices: [
-      { id: 'a', label: '407', isCorrect: false },
-      { id: 'b', label: '50,00,000', isCorrect: true },
-      { id: 'c', label: '23', isCorrect: false },
+      { id: 'a', label: '567', isCorrect: false },
+      { id: 'b', label: '3,00,000', isCorrect: true },
+      { id: 'c', label: '4,000', isCorrect: false },
     ],
   },
 
@@ -377,7 +385,7 @@ export const keywordCards: LearningCard[] = [
         type: 'topic',
         icon: '📺',
         title: 'Number name = say it in words',
-        body: 'A number name is how we **read** the number aloud, floor by floor.\n\n10,00,00,000 → **Ten crore**\n56,23,407 → Fifty-six lakh twenty-three thousand four hundred seven',
+        body: `A number name is how we **read** the number aloud, floor by floor.\n\n${TEN_CRORE} → **Ten crore**\n${N_G} → **Fifty lakh**\n${N_B} → Three lakh four thousand five hundred sixty-seven`,
       },
       {
         type: 'topic',
@@ -393,19 +401,19 @@ export const keywordCards: LearningCard[] = [
     },
     quiz: [{
       id: 'nf-kw-name-q',
-      question: 'Number name of 10,00,00,000?',
+      question: `Number name of ${N_G}?`,
       choices: [
-        { id: 'a', label: 'One crore', isCorrect: false },
-        { id: 'b', label: 'Ten crore', isCorrect: true },
-        { id: 'c', label: 'Ten thousand', isCorrect: false },
+        { id: 'a', label: 'Five lakh', isCorrect: false },
+        { id: 'b', label: 'Fifty lakh', isCorrect: true },
+        { id: 'c', label: 'Fifty thousand', isCorrect: false },
       ],
     }],
-    promptText: 'How do we read 10,00,00,000?',
+    promptText: `How do we read ${N_B} aloud?`,
     interactionType: 'choice-cards',
     choices: [
-      { id: 'a', label: 'One crore', isCorrect: false },
-      { id: 'b', label: 'Ten crore', isCorrect: true },
-      { id: 'c', label: 'Ten lakh', isCorrect: false },
+      { id: 'a', label: 'Three thousand four hundred', isCorrect: false },
+      { id: 'b', label: 'Three lakh four thousand five hundred sixty-seven', isCorrect: true },
+      { id: 'c', label: 'Thirty-four thousand', isCorrect: false },
     ],
   },
 
@@ -421,7 +429,7 @@ export const keywordCards: LearningCard[] = [
         type: 'topic',
         icon: '→',
         title: 'Successor = just after (+1)',
-        body: 'The successor is the number **one step forward** on the number line.\n\nSuccessor of 24,89,321 is **24,89,322**.',
+        body: `The successor is the number **one step forward** on the number line.\n\nSuccessor of ${N_B} is **3,04,568**.`,
       },
       {
         type: 'topic',
@@ -430,26 +438,26 @@ export const keywordCards: LearningCard[] = [
         body: 'Think of apartment numbers: 24,89,321 → next flat is 24,89,322.',
       },
     ],
-    teluguContent: 'Successor = తర్వాత number (+1).\n\n24,89,321 → 24,89,322.',
+    teluguContent: `Successor = తర్వాత (+1).\n\n${N_B} → 3,04,568.`,
     parentSuggestion: {
       questions: ['What is the successor of 10,00,00,000?'],
       questionsTe: ['10,00,00,000 successor ఎంత?'],
     },
     quiz: [{
       id: 'nf-kw-successor-q',
-      question: 'Successor of 24,89,321?',
+      question: `Successor of ${N_B}?`,
       choices: [
-        { id: 'a', label: '24,89,320', isCorrect: false },
-        { id: 'b', label: '24,89,322', isCorrect: true },
-        { id: 'c', label: '24,89,421', isCorrect: false },
+        { id: 'a', label: '3,04,566', isCorrect: false },
+        { id: 'b', label: '3,04,568', isCorrect: true },
+        { id: 'c', label: '3,05,567', isCorrect: false },
       ],
     }],
-    promptText: 'One step forward from 24,89,321 is…',
+    promptText: `One step forward from ${N_H} is…`,
     interactionType: 'choice-cards',
     choices: [
-      { id: 'a', label: '24,89,320', isCorrect: false },
-      { id: 'b', label: '24,89,322', isCorrect: true },
-      { id: 'c', label: '24,90,321', isCorrect: false },
+      { id: 'a', label: '9,99,998', isCorrect: false },
+      { id: 'b', label: '10,00,000', isCorrect: true },
+      { id: 'c', label: '9,99,990', isCorrect: false },
     ],
   },
 
@@ -465,7 +473,7 @@ export const keywordCards: LearningCard[] = [
         type: 'topic',
         icon: '←',
         title: 'Predecessor = just before (−1)',
-        body: 'The predecessor is the number **one step back**.\n\nPredecessor of 24,89,321 is **24,89,320**.',
+        body: `The predecessor is the number **one step back**.\n\nPredecessor of ${N_B} is **3,04,566**.`,
       },
       {
         type: 'topic',
@@ -474,26 +482,26 @@ export const keywordCards: LearningCard[] = [
         body: '24,89,321 → the flat just before is 24,89,320.',
       },
     ],
-    teluguContent: 'Predecessor = ముందు number (−1).\n\n24,89,321 → 24,89,320.',
+    teluguContent: `Predecessor = ముందు (−1).\n\n${N_B} → 3,04,566.`,
     parentSuggestion: {
       questions: ['What is the predecessor of 10,00,00,001?'],
       questionsTe: ['10,00,00,001 predecessor ఎంత?'],
     },
     quiz: [{
       id: 'nf-kw-predecessor-q',
-      question: 'Predecessor of 24,89,321?',
+      question: `Predecessor of ${N_B}?`,
       choices: [
-        { id: 'a', label: '24,89,322', isCorrect: false },
-        { id: 'b', label: '24,89,320', isCorrect: true },
-        { id: 'c', label: '24,88,321', isCorrect: false },
+        { id: 'a', label: '3,04,568', isCorrect: false },
+        { id: 'b', label: '3,04,566', isCorrect: true },
+        { id: 'c', label: '3,03,567', isCorrect: false },
       ],
     }],
-    promptText: 'One step back from 24,89,321 is…',
+    promptText: `One step back from 7,00,000 is…`,
     interactionType: 'choice-cards',
     choices: [
-      { id: 'a', label: '24,89,322', isCorrect: false },
-      { id: 'b', label: '24,89,320', isCorrect: true },
-      { id: 'c', label: '24,89,221', isCorrect: false },
+      { id: 'a', label: '7,00,001', isCorrect: false },
+      { id: 'b', label: '6,99,999', isCorrect: true },
+      { id: 'c', label: '6,90,000', isCorrect: false },
     ],
   },
 

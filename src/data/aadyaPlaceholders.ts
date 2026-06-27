@@ -1,8 +1,10 @@
 /* ============================================================
-   AADYA — Grade 2 placeholder lessons (kid-friendly instructions)
+   AADYA — Grade 2 lessons (English placeholder + full Maths/EVS)
    ============================================================ */
 
 import type { Lesson } from '../types/content';
+import { aadyaMaths } from './aadyaMaths';
+import { aadyaEvs } from './aadyaEvs';
 
 function welcomeCard(
   id: string,
@@ -32,24 +34,6 @@ function welcomeCard(
   };
 }
 
-export const aadyaMaths: Lesson = {
-  id: 'aadya-maths',
-  title: 'Maths Playground',
-  subtitle: 'Numbers, shapes & fun',
-  kid: 'aadya',
-  subject: 'maths',
-  hasTelugu: true,
-  icon: '🧮',
-  cards: [
-    welcomeCard(
-      'ad-m-0', 'aadya-maths', 'Maths',
-      'Hi Aadya! Maths is coming!',
-      '🐰 Chiku the bunny says:\n\n"Soon we will count, add, and play with numbers!"\n\n🎲 It will feel like a card game — tap, match, and win stars!\n\nFor now: explore this page. Tap the card below!',
-      '🐰 చికు బన్నీ చెబుతోంది:\n\n"త్వరలో మనం numbers count చేసి, add చేసి, games ఆడతాం!"\n\n🎲 card game లా ఉంటుంది — tap చేసి, match చేసి, stars గెలుచుకో!\n\nఇప్పుడు: ఈ page explore చేయి. క్రింద card tap చేయి!',
-    ),
-  ],
-};
-
 export const aadyaEnglish: Lesson = {
   id: 'aadya-english',
   title: 'English Adventures',
@@ -68,22 +52,5 @@ export const aadyaEnglish: Lesson = {
   ],
 };
 
-export const aadyaEvs: Lesson = {
-  id: 'aadya-evs',
-  title: 'EVS Explorer',
-  subtitle: 'Plants, animals & our world',
-  kid: 'aadya',
-  subject: 'evs',
-  hasTelugu: true,
-  icon: '🌍',
-  cards: [
-    welcomeCard(
-      'ad-v-0', 'aadya-evs', 'EVS',
-      'Explore the world, Aadya!',
-      '🐰 Chiku found a little seed:\n\n"Soon we will learn about plants, animals, water, and our home — Earth!"\n\n🌱 We will match pictures like a card game.\n\nTap below to see what Chiku is holding!',
-      '🐰 చికు chinna seed కనిపించింది:\n\n"త్వరలో plants, animals, water, Earth గురించి నేర్చుకుంటాం!"\n\n🌱 pictures match చేసే card games కూడా!\n\nక్రింద tap చేసి Chiku ఏమి పట్టుకుందో చూడు.',
-    ),
-  ],
-};
-
+export { aadyaMaths, aadyaEvs };
 export const aadyaLessons: Lesson[] = [aadyaMaths, aadyaEnglish, aadyaEvs];

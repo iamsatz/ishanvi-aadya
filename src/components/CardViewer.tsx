@@ -23,6 +23,7 @@ import { callTutor } from '../lib/db';
 import { isSupabaseConfigured } from '../lib/supabase';
 import { buildAskPageContext } from '../lib/askContext';
 import { absoluteImageUrl, tutorErrorMessage } from '../lib/tutorErrors';
+import { buildOfflineTutorCard, shouldUseOfflineFallback } from '../lib/tutorFallback';
 import type { LearningCard, Lesson } from '../types/content';
 
 function renderInteraction(card: LearningCard, lesson: Lesson, onComplete: (correct: boolean) => void) {
@@ -108,11 +109,12 @@ export function CardViewer() {
     setTeluguLoading(true);
     setTeluguError(null);
 
+    const pageContext = buildAskPageContext(lesson, card);
+    const kid = useStore.getState().kids.find((k) => k.id === lesson.kid)
+      ?? useStore.getState().kids[0];
+
     try {
       const imageUrl = absoluteImageUrl(pageImages[0]!);
-      const pageContext = buildAskPageContext(lesson, card);
-      const kid = useStore.getState().kids.find((k) => k.id === lesson.kid)
-        ?? useStore.getState().kids[0];
 
       const res = await callTutor({
         mode: 'chat',
@@ -133,7 +135,18 @@ export function CardViewer() {
       }
     } catch (err) {
       console.error('[CardViewer] telugu explain failed', err);
-      setTeluguError(tutorErrorMessage(err));
+      if (shouldUseOfflineFallback(err)) {
+        const fallback = buildOfflineTutorCard(
+          'Explain in Telugu',
+          pageContext,
+          kid?.grade,
+        );
+        const text = fallback.teluguContent?.trim() || fallback.englishContent?.trim();
+        if (text) setTeluguText(text);
+        else setTeluguError(tutorErrorMessage(err));
+      } else {
+        setTeluguError(tutorErrorMessage(err));
+      }
     } finally {
       setTeluguLoading(false);
     }

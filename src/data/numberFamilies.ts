@@ -496,15 +496,15 @@ const nfCards: LearningCard[] = [
         ],
       },
     ],
-    promptText: 'PLACE value of 6 in 56,23,407?',
+    promptText: 'PLACE value of 2 in 7,02,15,890?',
     interactionType: 'choice-cards',
     cardStyle: 'deck',
     choices: [
-      { id: 'a', label: '6', isCorrect: false },
-      { id: 'b', label: '6,00,000', isCorrect: true },
-      { id: 'c', label: '60,000', isCorrect: false },
+      { id: 'a', label: '2', isCorrect: false },
+      { id: 'b', label: '2,00,000', isCorrect: true },
+      { id: 'c', label: '20,000', isCorrect: false },
     ],
-    hint: 'The 6 sits in the Lakhs seat.',
+    hint: 'The 2 sits in the Lakhs seat.',
   },
 ];
 
