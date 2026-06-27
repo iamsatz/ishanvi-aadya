@@ -30,6 +30,7 @@ const cards: LearningCard[] = [
     lessonId: LESSON_ID,
     title: "Sitti's Secrets",
     subtitle: 'Naomi Shihab Nye · page 102',
+    imageUrl: '/homework/weekend-2026-06-26/english-pg102.png',
     englishContent:
       'When I woke up at Sitti\'s house, the sun was peeking through her window and brushing bright lemons on a lemon tree.\n\n"Your turn!" I say…\n\nMy grandmother and I do not speak the same language. We go through my father, who can translate for both of us. He is like a telephone.\n\nWe have names for each other. I call her Sitti, which means Grandma in Arabic. She calls me habibi, which means darling.\n\nHer voice dances like bird whistles and whooshed like the wind.',
     teluguContent:
@@ -89,6 +90,7 @@ const cards: LearningCard[] = [
     lessonId: LESSON_ID,
     title: "Sitti's Secrets (continued)",
     subtitle: '7D Fiction Reading · page 104',
+    imageUrl: '/homework/weekend-2026-06-26/english-pg104.png',
     englishContent:
       'We talk with our hands and eyes. Sometimes we just hold hands and smile.\n\nEvery day I played with my cousins. We watched the men pick lentils in the fields.\n\nI learned to play marbles with the children. The glass balls clicked and rolled in the dust.',
     teluguContent:

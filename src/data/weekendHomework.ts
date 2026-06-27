@@ -82,6 +82,10 @@ const englishCards: LearningCard[] = [
     lessonId: `${HW}-english`,
     title: 'Pages 102 & 104 — Read & think',
     subtitle: 'Sitti\'s Secrets · Naomi Shihab Nye',
+    imageUrls: [
+      '/homework/weekend-2026-06-26/english-pg102.png',
+      '/homework/weekend-2026-06-26/english-pg104.png',
+    ],
     englishContent:
       'Read **pages 102 and 104** in your Oxford book.\n\nDo not memorise definitions yet — notice **when** each glossary word appears in the story. What is happening in that moment?',
     teluguContent:

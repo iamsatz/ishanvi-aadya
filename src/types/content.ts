@@ -236,6 +236,8 @@ export interface LearningCard {
   sheetTag?: string;
   /** Optional hero image (e.g. scanned homework sheet). */
   imageUrl?: string;
+  /** Optional multiple page images (shown in order when set). */
+  imageUrls?: string[];
 
   /** Main English content — paragraphs separated by \n\n, line breaks by \n. */
   englishContent: string;

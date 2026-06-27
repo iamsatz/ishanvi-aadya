@@ -45,12 +45,14 @@ export function CardViewer() {
   const playRef = useRef<HTMLDivElement>(null);
   const zoomBtnRef = useRef<HTMLButtonElement>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
   const [resetKey, setResetKey] = useState(0);
 
   useEffect(() => {
     setLightboxOpen(false);
+    setLightboxIndex(0);
   }, [card?.id]);
 
   if (!card || !lesson) {
@@ -71,6 +73,18 @@ export function CardViewer() {
 
   const isDeck = card.cardStyle === 'deck';
   const imageAlt = card.title || 'Homework page';
+  const pageImages =
+    card.imageUrls && card.imageUrls.length > 0
+      ? card.imageUrls
+      : card.imageUrl
+        ? [card.imageUrl]
+        : [];
+  const hasPageImages = pageImages.length > 0;
+
+  function openLightbox(index: number) {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }
 
   return (
     <article className="card" key={card.id} ref={cardRef} tabIndex={tvMode ? -1 : undefined}>
@@ -102,30 +116,34 @@ export function CardViewer() {
 
       <div className="card__body">
         <div className="card__story" ref={storyRef}>
-          {card.imageUrl && (
-            <figure className="card__image">
-              <button
-                type="button"
-                className="card__image-btn"
-                onClick={() => setLightboxOpen(true)}
-                aria-label="Open full-size image"
-              >
-                <img src={card.imageUrl} alt={imageAlt} />
-                <span className="card__image-zoom-hint">
-                  {tvMode ? 'Select image or use Zoom button below' : 'Tap to zoom · read the page'}
-                </span>
-              </button>
-              {tvMode && (
-                <button
-                  type="button"
-                  ref={zoomBtnRef}
-                  className="card__zoom-btn btn btn--accent"
-                  onClick={() => setLightboxOpen(true)}
-                >
-                  🔍 Zoom homework page
-                </button>
-              )}
-            </figure>
+          {hasPageImages && (
+            <div className="card__images">
+              {pageImages.map((src, i) => (
+                <figure className="card__image" key={src}>
+                  <button
+                    type="button"
+                    className="card__image-btn"
+                    onClick={() => openLightbox(i)}
+                    aria-label={pageImages.length > 1 ? `Open page ${i + 1} full size` : 'Open full-size image'}
+                  >
+                    <img src={src} alt={pageImages.length > 1 ? `${imageAlt} — page ${i + 1}` : imageAlt} />
+                    <span className="card__image-zoom-hint">
+                      {tvMode ? 'Select image or use Zoom button below' : 'Tap to zoom · read the page'}
+                    </span>
+                  </button>
+                  {tvMode && i === 0 && (
+                    <button
+                      type="button"
+                      ref={zoomBtnRef}
+                      className="card__zoom-btn btn btn--accent"
+                      onClick={() => openLightbox(i)}
+                    >
+                      🔍 Zoom homework page
+                    </button>
+                  )}
+                </figure>
+              ))}
+            </div>
           )}
           <div className={`card__english${card.contentBlocks?.length ? ' card__english--blocks' : ''}`}>
             {card.contentBlocks && card.contentBlocks.length > 0 ? (
@@ -138,7 +156,7 @@ export function CardViewer() {
               renderWithGlossary(card.englishContent, card.glossary, `en-${card.id}`)
             ) : (
               <p className="card__empty-story">
-                {card.imageUrl
+                {hasPageImages
                   ? 'Read the homework photo above, then answer below.'
                   : 'Your teacher\'s instructions should appear here. Scroll up or ask a parent to re-upload the homework photo.'}
               </p>
@@ -198,10 +216,10 @@ export function CardViewer() {
         </div>
       </div>
 
-      {card.imageUrl && (
+      {hasPageImages && (
         <ImageLightbox
-          src={card.imageUrl}
-          alt={imageAlt}
+          src={pageImages[lightboxIndex] ?? pageImages[0]}
+          alt={pageImages.length > 1 ? `${imageAlt} — page ${lightboxIndex + 1}` : imageAlt}
           open={lightboxOpen}
           tvMode={tvMode}
           onClose={() => setLightboxOpen(false)}
