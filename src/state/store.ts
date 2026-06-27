@@ -27,6 +27,9 @@ interface AppState {
   activeKid: KidId;
   activeLessonId: string;
   activeIndex: number;
+  activeCardId: string;
+  lastLessonByKid: Record<string, string>;
+  lastCardByLesson: Record<string, string>;
   completed: Record<string, string[]>;
   tvMode: boolean;
   devPreview: boolean;
@@ -90,10 +93,14 @@ function cardIndex(lesson: Lesson | undefined, cardId: string): number {
   return idx >= 0 ? idx : 0;
 }
 
+function cardIdAt(lesson: Lesson | undefined, index: number): string {
+  return lesson?.cards[index]?.id ?? '';
+}
+
 function sanitizeNavState(
   partial: Record<string, unknown>,
   lessons: Lesson[]
-): Pick<AppState, 'activeKid' | 'activeLessonId' | 'activeIndex' | 'completed'> {
+): Pick<AppState, 'activeKid' | 'activeLessonId' | 'activeIndex' | 'activeCardId' | 'completed'> {
   const activeKid = typeof partial.activeKid === 'string' ? partial.activeKid : '';
   let activeLessonId = typeof partial.activeLessonId === 'string' ? partial.activeLessonId : '';
   if (!lessonById(lessons, activeLessonId)) {
@@ -101,13 +108,25 @@ function sanitizeNavState(
   }
   const lesson = lessonById(lessons, activeLessonId);
   const maxIndex = Math.max(0, (lesson?.cards.length ?? 1) - 1);
-  const rawIndex = typeof partial.activeIndex === 'number' ? partial.activeIndex : 0;
-  const activeIndex = Math.min(Math.max(0, rawIndex), maxIndex);
+
+  // Resolve by saved card id first — survives content rebuilds where the
+  // numeric index would otherwise point at the wrong (or missing) card.
+  const savedCardId = typeof partial.activeCardId === 'string' ? partial.activeCardId : '';
+  const byCard = savedCardId && lesson ? lesson.cards.findIndex((c) => c.id === savedCardId) : -1;
+  let activeIndex: number;
+  if (byCard >= 0) {
+    activeIndex = byCard;
+  } else {
+    const rawIndex = typeof partial.activeIndex === 'number' ? partial.activeIndex : 0;
+    activeIndex = Math.min(Math.max(0, rawIndex), maxIndex);
+  }
+  const activeCardId = cardIdAt(lesson, activeIndex);
+
   const completed =
     partial.completed && typeof partial.completed === 'object' && !Array.isArray(partial.completed)
       ? (partial.completed as Record<string, string[]>)
       : {};
-  return { activeKid, activeLessonId, activeIndex, completed };
+  return { activeKid, activeLessonId, activeIndex, activeCardId, completed };
 }
 
 async function buildLessonsFromDb(children: ChildRow[], subjects: SubjectRow[]): Promise<Lesson[]> {
@@ -134,6 +153,9 @@ export const useStore = create<AppState>()(
       activeKid: '',
       activeLessonId: '',
       activeIndex: 0,
+      activeCardId: '',
+      lastLessonByKid: {},
+      lastCardByLesson: {},
       completed: {},
       tvMode: false,
       devPreview: false,
@@ -185,7 +207,7 @@ export const useStore = create<AppState>()(
           const firstLesson = firstLessonForKid(lessons, firstKid)?.id ?? lessons[0]?.id ?? '';
           const prev = get();
           const nav = sanitizeNavState(
-            { activeKid: prev.activeKid || firstKid, activeLessonId: prev.activeLessonId || firstLesson, activeIndex: prev.activeIndex, completed: prev.completed },
+            { activeKid: prev.activeKid || firstKid, activeLessonId: prev.activeLessonId || firstLesson, activeIndex: prev.activeIndex, activeCardId: prev.activeCardId, completed: prev.completed },
             lessons
           );
           set({
@@ -196,6 +218,7 @@ export const useStore = create<AppState>()(
             activeKid: nav.activeKid || firstKid,
             activeLessonId: nav.activeLessonId || firstLesson,
             activeIndex: nav.activeIndex,
+            activeCardId: nav.activeCardId,
             onboardingOpen: false,
           });
         } catch (e) {
@@ -236,39 +259,90 @@ export const useStore = create<AppState>()(
       },
 
       setActiveKid: (kid) => {
-        const first = firstLessonForKid(get().lessons, kid);
-        set({ activeKid: kid, activeLessonId: first?.id ?? get().activeLessonId, activeIndex: 0 });
+        const { lessons, lastLessonByKid, lastCardByLesson, activeLessonId } = get();
+        // Resume this kid's last lesson (and last card) instead of forcing card 0.
+        const savedLessonId = lastLessonByKid[kid];
+        const lessonId =
+          savedLessonId && lessonById(lessons, savedLessonId)
+            ? savedLessonId
+            : firstLessonForKid(lessons, kid)?.id ?? activeLessonId;
+        const lesson = lessonById(lessons, lessonId);
+        const savedCardId = lastCardByLesson[lessonId];
+        const index = savedCardId ? cardIndex(lesson, savedCardId) : 0;
+        set({
+          activeKid: kid,
+          activeLessonId: lessonId,
+          activeIndex: index,
+          activeCardId: cardIdAt(lesson, index),
+        });
       },
 
       setActiveLesson: (lessonId) => {
         const lesson = get().lessons.find((l) => l.id === lessonId);
+        const kid = lesson?.kid ?? get().activeKid;
+        const savedCardId = get().lastCardByLesson[lessonId];
+        const index = savedCardId ? cardIndex(lesson, savedCardId) : 0;
         set({
           activeLessonId: lessonId,
-          activeKid: lesson?.kid ?? get().activeKid,
-          activeIndex: 0,
+          activeKid: kid,
+          activeIndex: index,
+          activeCardId: cardIdAt(lesson, index),
+          lastLessonByKid: { ...get().lastLessonByKid, [kid]: lessonId },
         });
       },
 
-      setActiveIndex: (index) => set({ activeIndex: index }),
+      setActiveIndex: (index) => {
+        const { lessons, activeLessonId, lastCardByLesson } = get();
+        const lesson = lessonById(lessons, activeLessonId);
+        const cardId = cardIdAt(lesson, index);
+        set({
+          activeIndex: index,
+          activeCardId: cardId,
+          lastCardByLesson: cardId ? { ...lastCardByLesson, [activeLessonId]: cardId } : lastCardByLesson,
+        });
+      },
 
       jumpToCard: (lessonId, cardId) => {
         const lesson = lessonById(get().lessons, lessonId);
         if (!lesson) return;
+        const index = cardIndex(lesson, cardId);
+        const resolvedCardId = cardIdAt(lesson, index);
         set({
           activeLessonId: lessonId,
           activeKid: lesson.kid,
-          activeIndex: cardIndex(lesson, cardId),
+          activeIndex: index,
+          activeCardId: resolvedCardId,
+          lastLessonByKid: { ...get().lastLessonByKid, [lesson.kid]: lessonId },
+          lastCardByLesson: resolvedCardId
+            ? { ...get().lastCardByLesson, [lessonId]: resolvedCardId }
+            : get().lastCardByLesson,
         });
       },
 
       next: () => {
-        const { lessons, activeLessonId, activeIndex } = get();
+        const { lessons, activeLessonId, activeIndex, lastCardByLesson } = get();
         const lesson = lessons.find((l) => l.id === activeLessonId);
         if (!lesson) return;
-        set({ activeIndex: Math.min(activeIndex + 1, lesson.cards.length - 1) });
+        const index = Math.min(activeIndex + 1, lesson.cards.length - 1);
+        const cardId = cardIdAt(lesson, index);
+        set({
+          activeIndex: index,
+          activeCardId: cardId,
+          lastCardByLesson: cardId ? { ...lastCardByLesson, [activeLessonId]: cardId } : lastCardByLesson,
+        });
       },
 
-      back: () => set({ activeIndex: Math.max(get().activeIndex - 1, 0) }),
+      back: () => {
+        const { lessons, activeLessonId, activeIndex, lastCardByLesson } = get();
+        const lesson = lessonById(lessons, activeLessonId);
+        const index = Math.max(activeIndex - 1, 0);
+        const cardId = cardIdAt(lesson, index);
+        set({
+          activeIndex: index,
+          activeCardId: cardId,
+          lastCardByLesson: cardId ? { ...lastCardByLesson, [activeLessonId]: cardId } : lastCardByLesson,
+        });
+      },
 
       markCardCompleted: (lessonId, cardId) => {
         const prev = get().completed[lessonId] ?? [];
@@ -297,6 +371,7 @@ export const useStore = create<AppState>()(
             activeKid: prev.activeKid || 'ishanvi',
             activeLessonId: prev.activeLessonId,
             activeIndex: prev.activeIndex,
+            activeCardId: prev.activeCardId,
             completed: prev.completed,
           },
           lessons
@@ -311,6 +386,7 @@ export const useStore = create<AppState>()(
           activeKid: nav.activeKid || 'ishanvi',
           activeLessonId: nav.activeLessonId,
           activeIndex: nav.activeIndex,
+          activeCardId: nav.activeCardId,
           completed: nav.completed,
         });
       },
@@ -336,12 +412,18 @@ export const useStore = create<AppState>()(
     {
       name: 'ishanvi-aadya-progress-v6',
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({
-        activeKid: s.activeKid,
-        activeLessonId: s.activeLessonId,
-        activeIndex: s.activeIndex,
-        completed: s.completed,
-      }),
+      partialize: (s) => {
+        const lesson = s.lessons.find((l) => l.id === s.activeLessonId);
+        return {
+          activeKid: s.activeKid,
+          activeLessonId: s.activeLessonId,
+          activeIndex: s.activeIndex,
+          activeCardId: cardIdAt(lesson, s.activeIndex) || s.activeCardId,
+          lastLessonByKid: s.lastLessonByKid,
+          lastCardByLesson: s.lastCardByLesson,
+          completed: s.completed,
+        };
+      },
     }
   )
 );

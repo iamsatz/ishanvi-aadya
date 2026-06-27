@@ -30,11 +30,45 @@ export function renderWithGlossary(
   ));
 }
 
+/**
+ * Split a line on **bold** markers, wrapping bold runs in <strong> and
+ * passing plain runs through glossary wrapping.
+ */
 function wrapGlossary(
   line: string,
   glossary: GlossaryEntry[] | undefined,
   keyPrefix: string
 ): ReactNode[] {
+  const boldRe = /\*\*([^*]+)\*\*/g;
+  const out: ReactNode[] = [];
+  let last = 0;
+  let b = 0;
+  let mb: RegExpExecArray | null;
+
+  while ((mb = boldRe.exec(line)) !== null) {
+    if (mb.index > last) {
+      out.push(...wrapPlain(line.slice(last, mb.index), glossary, `${keyPrefix}-b${b}pre`));
+    }
+    out.push(
+      <strong key={`${keyPrefix}-b${b}`}>
+        {wrapPlain(mb[1], glossary, `${keyPrefix}-b${b}in`)}
+      </strong>
+    );
+    last = mb.index + mb[0].length;
+    b++;
+  }
+  if (last < line.length) {
+    out.push(...wrapPlain(line.slice(last), glossary, `${keyPrefix}-b${b}post`));
+  }
+  return out;
+}
+
+function wrapPlain(
+  line: string,
+  glossary: GlossaryEntry[] | undefined,
+  keyPrefix: string
+): ReactNode[] {
+  if (!line) return [];
   if (!glossary || glossary.length === 0) return [line];
 
   const words = glossary.map((g) => escapeRegex(g.word));

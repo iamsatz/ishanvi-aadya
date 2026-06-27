@@ -19,6 +19,7 @@ import { ListenButton } from './ListenButton';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
 import { clearCardStorage } from '../hooks/useCardStorage';
 import { ContentBlocks } from './cards/ContentBlocks';
+import { CardErrorBoundary } from './cards/CardErrorBoundary';
 import { callTutor } from '../lib/db';
 import { isSupabaseConfigured } from '../lib/supabase';
 import { buildAskPageContext } from '../lib/askContext';
@@ -306,7 +307,9 @@ export function CardViewer() {
 
           <p className="prompt">{card.promptText}</p>
 
-          {renderInteraction(card, lesson, handleComplete)}
+          <CardErrorBoundary resetKey={card.id}>
+            {renderInteraction(card, lesson, handleComplete)}
+          </CardErrorBoundary>
         </div>
       </div>
 

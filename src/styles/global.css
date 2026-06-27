@@ -2220,6 +2220,29 @@ input, textarea {
   min-height: 1.4em;
 }
 
+.card-fault {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  background: var(--c-surface, #fff);
+  border: 2px dashed var(--c-border, #d9d9d9);
+  border-radius: 16px;
+}
+
+.card-fault__emoji {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.card-fault__msg {
+  font-size: var(--fs-sm);
+  color: var(--c-ink-soft);
+  margin: 0;
+}
+
 /* Shared chip */
 .game-chip {
   min-height: 56px;

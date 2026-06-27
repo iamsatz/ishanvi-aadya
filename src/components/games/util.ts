@@ -44,10 +44,13 @@ export function indianGroups(digits: string): string[] {
 export function seededShuffle<T>(arr: T[], seed: string): T[] {
   let h = 0;
   for (let i = 0; i < seed.length; i++) h = ((h << 5) - h + seed.charCodeAt(i)) | 0;
+  h = Math.abs(h) || 1;
   const out = [...arr];
   for (let i = out.length - 1; i > 0; i--) {
     h = (h * 9301 + 49297) % 233280;
-    const j = Math.floor((h / 233280) * (i + 1));
+    // Math.abs keeps j non-negative (JS % keeps the dividend's sign);
+    // clamp to i so we never index out of bounds and inject undefined.
+    const j = Math.min(i, Math.floor((Math.abs(h) / 233280) * (i + 1)));
     [out[i], out[j]] = [out[j], out[i]];
   }
   return out;
