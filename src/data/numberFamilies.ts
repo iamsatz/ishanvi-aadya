@@ -9,10 +9,10 @@ const nfCards: LearningCard[] = [
     id: 'nf-0',
     lessonId: 'number-families',
     title: 'The Secret of Big Numbers',
-    subtitle: 'Chapter 1 · Satish at Charminar',
+    subtitle: 'Chapter 1 · Arjuna at Charminar',
     sheetTag: 'Foundation',
     englishContent:
-      'Satish the guru arrives at Charminar. A billboard flashes:\n\n"Hyderabad — population 1,02,46,000"\n\nIshanvi sighs. "So many digits!"\n\nSatish says gently: "Don\'t read digit by digit. Read FAMILIES."\n\nIn India, digits live in families called periods. Commas show the gaps between families.\n\n🏠 Real life: cricket runs, school fees, movie box office — all use the same family trick.',
+      'Arjuna the guru arrives at Charminar. A billboard flashes:\n\n"Hyderabad — population 1,02,46,000"\n\nIshanvi sighs. "So many digits!"\n\nArjuna says gently: "Don\'t read digit by digit. Read FAMILIES."\n\nIn India, digits live in families called periods. Commas show the gaps between families.\n\n🏠 Real life: cricket runs, school fees, movie box office — all use the same family trick.',
     teluguContent:
       'సతీష్ గురువు చార్మినార్ వద్దకు వచ్చాడు. Billboard flash అవుతోంది:\n\n"హైదరాబాద్ — జనాభా 1,02,46,000"\n\nఇషాన్వి: "ఎన్ని digits!"\n\nసతీష్ మృదువుగా: "Digit by digit చదవకు. FAMILIES గా చదవు."\n\nభారతదేశంలో digits periods అనే కుటుంబాల్లో ఉంటాయి. Commas కుటుంబాల మధ్య gaps చూపిస్తాయి.\n\n🏠 నిజ జీవితం: cricket runs, school fees — అందరూ ఇదే trick.',
     glossary: [
@@ -24,7 +24,7 @@ const nfCards: LearningCard[] = [
       questions: ['Can you find a comma in today\'s newspaper?'],
       questionsTe: ['ఈరోజు paper లో comma ఉన్న number కనిపిస్తుందా?'],
     },
-    promptText: 'Tap for the one rule Satish teaches.',
+    promptText: 'Tap for the one rule Arjuna teaches.',
     interactionType: 'tap-reveal',
     cardStyle: 'deck',
     revealAnswer: 'From the RIGHT: group 3 digits (Ones), then 2-2-2… (Thousands, Lakhs, Crores). Commas sit BETWEEN families — never inside one.',
@@ -36,7 +36,7 @@ const nfCards: LearningCard[] = [
     title: 'Key Words',
     subtitle: 'Learn these first — then the games make sense',
     englishContent:
-      'Satish says: "Before any homework, learn these twelve words. Tap each card to flip. One word at a time is fine!"',
+      'Arjuna says: "Before any homework, learn these twelve words. Tap each card to flip. One word at a time is fine!"',
     teluguContent:
       'సతీష్: "Homework ముందు ఈ పన్నెండు words నేర్చుకో. Card tap చేసి flip చేయి. ఒక word at a time సరిపోతుంది!"',
     contentBlocks: [
@@ -159,7 +159,7 @@ const nfCards: LearningCard[] = [
     subtitle: 'Game: Comma Drop · price ₹80,12,693',
     sheetTag: 'From Q2 · Q3b',
     englishContent:
-      '🛒 Satish finds a price tag with NO commas: 8012693.\n\n"Rescue mission!" Start from the right: 693 (Ones) → 12 (Thousands) → 80 (Lakhs) → 80,12,693.\n\n⚠️ Your homework Q2 has WRONG commas on the sheet. Trust the method, not bad commas on paper.',
+      '🛒 Arjuna finds a price tag with NO commas: 8012693.\n\n"Rescue mission!" Start from the right: 693 (Ones) → 12 (Thousands) → 80 (Lakhs) → 80,12,693.\n\n⚠️ Your homework Q2 has WRONG commas on the sheet. Trust the method, not bad commas on paper.',
     teluguContent:
       '🛒 Commas లేని price: 8012693.\n\n"Rescue!" కుడి నుండి: 693 (Ones) → 12 (Thousands) → 80 (Lakhs) → 80,12,693.\n\n⚠️ Homework Q2 sheet మీద commas wrong. Method నమ్ము, paper commas కాదు.',
     parentSuggestion: {
@@ -295,7 +295,7 @@ const nfCards: LearningCard[] = [
     title: 'Ready for Your Paper?',
     subtitle: 'Weekend paper is in the menu',
     englishContent:
-      'You learned the words and played the games. Now Satish sends you to your **weekend maths paper** under **This Weekend** in the menu.\n\nOpen your Silver Oaks sheet. Tick each question as you write — hints first, peek only if stuck.',
+      'You learned the words and played the games. Now Arjuna sends you to your **weekend maths paper** under **This Weekend** in the menu.\n\nOpen your Silver Oaks sheet. Tick each question as you write — hints first, peek only if stuck.',
     teluguContent:
 'Words నేర్చుకుని games play చేశావు. ఇప్పుడు menu లో **This Weekend** → **Maths · 25 Jun** paper కు వెళ్ళు.\n\nSilver Oaks sheet తీసుకుని paper మీద రాయి — hints ముందు, stuck అయితే peek.',
     parentSuggestion: {
@@ -313,7 +313,7 @@ const nfCards: LearningCard[] = [
     lessonId: 'number-families',
     title: 'Victory Quiz',
     subtitle: '60 seconds · flip-card quiz',
-    englishContent: 'Satish: "Four quick ones. Then close the app and do your sheet!"',
+    englishContent: 'Arjuna: "Four quick ones. Then close the app and do your sheet!"',
     teluguContent: 'సతీష్: "నాలుగు quick questions. App close చేసి sheet చేయి!"',
     quiz: [
       {

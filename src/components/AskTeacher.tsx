@@ -55,7 +55,7 @@ export function AskTeacher({ open, onClose }: Props) {
     const q = text.trim();
     if (!q || thinking) return;
     if (!isSupabaseConfigured) {
-      setTurns((t) => [...t, { question: q, error: 'Ask Teacher needs internet. Connect on your phone or a Wi-Fi TV.' }]);
+      setTurns((t) => [...t, { question: q, error: 'Ask Arjuna needs internet. Connect on your phone or a Wi-Fi TV.' }]);
       setQuestion('');
       return;
     }
@@ -107,17 +107,17 @@ export function AskTeacher({ open, onClose }: Props) {
   }
 
   return (
-    <div className="ask-teacher" role="dialog" aria-modal="true" aria-label="Ask the teacher">
+    <div className="ask-teacher" role="dialog" aria-modal="true" aria-label="Ask Arjuna">
       <div className="ask-teacher__panel">
         <header className="ask-teacher__head">
-          <h2>🙋 Ask Teacher</h2>
+          <h2>🙋 Ask Arjuna</h2>
           <button type="button" className="ask-teacher__close" onClick={handleClose} aria-label="Close">✕</button>
         </header>
 
         <div className="ask-teacher__thread">
           {turns.length === 0 && (
             <div className="ask-teacher__intro">
-              <p>Ask anything about your lesson — like a real teacher!</p>
+              <p>Ask Arjuna anything about your lesson — like talking to your guru guide!</p>
               <div className="ask-teacher__presets">
                 {PRESETS.map((p) => (
                   <button key={p} type="button" className="ask-teacher__chip" onClick={() => ask(p)}>

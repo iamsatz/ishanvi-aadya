@@ -16,7 +16,7 @@ const ssCards: LearningCard[] = [
     subtitle: `Weekend · ${DATE_LABEL} · Silver Oaks sheet`,
     imageUrl: '/homework/skill-sheet-math-g4.svg',
     englishContent:
-      'Your teacher gave this paper. Satish says:\n\nIf any word feels new, use **Maths · Learn** first (games & parent tips). Then tick each question as you write it in your notebook.\n\nTry every question yourself first. Use **hints** on each card. Only open **Peek** cards if you are truly stuck.\n\nThis app teaches the **method** — you write the **answers** on paper.',
+      'Your teacher gave this paper. Arjuna says:\n\nIf any word feels new, use **Maths · Learn** first (games & parent tips). Then tick each question as you write it in your notebook.\n\nTry every question yourself first. Use **hints** on each card. Only open **Peek** cards if you are truly stuck.\n\nThis app teaches the **method** — you write the **answers** on paper.',
     teluguContent:
       'Teacher ఇచ్చిన paper. సతీష్ చెప్పాడు:\n\nWord కొత్తగా అనిపిస్తే ముందు **Learn Number Families** finish చేయి. Notebook లో answer రాస్తూ ప్రతి question tick చేయి.\n\nముందు hints follow చేయి. stuck అయితే మాత్రమే **Peek** cards open చేయి.\n\nApp **method** నేర్పిస్తుంది — **answers** paper మీద మీరే రాయాలి.',
     parentSuggestion: {
@@ -75,7 +75,7 @@ const ssCards: LearningCard[] = [
     teluguContent:
       '**Sheet:** Number name నుండి standard form (correct commas) రాయాలి.\n\n**ముఖ్యం:** Printed sheet commas 7,45,12,93 — **తప్పు**. Comma Rescue game Indian method use చేయండి — కుడి నుండి 3, తర్వాత 2-2-2.',
     parentSuggestion: {
-      tip: 'Quiet word to teacher: Q2 commas are misprinted. Trust Satish\'s comma-rescue method — don\'t open Peek until she tries.',
+      tip: 'Quiet word to teacher: Q2 commas are misprinted. Trust Arjuna\'s comma-rescue method — don\'t open Peek until she tries.',
       tipTe: 'Teacher కు quietly: Q2 commas misprint. Comma-rescue method — Peek ముందు try చేయనివ్వండి.',
     },
     promptText: 'Fix the commas and write on paper.',

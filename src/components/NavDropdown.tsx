@@ -225,7 +225,7 @@ export function NavDropdown() {
 
           <div className="nav-dd__footer">
             <button type="button" className="nav-dd__footer-btn nav-dd__footer-btn--ask" onClick={() => { setOpen(false); openAsk(); }}>
-              🙋 Ask Teacher
+              🙋 Ask Arjuna
             </button>
             <button type="button" className="nav-dd__footer-btn" onClick={() => { setOpen(false); openFeedback(); }}>
               💬 Beta feedback

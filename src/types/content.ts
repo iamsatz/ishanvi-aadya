@@ -11,7 +11,7 @@ export const DEMO_CHILD_ISHANVI = 'demo-ishanvi';
 export const DEMO_CHILD_AADYA = 'demo-aadya';
 
 /** Visual avatar for a kid's guide character. */
-export type AvatarId = 'satish-guru' | 'emoji';
+export type AvatarId = 'arjuna-guru' | 'emoji';
 
 /** Subject id within a kid's curriculum (e.g. maths, stories). */
 export interface SubjectDef {

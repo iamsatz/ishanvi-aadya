@@ -16,7 +16,7 @@ const englishCards: LearningCard[] = [
     title: 'English Weekend Task',
     subtitle: `Weekend · ${DATE_LABEL}`,
     englishContent:
-      `Satish says: get your **${BOOK}** — the same English textbook you use at school (Unit 7 · friendship pages).\n\n**Page 101** → Bits A & B in **pencil**.\n**Pages 102 & 104** → read the story *Sitti\'s Secrets* and think about the glossary words.\n\nTry every question yourself first. Use **hints** on each card. Only open **Peek** cards if you are truly stuck.`,
+      `Arjuna says: get your **${BOOK}** — the same English textbook you use at school (Unit 7 · friendship pages).\n\n**Page 101** → Bits A & B in **pencil**.\n**Pages 102 & 104** → read the story *Sitti\'s Secrets* and think about the glossary words.\n\nTry every question yourself first. Use **hints** on each card. Only open **Peek** cards if you are truly stuck.`,
     teluguContent:
       `**${BOOK}** తీసుకో — school English textbook (Unit 7 · friendship).\n\n**Page 101** → Bits A & B pencil తో.\n**Pages 102 & 104** → story read, glossary words గురించి think చేయి.\n\nముందు hints follow చేయి. stuck అయితే మాత్రమే **Peek** cards open చేయి.`,
     parentSuggestion: {
@@ -82,7 +82,7 @@ const englishCards: LearningCard[] = [
               { id: 'b', label: 'Only their name and nothing else', isCorrect: false },
               { id: 'c', label: 'A sentence you copied from a peek card', isCorrect: false },
             ],
-            hint: 'Satish asks why — what do they do that you want to copy?',
+            hint: 'Arjuna asks why — what do they do that you want to copy?',
           },
         ],
       },
@@ -317,7 +317,7 @@ const scienceCards: LearningCard[] = [
     subtitle: `Weekend · ${DATE_LABEL} · WHO WE ARE`,
     imageUrl: '/homework/weekend-2026-06-26/science-extended.png',
     englishContent:
-      'On an **A4 sheet** — reflect on today\'s storytelling session.\n\nThere is no single correct sentence to copy. Satish wants you to **understand yourself**. Each box below has a mini exam — pass it to show you got the idea, then write your own words on paper.',
+      'On an **A4 sheet** — reflect on today\'s storytelling session.\n\nThere is no single correct sentence to copy. Arjuna wants you to **understand yourself**. Each box below has a mini exam — pass it to show you got the idea, then write your own words on paper.',
     teluguContent:
       '**A4 sheet** — storytelling reflection. Copy cheyakandi — idea ardham ayyinda chupinchadaniki mini exam.',
     parentSuggestion: {
@@ -345,7 +345,7 @@ const scienceCards: LearningCard[] = [
               { id: 'b', label: 'Only how you look in the mirror', isCorrect: false },
               { id: 'c', label: 'A sentence copied from the peek card', isCorrect: false },
             ],
-            hint: 'Satish asks what you DID — not what you look like.',
+            hint: 'Arjuna asks what you DID — not what you look like.',
           },
         ],
       },
@@ -384,7 +384,7 @@ const scienceCards: LearningCard[] = [
           },
           {
             id: 'sc3-e2',
-            question: 'After you pick your proud moment, Satish will ask…',
+            question: 'After you pick your proud moment, Arjuna will ask…',
             choices: [
               { id: 'a', label: 'WHY does that make you proud?', isCorrect: true },
               { id: 'b', label: 'What is your friend\'s name?', isCorrect: false },

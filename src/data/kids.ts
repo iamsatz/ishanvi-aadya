@@ -8,7 +8,6 @@ export function childToKid(child: ChildRow, subjects?: SubjectRow[]): Kid {
     ? subjects.map((s) => ({ id: s.id, label: s.name, icon: s.icon }))
     : defaultSubjectsForGrade(child.grade);
 
-  const isDemo = child.is_demo;
   const isIshanvi = child.name.toLowerCase().includes('ishanvi');
   const isAadya = child.name.toLowerCase().includes('aadya');
 
@@ -18,9 +17,9 @@ export function childToKid(child: ChildRow, subjects?: SubjectRow[]): Kid {
     grade: child.grade,
     board: boardLabel(child.board),
     subjects: subjectDefs,
-    mascot: isDemo && isIshanvi
-      ? { name: 'Satish', avatar: 'satish-guru', role: 'Wise guru guide' }
-      : isDemo && isAadya
+    mascot: isIshanvi
+      ? { name: 'Arjuna', avatar: 'arjuna-guru', role: 'Wise guru guide' }
+      : isAadya
         ? { name: 'Chiku', avatar: 'emoji', emoji: '🐰', role: 'Bunny buddy' }
         : { name: 'Guide', avatar: 'emoji', emoji: '🌟', role: 'Learning buddy' },
   };
@@ -42,7 +41,7 @@ export function devPreviewKids(): Kid[] {
       grade: 'Grade 4',
       board: 'IB',
       subjects: defaultSubjectsForGrade('Grade 4'),
-      mascot: { name: 'Satish', avatar: 'satish-guru', role: 'Wise guru guide' },
+      mascot: { name: 'Arjuna', avatar: 'arjuna-guru', role: 'Wise guru guide' },
     },
     {
       id: 'aadya' as KidId,
