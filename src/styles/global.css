@@ -3033,12 +3033,41 @@ input, textarea {
   outline-offset: 2px;
 }
 
-/* ---------- Ask Teacher ---------- */
-.nav-dd__footer-btn--ask {
-  background: var(--c-accent-soft, rgba(245, 158, 11, 0.15));
-  border-color: var(--c-accent, #f59e0b);
+/* ---------- Ask Arjuna (FAB + chat panel) ---------- */
+.ask-arjuna-fab {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 12px);
+  z-index: 185;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4) var(--sp-2) var(--sp-2);
+  border-radius: var(--r-pill);
+  background: var(--c-primary);
+  color: var(--c-primary-ink);
+  box-shadow: var(--sh-2);
+  border: 2px solid color-mix(in srgb, var(--c-primary) 80%, white);
   font-weight: 700;
+  font-size: var(--fs-sm);
+  min-height: 52px;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
 }
+.ask-arjuna-fab:hover { transform: translateY(-2px); box-shadow: var(--sh-3); }
+.ask-arjuna-fab:active { transform: scale(0.97); }
+.ask-arjuna-fab__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #FFF7ED;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ask-arjuna-fab__label { white-space: nowrap; }
+
 .ask-teacher {
   position: fixed;
   inset: 0;
@@ -3048,6 +3077,33 @@ input, textarea {
   justify-content: center;
   padding: var(--sp-3);
   background: rgba(15, 23, 42, 0.55);
+}
+.ask-teacher--anchored {
+  inset: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0;
+}
+.ask-teacher__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(15, 23, 42, 0.35);
+  pointer-events: auto;
+  cursor: default;
+}
+.ask-teacher--anchored .ask-teacher__panel {
+  pointer-events: auto;
+  width: min(420px, calc(100vw - 24px));
+  max-height: min(560px, calc(100dvh - var(--nav-h) - 100px));
+  margin: 0 clamp(12px, 3vw, 24px) calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 12px) 0;
+  box-shadow: var(--sh-3);
 }
 .ask-teacher__panel {
   width: min(600px, 100%);
@@ -3062,11 +3118,21 @@ input, textarea {
 .ask-teacher__head {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: var(--sp-2);
   padding: var(--sp-3) var(--sp-4);
-  border-bottom: 1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-line);
 }
-.ask-teacher__head h2 { margin: 0; font-size: var(--fs-lg); }
+.ask-teacher__head-text { flex: 1; min-width: 0; }
+.ask-teacher__head h2 { margin: 0; font-size: var(--fs-lg); font-family: var(--font-display); }
+.ask-teacher__context {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-xs);
+  color: var(--c-ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .ask-teacher__close {
   min-width: 2.5rem;
   min-height: 2.5rem;
@@ -3119,6 +3185,12 @@ input, textarea {
 .ask-teacher__a-title { margin: 0 0 var(--sp-2); font-size: var(--fs-md); }
 .ask-teacher__a-body { display: flex; flex-direction: column; gap: var(--sp-2); }
 .ask-teacher__a-body p { margin: 0; line-height: 1.5; }
+.ask-teacher__a-hint {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--c-ink-soft);
+  font-style: italic;
+}
 .ask-teacher__telugu { margin: var(--sp-2) 0; }
 .ask-teacher__telugu summary { cursor: pointer; font-weight: 600; color: var(--c-accent, #f59e0b); }
 .ask-teacher__a .listen-btn-wrap { margin-top: var(--sp-2); }
@@ -3142,6 +3214,11 @@ input, textarea {
 .ask-teacher__send { min-width: 5rem; }
 .app[data-tv="true"] .ask-teacher__chip { min-height: 3rem; font-size: var(--fs-base); }
 .app[data-tv="true"] .ask-teacher__input { font-size: var(--fs-lg); }
+.app[data-tv="true"] .ask-arjuna-fab {
+  min-height: 64px;
+  font-size: var(--fs-md);
+  right: var(--sp-6);
+}
 
 /* ── Answers & Explanations card (PIN-gated) ─────────────────── */
 .answers-card { display: flex; flex-direction: column; gap: var(--sp-3); }

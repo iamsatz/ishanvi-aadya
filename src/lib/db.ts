@@ -226,6 +226,8 @@ export async function submitFeedback(message: string, context: Record<string, un
   if (error) throw error;
 }
 
+import type { AskPageContext } from './askContext';
+
 export async function callTutor(payload: {
   mode: 'homework' | 'index' | 'chat';
   grade: string;
@@ -234,6 +236,7 @@ export async function callTutor(payload: {
   text?: string;
   imageUrl?: string;
   syllabusItems?: string[];
+  pageContext?: AskPageContext;
 }): Promise<{ cards: LearningCard[]; tasks?: HomeworkTask[]; message?: string }> {
   const { data, error } = await sb().functions.invoke('tutor', { body: payload });
   if (error) throw error;

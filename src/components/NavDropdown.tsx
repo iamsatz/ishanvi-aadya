@@ -43,7 +43,6 @@ export function NavDropdown() {
   const requestPin = useStore((s) => s.requestPin);
   const openOnboarding = useStore((s) => s.openOnboarding);
   const openFeedback = useStore((s) => s.openFeedback);
-  const openAsk = useStore((s) => s.openAsk);
   const setSession = useStore((s) => s.setSession);
 
   const activeLesson = lessons.find((l) => l.id === activeLessonId);
@@ -224,9 +223,6 @@ export function NavDropdown() {
           </div>
 
           <div className="nav-dd__footer">
-            <button type="button" className="nav-dd__footer-btn nav-dd__footer-btn--ask" onClick={() => { setOpen(false); openAsk(); }}>
-              🙋 Ask Arjuna
-            </button>
             <button type="button" className="nav-dd__footer-btn" onClick={() => { setOpen(false); openFeedback(); }}>
               💬 Beta feedback
             </button>

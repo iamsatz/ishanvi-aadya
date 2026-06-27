@@ -1,14 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
-import { useStore, selectActiveLesson } from '../state/store';
+import { useStore } from '../state/store';
 import { callTutor } from '../lib/db';
 import { isSupabaseConfigured } from '../lib/supabase';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
 import { ListenButton } from './ListenButton';
-import type { LearningCard } from '../types/content';
+import {
+  buildAskPageContext,
+  contextLabel,
+  presetsForPage,
+} from '../lib/askContext';
+import type { LearningCard, Lesson } from '../types/content';
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  /** Chat panel anchored bottom-right (FAB mode). */
+  anchored?: boolean;
+  lesson?: Lesson;
+  card?: LearningCard;
 }
 
 interface Turn {
@@ -17,17 +26,9 @@ interface Turn {
   error?: string;
 }
 
-const PRESETS = [
-  'Indian vs International way of reading numbers?',
-  'Difference between standard form and periods?',
-  'What is place value?',
-  'What is the difference between a digit and a number?',
-];
-
-export function AskTeacher({ open, onClose }: Props) {
+export function AskTeacher({ open, onClose, anchored = false, lesson, card }: Props) {
   const kids = useStore((s) => s.kids);
   const activeKid = useStore((s) => s.activeKid);
-  const lesson = useStore(selectActiveLesson);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const [question, setQuestion] = useState('');
@@ -35,6 +36,9 @@ export function AskTeacher({ open, onClose }: Props) {
   const [thinking, setThinking] = useState(false);
 
   const kid = kids.find((k) => k.id === activeKid) ?? kids[0];
+  const pageContext = buildAskPageContext(lesson, card);
+  const presets = presetsForPage(pageContext);
+  const contextLine = contextLabel(pageContext);
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
@@ -49,13 +53,19 @@ export function AskTeacher({ open, onClose }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
+  useEffect(() => {
+    if (!open) return;
+    setTurns([]);
+    setQuestion('');
+  }, [open, card?.id, lesson?.id]);
+
   if (!open) return null;
 
   async function ask(text: string) {
     const q = text.trim();
     if (!q || thinking) return;
     if (!isSupabaseConfigured) {
-      setTurns((t) => [...t, { question: q, error: 'Ask Arjuna needs internet. Connect on your phone or a Wi-Fi TV.' }]);
+      setTurns((t) => [...t, { question: q, error: 'Ask Arjuna needs internet. Connect on your phone or Wi-Fi.' }]);
       setQuestion('');
       return;
     }
@@ -69,8 +79,9 @@ export function AskTeacher({ open, onClose }: Props) {
         mode: 'chat',
         grade: kid?.grade ?? 'Grade 4',
         board: kid?.board ?? 'CBSE',
-        subject: lesson?.subtitle ?? undefined,
+        subject: lesson?.title ?? lesson?.subtitle,
         text: q,
+        pageContext,
       });
       const answer = res.cards?.[0];
       setTurns((t) =>
@@ -85,7 +96,7 @@ export function AskTeacher({ open, onClose }: Props) {
       setTurns((t) =>
         t.map((turn, i) =>
           i === t.length - 1
-            ? { ...turn, error: "Hmm, I couldn't reach the teacher right now. Check the internet and try again." }
+            ? { ...turn, error: "Arjuna couldn't reach the server. Check internet and try again." }
             : turn
         )
       );
@@ -107,19 +118,32 @@ export function AskTeacher({ open, onClose }: Props) {
   }
 
   return (
-    <div className="ask-teacher" role="dialog" aria-modal="true" aria-label="Ask Arjuna">
+    <div
+      className={`ask-teacher${anchored ? ' ask-teacher--anchored' : ''}`}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Ask Arjuna"
+    >
+      {!anchored && <button type="button" className="ask-teacher__backdrop" onClick={handleClose} aria-label="Close" />}
       <div className="ask-teacher__panel">
         <header className="ask-teacher__head">
-          <h2>🙋 Ask Arjuna</h2>
+          <div className="ask-teacher__head-text">
+            <h2>Ask Arjuna</h2>
+            <p className="ask-teacher__context" title={contextLine}>
+              📄 {contextLine}
+            </p>
+          </div>
           <button type="button" className="ask-teacher__close" onClick={handleClose} aria-label="Close">✕</button>
         </header>
 
         <div className="ask-teacher__thread">
           {turns.length === 0 && (
             <div className="ask-teacher__intro">
-              <p>Ask Arjuna anything about your lesson — like talking to your guru guide!</p>
+              <p>
+                Ask about <strong>this page</strong> — Arjuna gives a hint, explanation, or answer depending on what you need.
+              </p>
               <div className="ask-teacher__presets">
-                {PRESETS.map((p) => (
+                {presets.map((p) => (
                   <button key={p} type="button" className="ask-teacher__chip" onClick={() => ask(p)}>
                     {p}
                   </button>
@@ -137,9 +161,12 @@ export function AskTeacher({ open, onClose }: Props) {
                   <div className="ask-teacher__a-body">
                     {renderWithGlossary(turn.answer.englishContent, turn.answer.glossary, `ask-${i}`)}
                   </div>
+                  {turn.answer.hint && (
+                    <p className="ask-teacher__a-hint">💡 {turn.answer.hint}</p>
+                  )}
                   {turn.answer.teluguContent && (
                     <details className="ask-teacher__telugu">
-                      <summary>తెలుగులో చదవండి · Read in Telugu</summary>
+                      <summary>తెలుగులో · Read in Telugu</summary>
                       <div>{renderWithGlossary(turn.answer.teluguContent, undefined, `ask-te-${i}`)}</div>
                     </details>
                   )}
@@ -150,7 +177,7 @@ export function AskTeacher({ open, onClose }: Props) {
             </div>
           ))}
 
-          {thinking && <p className="ask-teacher__thinking">👩‍🏫 Teacher is thinking…</p>}
+          {thinking && <p className="ask-teacher__thinking">Arjuna is thinking…</p>}
         </div>
 
         <form className="ask-teacher__form" onSubmit={handleSubmit}>
@@ -159,7 +186,7 @@ export function AskTeacher({ open, onClose }: Props) {
             className="ask-teacher__input"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Type your question (or use the remote mic)…"
+            placeholder="Ask about this page…"
             rows={2}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {

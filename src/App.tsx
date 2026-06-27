@@ -8,6 +8,7 @@ import { useStore } from './state/store';
 import { useKeyboardNav } from './hooks/useKeyboardNav';
 import { useSpatialNav } from './hooks/useSpatialNav';
 import { HomeworkUploadHost } from './components/HomeworkUploadHost';
+import { AskArjunaFab } from './components/AskArjunaFab';
 import { SchoolLogo } from './components/SchoolLogo';
 import { detectTvEnvironment } from './lib/detectTv';
 import { onAuthStateChange, getSession, signInShared, isSharedAccountConfigured } from './lib/auth';
@@ -215,6 +216,7 @@ export default function App() {
           </div>
         )}
         <HomeworkUploadHost />
+        <AskArjunaFab />
       </AppShell>
       {!devPreview && <AddChildScreen open={onboardingOpen && lessons.length > 0} />}
     </>

@@ -3,7 +3,6 @@ import { PinGate } from './PinGate';
 import { ParentUpload } from './ParentUpload';
 import { SubjectIndexEditor } from './SubjectIndexEditor';
 import { FeedbackPanel } from './FeedbackPanel';
-import { AskTeacher } from './AskTeacher';
 import { SettingsPanel } from './SettingsPanel';
 
 /** PIN + upload/index/feedback modals — opened from nav menu. */
@@ -19,8 +18,6 @@ export function HomeworkUploadHost() {
   const closeUploadModal = useStore((s) => s.closeUploadModal);
   const closeIndexEditor = useStore((s) => s.closeIndexEditor);
   const closeFeedback = useStore((s) => s.closeFeedback);
-  const askOpen = useStore((s) => s.askOpen);
-  const closeAsk = useStore((s) => s.closeAsk);
   const settingsOpen = useStore((s) => s.settingsOpen);
   const openSettings = useStore((s) => s.openSettings);
   const closeSettings = useStore((s) => s.closeSettings);
@@ -62,7 +59,6 @@ export function HomeworkUploadHost() {
         onSaved={() => refreshLessons()}
       />
       <FeedbackPanel open={feedbackOpen} onClose={closeFeedback} />
-      <AskTeacher open={askOpen} onClose={closeAsk} />
       <SettingsPanel open={settingsOpen} onClose={closeSettings} />
     </>
   );

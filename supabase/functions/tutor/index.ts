@@ -17,6 +17,18 @@ interface TutorRequest {
   text?: string;
   imageUrl?: string;
   syllabusItems?: string[];
+  pageContext?: {
+    lessonTitle?: string;
+    lessonSubtitle?: string;
+    cardId?: string;
+    cardTitle?: string;
+    cardSubtitle?: string;
+    englishContent?: string;
+    promptText?: string;
+    interactionType?: string;
+    hint?: string;
+    glossaryWords?: string[];
+  };
 }
 
 interface LearningCard {
@@ -44,7 +56,7 @@ interface HomeworkTask {
 }
 
 function systemPrompt(req: TutorRequest): string {
-  return `You are a patient kid-friendly tutor for ${req.grade} students following ${req.board} curriculum.
+  return `You are Arjuna — a patient kid-friendly guru guide for ${req.grade} students following ${req.board} curriculum.
 Subject: ${req.subject ?? 'general'}.
 Rules:
 - Explain HOW to do homework step-by-step, never just give final answers to copy.
@@ -101,6 +113,23 @@ async function callGemini(prompt: string, imageUrl?: string): Promise<string> {
   return data.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}';
 }
 
+function formatPageContext(req: TutorRequest): string {
+  const p = req.pageContext;
+  if (!p) return '';
+  const lines = [
+    p.lessonTitle && `Lesson: ${p.lessonTitle}`,
+    p.lessonSubtitle && `Unit: ${p.lessonSubtitle}`,
+    p.cardTitle && `Page on screen: ${p.cardTitle}`,
+    p.cardSubtitle && `Section: ${p.cardSubtitle}`,
+    p.promptText && `Task on screen: ${p.promptText}`,
+    p.interactionType && `Activity type: ${p.interactionType}`,
+    p.hint && `Card hint: ${p.hint}`,
+    p.glossaryWords?.length && `Glossary on page: ${p.glossaryWords.join(', ')}`,
+    p.englishContent && `Reading on screen:\n${p.englishContent}`,
+  ].filter(Boolean);
+  return lines.length ? `\n\nCURRENT PAGE (answer about THIS):\n${lines.join('\n')}` : '';
+}
+
 function buildUserPrompt(req: TutorRequest): string {
   if (req.mode === 'homework') {
     return `Mode: homework help.
@@ -118,17 +147,29 @@ ALSO return a "tasks" array — one entry per question found in the homework —
 Topics:\n${items}
 Create one engaging interactive card per topic.`;
   }
-  return `Mode: chat — a ${req.grade} child asked a question${req.subject ? ` (context: ${req.subject})` : ''}.
+  const pageBlock = formatPageContext(req);
+  return `Mode: chat — a ${req.grade} child asked a question while studying.${pageBlock}
+
 Question: ${req.text}
 
-Reply with EXACTLY ONE card in the JSON "cards" array:
-- "title": the question restated in simple kid words.
-- "englishContent": a short, clear answer for this grade (2-4 short paragraphs). PLAIN TEXT ONLY — no markdown, no asterisks. If the question is "difference between X and Y", explain each side with one tiny everyday example.
-- "teluguContent": a 1-2 line Telugu summary of the key idea.
-- "glossary": up to 3 tricky words as {"word","en","te"} — en is a simple meaning, te is Telugu. Use the exact words as they appear in englishContent.
+Reply as Arjuna the guru guide with EXACTLY ONE card in the JSON "cards" array.
+
+Pick the best help type from their question:
+- STUCK / "hint" / "help me think" → title starts with "Hint:" — nudge only, do NOT give the final homework answer to copy.
+- "why" / "how" / "explain" → title starts with "Explanation:" — teach the idea with a tiny everyday example.
+- "what is" / "what does X mean" / comprehension → title starts with "Answer:" — clear short fact or meaning from the page content.
+- Reflection homework (science, "I am special") → ask a guiding question in englishContent; never write their sentence for them.
+
+Card fields:
+- "title": Hint / Explanation / Answer + topic in simple kid words.
+- "englishContent": 2-4 short paragraphs, PLAIN TEXT (no markdown). Match the help type above.
+- "hint": optional one-line follow-up question for the child.
+- "teluguContent": 1-2 line Telugu summary.
+- "glossary": up to 3 words as {"word","en","te"} from your answer.
 - "promptText": "Did this help?"
-- "interactionType": "reflect".
-Stay on school topics; if the question is off-topic or unsafe, gently steer back to learning.`;
+- "interactionType": "reflect"
+
+Use CURRENT PAGE content when relevant. Stay on school topics; if off-topic, gently steer back.`;
 }
 
 function normalizeCards(raw: LearningCard[], lessonPrefix: string): LearningCard[] {
