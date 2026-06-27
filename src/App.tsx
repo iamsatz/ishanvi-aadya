@@ -10,7 +10,7 @@ import { useSpatialNav } from './hooks/useSpatialNav';
 import { HomeworkUploadHost } from './components/HomeworkUploadHost';
 import { SchoolLogo } from './components/SchoolLogo';
 import { detectTvEnvironment } from './lib/detectTv';
-import { onAuthStateChange, getSession, signInShared } from './lib/auth';
+import { onAuthStateChange, getSession, signInShared, isSharedAccountConfigured } from './lib/auth';
 import { isSupabaseConfigured } from './lib/supabase';
 
 /** Close the top-most overlay (modal/lightbox/menu) if one is open; otherwise go to the previous card. */
@@ -64,7 +64,14 @@ export default function App() {
   useEffect(() => {
     if (useStore.getState().devPreview) return;
     if (!isSupabaseConfigured) {
-      setAuthError('Cloud not connected. Add Supabase keys to .env');
+      enterDevPreview();
+      setAuthReady(true);
+      return;
+    }
+
+    // No shared creds yet — open bundled lessons (no login, no error screen).
+    if (!isSharedAccountConfigured) {
+      enterDevPreview();
       setAuthReady(true);
       return;
     }
@@ -108,7 +115,7 @@ export default function App() {
       cancelled = true;
       unsub();
     };
-  }, [setAuthReady, setSession, loadUserData, retryTick]);
+  }, [setAuthReady, setSession, loadUserData, retryTick, enterDevPreview]);
 
   useEffect(() => {
     const enableTvIfNeeded = () => {

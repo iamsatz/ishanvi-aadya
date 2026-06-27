@@ -25,6 +25,8 @@ Env vars must be set in Vercel **and** you must **Redeploy** (Vite bakes them at
 |------|--------|
 | `VITE_SUPABASE_URL` | `https://shikwtguxfhefzvfkedo.supabase.co` |
 | `VITE_SUPABASE_ANON_KEY` | paste your `eyJ…` anon key |
+| `VITE_SHARED_ACCOUNT_EMAIL` | family account email (same one with Ishanvi/Aadya data) |
+| `VITE_SHARED_ACCOUNT_PASSWORD` | password set in Supabase Auth → Users |
 
 5. Click **Save**
 
@@ -67,6 +69,8 @@ https://vercel.com/dashboard → your team → **ishanvi-aadya** → Settings �
 ```
 VITE_SUPABASE_URL=https://shikwtguxfhefzvfkedo.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJ...your_anon_key
+VITE_SHARED_ACCOUNT_EMAIL=your-family@email.com
+VITE_SHARED_ACCOUNT_PASSWORD=your-password
 ```
 
 Then: `npm run build`
