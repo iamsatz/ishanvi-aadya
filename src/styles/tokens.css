@@ -1,48 +1,48 @@
 /* ============================================================
-   DESIGN TOKENS — Vibrant Learning (rich, trendy, kid-friendly)
+   DESIGN TOKENS — Kid-friendly editorial (warm, calm, readable)
    ============================================================ */
 
 :root {
-  /* Rich palette */
-  --c-bg:           #F3EEFF;
-  --c-bg-2:         #E8F4FF;
+  /* Palette — warm off-white + navy text + calm accents */
+  --c-bg:           #F7F6F5;
+  --c-bg-2:         #FFFFFF;
   --c-surface:      #FFFFFF;
-  --c-surface-2:    #F8F5FF;
-  --c-surface-3:    #EDE9FE;
-  --c-ink:          #1E1B4B;
-  --c-ink-soft:     #4C4687;
-  --c-ink-muted:    #7C78A8;
-  --c-line:         rgba(99, 102, 241, 0.12);
+  --c-surface-2:    #F7F6F5;
+  --c-surface-3:    #EFEDEA;
+  --c-ink:          #002559;
+  --c-ink-soft:     #2A436B;
+  --c-ink-muted:    #5C6B85;
+  --c-line:         rgba(0, 37, 89, 0.12);
 
-  --c-primary:      #7C3AED;
-  --c-primary-2:    #6366F1;
+  --c-primary:      #244CB3;
+  --c-primary-2:    #1A3A8F;
   --c-primary-ink:  #FFFFFF;
-  --c-accent:       #F97316;
-  --c-accent-2:     #06B6D4;
-  --c-success:      #10B981;
-  --c-error:        #EF4444;
-  --c-focus:        #818CF8;
-  --c-overlay:      rgba(30, 27, 75, 0.5);
+  --c-accent:       #FFCA61;
+  --c-accent-2:     #77C0D9;
+  --c-success:      #6CD97E;
+  --c-error:        #FA4033;
+  --c-focus:        #244CB3;
+  --c-overlay:      rgba(0, 37, 89, 0.5);
 
   /* Period family colours (Number Families) */
-  --c-ones:         #06B6D4;
-  --c-thousands:    #10B981;
-  --c-lakhs:        #F97316;
-  --c-crores:       #A855F7;
+  --c-ones:         #77C0D9;
+  --c-thousands:    #6CD97E;
+  --c-lakhs:        #FFCA61;
+  --c-crores:       #244CB3;
 
   /* Typography */
-  --font-sans:   'Plus Jakarta Sans', -apple-system, 'Segoe UI', system-ui, sans-serif;
-  --font-display:'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
-  --font-telugu: 'Noto Sans Telugu', 'Mallanna', system-ui, sans-serif;
+  --font-sans:    'Inter', -apple-system, 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+  --font-telugu:  'Noto Sans Telugu', 'Mallanna', system-ui, sans-serif;
 
   --fs-xs:  13px;
   --fs-sm:  15px;
   --fs-md:  17px;
   --fs-lg:  20px;
-  --fs-xl:  clamp(24px, 6vw, 30px);
-  --fs-2xl: clamp(28px, 7vw, 38px);
-  --lh:     1.55;
-  --lh-tight: 1.2;
+  --fs-xl:  clamp(24px, 5vw, 32px);
+  --fs-2xl: clamp(28px, 6vw, 40px);
+  --lh:       1.6;
+  --lh-tight: 1.15;
 
   --sp-1:  4px;
   --sp-2:  8px;
@@ -51,19 +51,21 @@
   --sp-5:  20px;
   --sp-6:  28px;
   --sp-7:  40px;
+  --sp-8:  48px;
+  --sp-9:  64px;
 
   --r-sm:  10px;
   --r-md:  14px;
   --r-lg:  22px;
   --r-pill: 999px;
 
-  --sh-1: 0 2px 8px rgba(124, 58, 237, 0.08);
-  --sh-2: 0 8px 24px rgba(124, 58, 237, 0.12);
-  --sh-3: 0 20px 48px rgba(124, 58, 237, 0.18);
+  --sh-1: 0 2px 8px rgba(0, 37, 89, 0.08);
+  --sh-2: 0 8px 24px rgba(0, 37, 89, 0.12);
+  --sh-3: 0 20px 48px rgba(0, 37, 89, 0.18);
 
-  --grad-bg: linear-gradient(135deg, #F3EEFF 0%, #E8F4FF 50%, #FFF0F5 100%);
-  --grad-brand: linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #06B6D4 100%);
-  --grad-cta: linear-gradient(135deg, #7C3AED, #6366F1);
+  --grad-bg: #F7F6F5;
+  --grad-brand: linear-gradient(135deg, #244CB3 0%, #77C0D9 100%);
+  --grad-cta: #244CB3;
 
   --t-fast: 150ms;
   --t-med:  250ms;
@@ -73,6 +75,26 @@
   --topbar-h: 60px;
   --nav-h:    80px;
   --drawer-w: 320px;
+  --page-gutter: clamp(48px, 5vw, 64px);
+}
+
+/* Per-kid hero accents */
+.app[data-kid="ishanvi"] {
+  --c-primary:   #D97706;
+  --c-primary-2: #B45309;
+  --c-accent:    #FFCA61;
+  --c-focus:     #D97706;
+  --grad-cta:    #D97706;
+  --grad-brand:  linear-gradient(135deg, #D97706 0%, #FFCA61 100%);
+}
+
+.app[data-kid="aadya"] {
+  --c-primary:   #E84C8A;
+  --c-primary-2: #C02669;
+  --c-accent:    #FFB8D0;
+  --c-focus:     #E84C8A;
+  --grad-cta:    #E84C8A;
+  --grad-brand:  linear-gradient(135deg, #E84C8A 0%, #FFB8D0 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {

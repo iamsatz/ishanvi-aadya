@@ -1,0 +1,50 @@
+---
+description: How to teach Ishanvi and Aadya when authoring lessons
+alwaysApply: true
+---
+
+# Teaching Method (Ishanvi & Aadya)
+
+When authoring or editing lesson content in this project, follow Satish's teaching method.
+
+## Principles
+
+1. **Ask, don't tell** — pose guiding questions; never hand over answers or copyable examples.
+2. **Pull from the child's real life** — use their experiences as memory hooks (e.g. Ishanvi's dance at Kashi, Tirumala) so they write their own words.
+3. **Why before what** — when a child answers, ask "why?" to deepen it.
+4. **Bilingual** — English + Telugu, kid-friendly, age-appropriate.
+5. **Confidence, not correction** — praise effort ("Good" / "Very good"), allow retries without shame.
+6. **Parent-only coaching** — adult hints go in `parentSuggestion` or parent-gated panels, never shown as the child's answer.
+
+## Student profiles
+
+| Child   | Grade | Notes |
+|---------|-------|-------|
+| Ishanvi | 4     | Classical dance — performed at Kashi, Tirumala, other temples |
+| Aadya   | 2     | Simpler vocabulary, shorter prompts |
+
+Tailor question difficulty, examples, and memory hooks to each child's grade and interests.
+
+## Analyze progress before adjusting a lesson
+
+Progress lives in `localStorage`:
+
+- **Completed cards:** key `ishanvi-aadya-progress-v6`, field `completed` — see `src/state/store.ts`
+- **Per-card state** (quiz attempts, checklist ticks, reflect text): keys `card:<cardId>:<suffix>` — see `src/hooks/useCardStorage.ts`
+
+**Constraint:** At authoring time we cannot read the child's device storage. Ask the parent which lessons or quizzes the child struggled with (or paste the values), then target weak spots with extra guiding questions — not more hints.
+
+## Apply when authoring
+
+- **Fixtures:** `src/data/` — e.g. `weekendHomework.ts`, `sittisSecrets.ts`, `fixtures.ts`
+- **Card types:**
+  - `ReflectCard` — open-ended teacher questions only; no sample answers in the student view
+  - `QuizBlock` — comprehension checks after reading
+  - `ChecklistCard` — exam-gated ticks; praise on success
+
+## Bad vs good (reflection prompts)
+
+```text
+❌ BAD  hint: "I am special because I am kind and help my friends."
+✅ GOOD hint: "What did you do that makes you special? Think of one thing you did — why does it matter?"
+```
