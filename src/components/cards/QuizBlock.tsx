@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { QuizQuestion } from '../../types/content';
+import { shuffleChoices } from '../../lib/shuffleChoices';
 
 interface Props {
   questions: QuizQuestion[];
@@ -17,8 +18,17 @@ type QState = { picked: string | null; status: 'idle' | 'correct' | 'incorrect' 
  * ✓ / ✕ feedback. Wrong answers shake and let you retry.
  */
 export function QuizBlock({ questions, onAnswer, deck }: Props) {
+  const shuffledQuestions = useMemo(
+    () =>
+      questions.map((q) => ({
+        ...q,
+        choices: shuffleChoices(q.choices, q.id),
+      })),
+    [questions]
+  );
+
   const [state, setState] = useState<Record<string, QState>>(() =>
-    Object.fromEntries(questions.map((q) => [q.id, { picked: null, status: 'idle' }]))
+    Object.fromEntries(shuffledQuestions.map((q) => [q.id, { picked: null, status: 'idle' }]))
   );
 
   function pick(qId: string, choiceId: string, correct: boolean) {
@@ -37,7 +47,7 @@ export function QuizBlock({ questions, onAnswer, deck }: Props) {
   }
 
   const correctCount = Object.values(state).filter((s) => s.status === 'correct').length;
-  const total = questions.length;
+  const total = shuffledQuestions.length;
 
   return (
     <section className="quiz" aria-label="Quick knowledge check">
@@ -47,7 +57,7 @@ export function QuizBlock({ questions, onAnswer, deck }: Props) {
         <span className="quiz__count">{correctCount} / {total}</span>
       </header>
 
-      {questions.map((q, qi) => {
+      {shuffledQuestions.map((q, qi) => {
         const cur = state[q.id];
         return (
           <div className="quiz__q" key={q.id}>

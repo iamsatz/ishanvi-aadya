@@ -10,6 +10,7 @@ import { FeedbackOverlay } from './cards/FeedbackOverlay';
 import { GameCard } from './games/GameCard';
 import { VocabGridCard } from './cards/VocabGridCard';
 import { AnswersCard } from './cards/AnswersCard';
+import { ContentsCard } from './cards/ContentsCard';
 import { CharacterBubble } from './CharacterBubble';
 import { ParentPanel } from './ParentPanel';
 import { ImageLightbox } from './ImageLightbox';
@@ -18,9 +19,13 @@ import { ListenButton } from './ListenButton';
 import { renderWithGlossary } from '../lib/renderWithGlossary';
 import { clearCardStorage } from '../hooks/useCardStorage';
 import { ContentBlocks } from './cards/ContentBlocks';
-import type { LearningCard } from '../types/content';
+import { callTutor } from '../lib/db';
+import { isSupabaseConfigured } from '../lib/supabase';
+import { buildAskPageContext } from '../lib/askContext';
+import { absoluteImageUrl, tutorErrorMessage } from '../lib/tutorErrors';
+import type { LearningCard, Lesson } from '../types/content';
 
-function renderInteraction(card: LearningCard, onComplete: (correct: boolean) => void) {
+function renderInteraction(card: LearningCard, lesson: Lesson, onComplete: (correct: boolean) => void) {
   switch (card.interactionType) {
     case 'tap-reveal':   return <TapRevealCard   card={card} onComplete={onComplete} />;
     case 'choice-cards': return <ChoiceCards     card={card} onComplete={onComplete} />;
@@ -30,6 +35,7 @@ function renderInteraction(card: LearningCard, onComplete: (correct: boolean) =>
     case 'vocab-grid':   return <VocabGridCard   card={card} onComplete={onComplete} />;
     case 'game':         return <GameCard        card={card} onComplete={onComplete} />;
     case 'answers':      return <AnswersCard     card={card} onComplete={onComplete} />;
+    case 'contents':     return <ContentsCard    card={card} lesson={lesson} onComplete={onComplete} />;
   }
 }
 
@@ -49,10 +55,16 @@ export function CardViewer() {
 
   const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
   const [resetKey, setResetKey] = useState(0);
+  const [teluguLoading, setTeluguLoading] = useState(false);
+  const [teluguText, setTeluguText] = useState<string | null>(null);
+  const [teluguError, setTeluguError] = useState<string | null>(null);
 
   useEffect(() => {
     setLightboxOpen(false);
     setLightboxIndex(0);
+    setTeluguText(null);
+    setTeluguError(null);
+    setTeluguLoading(false);
   }, [card?.id]);
 
   if (!card || !lesson) {
@@ -84,6 +96,47 @@ export function CardViewer() {
   function openLightbox(index: number) {
     setLightboxIndex(index);
     setLightboxOpen(true);
+  }
+
+  async function explainPageInTelugu() {
+    if (!lesson || teluguLoading || pageImages.length === 0) return;
+    if (!isSupabaseConfigured) {
+      setTeluguError('Telugu explain needs Supabase. Ask a parent to set up the app.');
+      return;
+    }
+
+    setTeluguLoading(true);
+    setTeluguError(null);
+
+    try {
+      const imageUrl = absoluteImageUrl(pageImages[0]!);
+      const pageContext = buildAskPageContext(lesson, card);
+      const kid = useStore.getState().kids.find((k) => k.id === lesson.kid)
+        ?? useStore.getState().kids[0];
+
+      const res = await callTutor({
+        mode: 'chat',
+        grade: kid?.grade ?? 'Grade 4',
+        board: kid?.board ?? 'CBSE',
+        subject: lesson.title,
+        text: 'Read this homework page image and explain everything on it in simple Telugu for a Grade 4 child. Use short sentences. Do not give copy-paste homework answers — explain what the page is about.',
+        imageUrl,
+        pageContext,
+      });
+
+      const answer = res.cards?.[0];
+      const text = answer?.teluguContent?.trim() || answer?.englishContent?.trim();
+      if (text) {
+        setTeluguText(text);
+      } else {
+        setTeluguError(res.message ?? 'No Telugu explanation came back — try again.');
+      }
+    } catch (err) {
+      console.error('[CardViewer] telugu explain failed', err);
+      setTeluguError(tutorErrorMessage(err));
+    } finally {
+      setTeluguLoading(false);
+    }
   }
 
   return (
@@ -143,6 +196,34 @@ export function CardViewer() {
                   )}
                 </figure>
               ))}
+            </div>
+          )}
+          {hasPageImages && (
+            <div className="card__telugu-explain">
+              <button
+                type="button"
+                className="btn btn--ghost card__telugu-btn"
+                onClick={explainPageInTelugu}
+                disabled={teluguLoading}
+              >
+                {teluguLoading ? 'Arjuna is reading…' : '📖 Read this page in Telugu'}
+              </button>
+              {teluguError && (
+                <p className="card__telugu-error" role="alert">{teluguError}</p>
+              )}
+              {teluguText && (
+                <details className="accordion accordion--compact card__telugu-result" open>
+                  <summary>
+                    <span className="accordion__pill">తె</span>
+                    <span>Arjuna explains · తెలుగులో</span>
+                  </summary>
+                  <div className="accordion__body" lang="te">
+                    {teluguText.split('\n\n').map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                  </div>
+                </details>
+              )}
             </div>
           )}
           <div className={`card__english${card.contentBlocks?.length ? ' card__english--blocks' : ''}`}>
@@ -212,7 +293,7 @@ export function CardViewer() {
 
           <p className="prompt">{card.promptText}</p>
 
-          {renderInteraction(card, handleComplete)}
+          {renderInteraction(card, lesson, handleComplete)}
         </div>
       </div>
 

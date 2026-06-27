@@ -291,7 +291,16 @@ export const useStore = create<AppState>()(
       enterDevPreview: () => {
         const kids = devPreviewKids();
         const lessons = fixtureLessons;
-        const first = lessons.find((l) => l.kid === 'ishanvi') ?? lessons[0];
+        const prev = get();
+        const nav = sanitizeNavState(
+          {
+            activeKid: prev.activeKid || 'ishanvi',
+            activeLessonId: prev.activeLessonId,
+            activeIndex: prev.activeIndex,
+            completed: prev.completed,
+          },
+          lessons
+        );
         set({
           authReady: true,
           devPreview: true,
@@ -299,9 +308,10 @@ export const useStore = create<AppState>()(
           onboardingOpen: false,
           kids,
           lessons,
-          activeKid: 'ishanvi',
-          activeLessonId: first?.id ?? '',
-          activeIndex: 0,
+          activeKid: nav.activeKid || 'ishanvi',
+          activeLessonId: nav.activeLessonId,
+          activeIndex: nav.activeIndex,
+          completed: nav.completed,
         });
       },
 

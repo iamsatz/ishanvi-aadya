@@ -38,7 +38,8 @@ export type InteractionType =
   | 'checklist'     // tick items as you do them (great for projects)
   | 'vocab-grid'    // grid of tap-to-flip vocabulary cards
   | 'game'          // an interactive mini-game (see GameConfig)
-  | 'answers';      // final answer-key page (PIN-gated per-question reveal)
+  | 'answers'       // final answer-key page (PIN-gated per-question reveal)
+  | 'contents';     // lesson index — jump to any card
 
 /** One question's answer + explanation, shown on the PIN-gated Answers page. */
 export interface AnswerItem {

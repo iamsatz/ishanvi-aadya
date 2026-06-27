@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { LearningCard } from '../../types/content';
+import { shuffleChoices } from '../../lib/shuffleChoices';
 
 interface Props {
   card: LearningCard;
@@ -9,6 +10,10 @@ interface Props {
 type Status = 'idle' | 'correct' | 'incorrect';
 
 export function ChoiceCards({ card, onComplete }: Props) {
+  const choices = useMemo(
+    () => shuffleChoices(card.choices ?? [], card.id),
+    [card.choices, card.id]
+  );
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [status, setStatus] = useState<Status>('idle');
   const isDeck = card.cardStyle === 'deck';
@@ -28,7 +33,7 @@ export function ChoiceCards({ card, onComplete }: Props) {
         role="group"
         aria-label="Choices"
       >
-        {card.choices?.map((c) => {
+        {choices.map((c) => {
           const isSel = selectedId === c.id;
           const cls =
             (isDeck ? 'deck-card' : 'choice') +

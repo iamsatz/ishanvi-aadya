@@ -6,6 +6,19 @@ import type { LearningCard, Lesson } from '../types/content';
 
 const nfCards: LearningCard[] = [
   {
+    id: 'nf-contents',
+    lessonId: 'number-families',
+    title: 'Maths · Number Families',
+    subtitle: 'Contents — pick a topic',
+    englishContent:
+      'Welcome to Number Families! Arjuna will teach you digits, place value, periods, commas, and games.\n\nTap any topic below to jump there. You can come back here anytime from the menu.',
+    teluguContent:
+      'Number Families కి స్వాగతం! Digit, place value, periods, commas — అన్నీ games తో నేర్చుకుందాం.\n\nక్రింద topic tap చేసి jump అవ్వండి.',
+    promptText: 'Pick a topic to start learning.',
+    interactionType: 'contents',
+  },
+
+  {
     id: 'nf-0',
     lessonId: 'number-families',
     title: 'The Secret of Big Numbers',

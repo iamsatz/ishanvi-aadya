@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { ChecklistItem, QuizQuestion } from '../../types/content';
+import { shuffleChoices } from '../../lib/shuffleChoices';
 import { useCardStorage } from '../../hooks/useCardStorage';
 import { useStore } from '../../state/store';
 import { ListenButton } from '../ListenButton';
@@ -199,13 +200,14 @@ export function ChecklistCard({ card, onComplete }: Props) {
                 </header>
                 {it.exam!.map((q, qi) => {
                   const cur = itemExamState[q.id];
+                  const choices = shuffleChoices(q.choices, `${it.id}:${q.id}`);
                   return (
                     <div className="quiz__q" key={q.id}>
                       <p className="quiz__question">
                         <span className="quiz__qnum">Q{qi + 1}.</span> {q.question}
                       </p>
                       <div className="quiz__choices" role="group">
-                        {q.choices.map((c) => {
+                        {choices.map((c) => {
                           const isSel = cur?.picked === c.id;
                           const cls =
                             'quiz__choice' +
