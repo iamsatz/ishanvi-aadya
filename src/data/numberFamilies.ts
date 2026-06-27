@@ -3,6 +3,7 @@
    ============================================================ */
 
 import type { LearningCard, Lesson } from '../types/content';
+import { keywordIntro, keywordCards } from './numberFamilyKeywords';
 
 const nfCards: LearningCard[] = [
   {
@@ -11,9 +12,9 @@ const nfCards: LearningCard[] = [
     title: 'Maths · Number Families',
     subtitle: 'Contents — pick a topic',
     englishContent:
-      'Welcome to Number Families! Arjuna teaches the **Apartment Building trick** — digits live on floors (Crores, Lakhs, Thousands, Ones).\n\nStart with Key Words, then play each game. Tap any topic below to jump there.',
+      'Welcome to Number Families! Arjuna teaches the **Apartment Building trick** — digits live on floors (Crores, Lakhs, Thousands, Ones).\n\nThen **12 Key Word lessons** (one per page, with quiz). Then the games. Tap any topic on Contents to jump.',
     teluguContent:
-      'Number Families కి స్వాగతం! **Apartment Building trick** — Crores, Lakhs, Thousands, Ones floors.\n\nKey Words ముందు, తర్వాత games. Topic tap చేసి jump అవ్వండి.',
+      'Number Families! **Apartment Building trick** + **12 Key Word lessons** (prati page quiz). తర్వాత games. Contents నుండి jump అవ్వండి.',
     promptText: 'Pick a topic to start learning.',
     interactionType: 'contents',
   },
@@ -62,58 +63,8 @@ const nfCards: LearningCard[] = [
     revealAnswer: 'From the RIGHT: group 3 digits (Ones), then 2-2-2… (Thousands, Lakhs, Crores). Commas sit BETWEEN families — never inside one.',
   },
 
-  {
-    id: 'nf-vocab',
-    lessonId: 'number-families',
-    title: 'Key Words',
-    subtitle: 'Learn these first — then the games make sense',
-    englishContent: '',
-    teluguContent:
-      'అర్జున: Homework ముందు పన్నెండు words నేర్చుకో.\n\n🏢 10,00,00,000 = ten crore — Indian vs International commas చూడు.',
-    contentBlocks: [
-      {
-        type: 'topic',
-        icon: '📖',
-        title: 'Learn these twelve words',
-        body: 'Arjuna says: "Before any homework, learn these twelve words. Tap each card to flip. One word at a time is fine!"',
-      },
-      {
-        type: 'topic',
-        icon: '🏢',
-        title: 'The Apartment Building trick',
-        body: 'Read any big number like floors of a building — top (biggest) to bottom:\n\n🟪 Crores · 🟧 Lakhs · 🟩 Thousands · 🟦 Ones (ground floor = 3 rooms).\n\nExample — ten crores:\n10,00,00,000 → Crores: 10 · Lakhs: 00 · Thousands: 00 · Ones: 000.',
-      },
-      {
-        type: 'system-compare',
-        number: 'Ten crores — same number, two comma styles:',
-        indian: '10,00,00,000',
-        international: '100,000,000',
-      },
-    ],
-    parentSuggestion: {
-      tip: 'Do one word per day if needed. Words 11–12 (Indian vs International) — show one number both ways on paper.',
-      tipTe: 'ఒక word per day సరిపోతుంది. #11–#12 — ఒక number Indian vs International paper మీద చూపించండి.',
-      questions: ['Can she explain "period" in her own words?'],
-      questionsTe: ['"Period" own words లో explain చేయగలరా?'],
-    },
-    promptText: 'Tap each word to reveal its meaning.',
-    interactionType: 'vocab-grid',
-    cardStyle: 'deck',
-    vocab: [
-      { id: 'v1', word: 'Digit', definition: 'One symbol 0–9', definitionTe: 'ఒక symbol 0–9' },
-      { id: 'v2', word: 'Number', definition: 'Digits grouped together to show an amount', definitionTe: 'amount చూపడానికి digits కలిపి' },
-      { id: 'v3', word: 'Place value', definition: 'What a digit is worth because of its seat', definitionTe: 'seat వల్ల digit worth' },
-      { id: 'v4', word: 'Face value', definition: 'What the digit looks like — never changes', definitionTe: 'digit ముఖం — మారదు' },
-      { id: 'v5', word: 'Period', definition: 'A family of digits (Ones, Thousands, Lakhs, Crores)', definitionTe: 'digit కుటుంబం' },
-      { id: 'v6', word: 'Standard form', definition: 'Normal way to write with commas (10,00,00,000)', definitionTe: 'commas తో normal రాత' },
-      { id: 'v7', word: 'Expanded form', definition: 'Number as added parts (50,00,000 + 6,00,000 + …)', definitionTe: 'parts add చేసిన రూపం' },
-      { id: 'v8', word: 'Number name', definition: 'Number said in words (fifty-six lakh…)', definitionTe: 'words లో చెప్పిన number' },
-      { id: 'v9', word: 'Successor', definition: 'The number just after (+1)', definitionTe: 'తర్వాత number (+1)' },
-      { id: 'v10', word: 'Predecessor', definition: 'The number just before (−1)', definitionTe: 'ముందు number (−1)' },
-      { id: 'v11', word: 'Indian system', definition: 'Groups from right: 3, then 2,2,2… (lakhs, crores)', definitionTe: 'కుడి నుండి 3, తర్వాత 2,2,2…' },
-      { id: 'v12', word: 'International system', definition: 'Groups in threes from the right (millions, billions)', definitionTe: 'కుడి నుండి threes గా groups' },
-    ],
-  },
+  keywordIntro,
+  ...keywordCards,
 
   {
     id: 'nf-1',
