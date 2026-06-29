@@ -38,15 +38,21 @@ const englishCards: LearningCard[] = [
     id: 'wh-en-1',
     lessonId: `${HW}-english`,
     title: 'Page 101 — Try yourself',
-    subtitle: '7A · Thinking about friends · Bits A & B',
+    subtitle: '7A · Thinking about friends · Activities A, B & C',
     imageUrl: '/homework/weekend-2026-06-26/english-pg101.png',
     englishContent:
-      '**Bit A — talk & think** (no rush to write answers yet):\n\n1. chum, buddy, mate, pal, ally, companion — what idea links them?\n2. Who do you admire? **Why** — not just their name.\n3. bond · embrace · affection · respect — say each in your own words first.\n\n**Bit B — match** (after Bit A): use the synonym tip box on the page if needed.\n\nEach checkbox has a **mini exam** — pass it to tick.',
+      '**Bit A — talk & think** (no rush to write answers yet):\n\n1. chum, buddy, mate, pal, ally, companion — what idea links them?\n2. Who do you admire? **Why** — not just their name.\n3. bond · embrace · affection · respect — say each in your own words first.\n\n**Bit B — match** (after Bit A): match all 7 words to their definitions. Use the synonym tip box if needed.\n\n**Bit C — think & share:** Do you have friends or family in another country? What can you learn from friends from different places?\n\nEach checkbox has a **mini exam** — pass it to tick.',
     teluguContent:
-      '**Bit A:** words same idea? admire why? bond/embrace/affection/respect — own words.\n\n**Bit B:** Bit A తర్వాత match.',
+      '**Bit A:** words same idea? admire why? bond/embrace/affection/respect — own words.\n\n**Bit B:** Bit A తర్వాత 7 words match.\n\n**Bit C:** vere country friends? vere places nundi em nerchukuntav?',
     parentSuggestion: {
-      tip: 'Bit A is discussion — let her guess before Bit B. Synonyms mean same-ish meaning, not identical.',
-      tipTe: 'Bit A discussion — guess చేయనివ్వండి. Synonyms = same-ish meaning.',
+      tip: 'Bit A is discussion — let her guess before Bit B. Synonyms mean same-ish meaning, not identical. For Bit C, ask about Kashi or Tirumala — people from different places. Let her say her own answer; do not give a sentence to copy.',
+      tipTe: 'Bit A discussion — guess చేయనివ్వండి. Bit C ki Kashi/Tirumala lo vere places people gurinchi ask cheyandi — own words lo cheppamani.',
+      questions: [
+        'What did someone from a different place teach you — why does it matter?',
+      ],
+      questionsTe: [
+        'Vere place nundi evaraina em nerpincharu — adi enduku important?',
+      ],
     },
     promptText: 'Tap each box — pass the mini exam to tick it.',
     interactionType: 'checklist',
@@ -120,6 +126,16 @@ const englishCards: LearningCard[] = [
         exam: [
           {
             id: 'en-b-e1',
+            question: 'Chum (rhymes with some) means…',
+            choices: [
+              { id: 'a', label: 'A good friend', isCorrect: true },
+              { id: 'b', label: 'A type of food', isCorrect: false },
+              { id: 'c', label: 'A school subject', isCorrect: false },
+            ],
+            hint: 'Read the definition on the page — it rhymes with some.',
+          },
+          {
+            id: 'en-b-e2',
             question: 'Bond (in friendship) means…',
             choices: [
               { id: 'a', label: 'A close tie or shared feeling', isCorrect: true },
@@ -128,13 +144,50 @@ const englishCards: LearningCard[] = [
             ],
           },
           {
-            id: 'en-b-e2',
+            id: 'en-b-e3',
+            question: 'Buddy is…',
+            choices: [
+              { id: 'a', label: 'An American word for a good friend', isCorrect: true },
+              { id: 'b', label: 'A type of bean', isCorrect: false },
+              { id: 'c', label: 'A kind of window', isCorrect: false },
+            ],
+            hint: 'Look at the page — which country uses this word?',
+          },
+          {
+            id: 'en-b-e4',
             question: 'Ally means…',
             choices: [
               { id: 'a', label: 'Someone on the same side as you', isCorrect: true },
               { id: 'b', label: 'Someone who never helps', isCorrect: false },
               { id: 'c', label: 'A type of lentil', isCorrect: false },
             ],
+          },
+          {
+            id: 'en-b-e5',
+            question: 'Affection means…',
+            choices: [
+              { id: 'a', label: 'A warm fondness or liking for someone', isCorrect: true },
+              { id: 'b', label: 'Running away from a friend', isCorrect: false },
+              { id: 'c', label: 'Whispering a secret code', isCorrect: false },
+            ],
+            hint: 'It is a feeling — fondness or liking.',
+          },
+        ],
+      },
+      {
+        id: 'en-c',
+        label: 'Bit C — Friends from other places',
+        hint: 'Do you know anyone who lives in another country or speaks another language? What is one thing they taught you?',
+        exam: [
+          {
+            id: 'en-c-e1',
+            question: 'What can friends from different places help you learn?',
+            choices: [
+              { id: 'a', label: 'New cultures, languages, and ways of seeing the world', isCorrect: true },
+              { id: 'b', label: 'Only how to copy homework answers', isCorrect: false },
+              { id: 'c', label: 'Nothing — everyone is the same', isCorrect: false },
+            ],
+            hint: 'Think about food, words, games, or stories from another place.',
           },
         ],
       },
